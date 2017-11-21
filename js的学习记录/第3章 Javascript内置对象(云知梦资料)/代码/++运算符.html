@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index</title>
+	<style>
+		*{
+			font-family: 微软雅黑;
+		}
+		.clock{
+			width:100%;
+			height:50px;
+			background: #000;
+			color:#0f0;
+			font-weight: bold;
+			border-radius:50px;
+			text-align:center;
+			line-height:50px;
+		}
+	</style>
+</head>
+<body>
+	<div class="clock">
+		<span>提交成功，<span id='sid'>3<span>秒后页面即将跳转到百度!</span>
+	</div>
+</body>
+<script>
+s=6;
+//s++; //s=s+1，先赋值后运算
+//t=s++;                  //这里的运算就是s=s+1; 赋值就是把左边给到等号左边。
+//alert("s="+s); alert("t="+t);//7   6
+t=++s; //s=s+1，先运算后赋值
+alert("s="+s); alert("t="+t); //7  7
+</script>
+</html>

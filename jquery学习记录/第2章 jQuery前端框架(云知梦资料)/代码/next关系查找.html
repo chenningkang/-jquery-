@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index</title>
+	<style>
+		*{
+			font-family: 微软雅黑;
+		}
+	</style>
+	<script src="jquery.js"></script>
+</head>
+<body>
+	<div>
+		<div>
+			<button>打小金</button>
+		</div>
+	</div>
+
+	<div>
+		<div>
+			<div>
+				<h1>aaaaaaaaaaaaaaaaaaaaaa</h1>
+				<p>aaaaaaaaaaaaaaaaaaaaaaaa</p>
+				<h1>bbbbbbbbbbbbbbbbbbbbbb</h1>
+				<p>bbbbbbbbbbbbbbbbbbbbbbbbbb</p>
+			</div>
+		</div>
+	</div>
+
+</body>
+<script>
+$('button').click(function(){
+	$(this).parent().parent().next().children().children().children().css({'color':'#00f'});
+});
+</script>
+</html>
+

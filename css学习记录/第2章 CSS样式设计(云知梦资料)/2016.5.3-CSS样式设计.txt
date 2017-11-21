@@ -1,0 +1,69 @@
+﻿边框属性:
+1.border-width:粗细 1px
+2.border-style：边框样式solid(实线)  dotted(虚线)  dashed(小横线)
+3.border-color：颜色 #f00
+简写：border:2px solid #f00;
+
+边框方位:（边框位置）
+1.border-left:1px solid #f00;  单独控制了，相当于控制4个边框的位置。
+2.border-top:1px solid #f00;
+3.border-right:1px solid #f00;
+4.border-bottom:1px solid #f00;
+
+鼠标:
+cursor:crosshair;
+cursor:crosshair; //十字架
+cursor:pointer; //小手
+cursor:wait;
+cursor:text;  //文本
+cursor:default;   //就是鼠标，不让变
+cursor:help; 
+
+列表(list-style-type):
+none     没有原点。
+disc     实心小原点
+circle   空心圆
+square   实心方块
+decimal  数字。
+lower-roman  小写的罗马数字
+upper-roman  大写的罗马数字
+lower-alpha  小写的字母
+upper-alpha  大写的字母
+
+尺寸:
+width:1200px;  //手机上的宽必须是比例。
+height:500px;
+
+表格:
+border-collapse:separate  collapse  边框合并 
+
+border-spacing  表格缝隙 
+
+定位:（脱离文档流，相当于拿起来了。给我一个坐标，放到了页面的上方。回不到原来的位置）
+
+1.position:absolute;  //绝对定位 （文档流往上和左走）
+
+  然后必须给个坐标  left（0）   top（0）默认   定到了啥位置。
+
+2.position:relative;  //相对定位（相对于自己原来的位置。）原来的位置不会释放。
+
+绝对定位和相对定位:
+1.相同点
+1)脱离文档流，都在文档流的上方
+
+2.不同点
+1)绝对的坐标系在浏览器的左上角，相对的坐标系在自己的左上角。
+2)绝对不占原来的位置，相对会占原来的位置。
+
+.img{
+	z-index:3;  //表示z轴的高度。
+
+}
+
+
+
+
+
+
+
+

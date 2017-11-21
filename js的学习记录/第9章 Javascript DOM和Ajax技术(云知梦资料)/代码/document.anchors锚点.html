@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index</title>
+	<style>
+		*{
+			font-family: 微软雅黑;
+		}
+	</style>
+</head>
+<body>
+	<p><a href="http://www.baidu.com" name='baidu'>百度</a></p>
+	<p><a href="http://www.163.com" name='163'>网易</a></p>
+	<p><a href="http://www.qq.com" name='qq'>腾讯</a></p>
+</body>
+<script>
+objs=document.anchors;
+
+for(i=0;i<objs.length;i++){
+	objs[i].style.textDecoration='line-through';
+}
+</script>
+</html>

@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index</title>
+	<style>
+		*{
+			font-family: 微软雅黑;
+		}
+		
+		img:hover{
+			background: #f0000;
+			border-radius:300px;
+
+		}	
+	</style>
+</head>
+<body>
+	<img src="xs.png" alt="">	
+</html>

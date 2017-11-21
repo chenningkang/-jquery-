@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index</title>
+	<style>
+		*{
+			font-family: 微软雅黑;
+		}
+		div{
+			height:250px;
+			background: #ccc;
+		}
+	</style>
+	<script src="jquery.js"></script>
+</head>
+<body>
+	<div class="div1">
+		<h1>00000001</h1>
+		<h1>00000002</h1>
+		<h1>00000003</h1>
+		<h1>00000004</h1>
+	</div>	
+	<hr>
+	<div class="div2">
+		
+	</div>
+</body>
+<script>
+$('.div1 h1').click(function(){
+	// $('.div2').before($(this));
+	$(this).insertBefore('.div2');
+});
+</script>
+</html>

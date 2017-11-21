@@ -1,0 +1,37 @@
+﻿2016.4.29-HTML5页面标签
+
+今天内容:
+1.所有标签共有属性
+2.语义化标签
+3.视频标签
+4.音频标签
+
+所有标签共有属性:（这个是共有的属性）
+1.id
+2.class
+3.style
+4.title
+
+语义化标签:
+1.article  //文章
+2.footer  //尾部
+3.header  //头部
+4.nav   //导航菜单-----每一个页面上导航菜单都相同navigator
+5.section  //这个就是中间部分。
+
+所有浏览器都支持的视频方式:
+<embed src="http://www.tudou.com/a/qJtXzLi3iaY/&bid=05&iid=132798855&resourceId=0_05_05_99/v.swf" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" wmode="opaque" width="1200" height="500"></embed>	
+
+HTML5视频标签:
+<video src="movie.ogg" controls="controls" autoplay loop width='1200px' height='500px'>
+</video>
+
+HTML5音频、视频控制:
+1.vobj.play();
+2.vobj.pause();
+
+HTML5音频标签:
+<audio src="go.mp3" controls="controls"  autoplay loop> 
+</audio> 
+
+

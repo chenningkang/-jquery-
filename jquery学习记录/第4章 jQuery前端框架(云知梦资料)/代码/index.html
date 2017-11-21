@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index</title>
+	<style>
+		*{
+			font-family: 微软雅黑;
+		}
+	</style>
+	<script src="jquery.js"></script>
+</head>
+<body>
+	<form action="javascript:">
+		<p>用户名:</p>
+		<p><input type="text" name='username'></p>
+		<p>密码:</p>
+		<p><input type="text" name='password'></p>
+		<p><input type="button" value="Ok"></p>
+	</form>
+</body>
+<script>
+$(':button').click(function(){
+	str=$('form').serialize();
+	alert(str);
+});
+</script>
+</html>

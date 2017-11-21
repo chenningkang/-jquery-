@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="Author" content="Gerard Ferrandez at http://www.dhteumeuleu.com/">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="HandheldFriendly" content="true">
+<meta name="description" content="HTML5 CANVAS 2D demo">
+<meta name="keywords" content="canvas">
+<link rel="canonical" href="http://www.dhteumeuleu.com/the-link">
+<!--cssnav-->
+<link rel="shortcut icon" href="/favicon.ico"/>
+<title>the link - dhteumeuleu demo</title>
+<style>
+html {
+	overflow: hidden;
+	-ms-touch-action: none;
+	-ms-content-zooming: none;
+}
+body {
+	margin: 0;
+	padding: 0;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+}
+#screen {
+	position:absolute;
+	left: 0;
+	top: 0;
+	width:100%;
+	height: 100%;
+	background: #000;
+}
+</style>
+<script src="../library/ge1doot.js"></script>
+<script>
+/* 
+ * ==============================================================
+ * javascript experiment
+ * http://www.dhteumeuleu.com/
+ * Author Gerard Ferrandez - June 2006
+ * Javascript released under the MIT license
+ * http://www.dhteumeuleu.com/LICENSE.html
+ * Last updated: 22 Dec 2012
+ * ===============================================================
+ */
+
+"use strict";
+
+(function () {
+	var scr, ctx, pointer,
+	buffer  = new Array(),
+	vx = 0,
+	vy = 0,
+	xb = 0,
+	yb = 0,
+	Particle = function () {
+		this.x  = pointer.X - scr.left;
+		this.y  = pointer.Y - scr.top;
+		this.vx = vx * .35;
+		this.vy = vy * .35;
+		this.w = 1;
+		if (Math.random() > .8) this.w = 20;
+		if (Math.random() > .97) this.w = 100;
+	},
+	run = function () {
+		scr.ctx.clearRect(0, 0, scr.width, scr.height);
+		vx -= (pointer.X - xb);
+		vy -= (pointer.Y - yb);
+		if (pointer.X - xb + pointer.Y - yb === 0) {
+			vx += Math.random() * 20 - 10;
+			vy += Math.random() * 20 - 10;
+			if (Math.random()>.98) {
+				vx = Math.random() * 400 - 200;
+				vy = Math.random() * 400 - 200;
+			}
+		}
+		vx *= .6;
+		vy *= .6;
+		xb = pointer.X;
+		yb = pointer.Y;
+		buffer.push(
+			new Particle()
+		);
+		var N = buffer.length;
+		for (var n = 0; n < N; n++) {
+			var o = buffer[n];
+			if (n > 1) {
+				var p = buffer[n - 1];
+				var x = p.x;
+				var y = p.y;
+			} else {
+				var x = o.x;
+				var y = o.y;
+			}
+			var c = Math.min(255, Math.round(n * 6));
+			ctx.beginPath();
+			ctx.moveTo(x, y);
+			ctx.lineTo(o.x, o.y);
+			ctx.strokeStyle = "rgb("+ c + "," + c + "," + Math.round(c * c * .04) + ")";
+			ctx.lineWidth = o.w;
+			ctx.lineCap = 'round';
+			ctx.stroke();
+			ctx.closePath();
+			o.x += o.vx;
+			o.y += o.vy;
+		}
+		if (N > 100) buffer.shift();
+		// ---- loop ----
+		requestAnimFrame(run);
+	},
+	init = function () {
+		/* ---- init script ---- */
+		scr = new ge1doot.Screen({
+			container: "screen"
+		});
+		ctx = scr.ctx;
+		// ---- init pointer ----
+		pointer = new ge1doot.Pointer({});
+		pointer.X = scr.width / 2;
+		pointer.Y = scr.height / 2;
+		/* ---- start engine ---- */
+		run();
+	}
+return {
+		load : function () {
+			window.addEventListener('load', function () {
+				init();
+			}, false);
+		}
+	}
+})().load();
+</script>
+</head>
+<body>
+<canvas id="screen"></canvas>
+<!--nav-->
+<!--ga-->
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index</title>
+	<style>
+		*{
+			font-family: 微软雅黑;
+		}
+		#up{
+			cursor: pointer;
+		}
+		#tid{
+			display: none;
+		}
+
+		input[type=submit]{
+			background: #fff;
+			border:1px solid #ccc;
+		}
+	</style>
+</head>
+<body>
+	<form action="">
+		<p>上传文件:</p>
+		<p><input type="file" id='tid'></p>
+		<p><img src="up.png" id="up"></p>
+		<p id='pid'></p>
+		<p><input type="submit" value="ok"></p>
+	</form>
+</body>
+<script>
+tidobj=document.getElementById('tid');
+upobj=document.getElementById('up');
+pidobj=document.getElementById('pid');
+
+upobj.onclick=function(){
+	tidobj.click();
+}
+
+tidobj.onchange=function(){
+	pidobj.innerHTML=this.value;
+}
+</script>
+</html>

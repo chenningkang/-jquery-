@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index</title>
+	<style>
+		*{
+			font-family: 微软雅黑;
+			margin:0px;
+		}
+		
+		.line1{
+			display:none;
+			/*visibility:hidden;*/
+		}	
+
+	</style>
+	<script src="jquery.min.js"></script>
+</head>
+<body>
+	<span class='line1'>aaaaaaaaaaaaaaaaaaaaaaa</span>
+	<span class='line2'>bbbbbbbbbbbbbbbbbbbbbbb</span>
+	<span class='line3'>ccccccccccccccccccccccc</span>
+	<button>显示1</button>
+	<button>显示2</button>
+	<button>显示3</button>
+</body>
+<script>
+	$('button').eq(0).click(function(){
+		$('.line1').css({'display':'inline'});
+	})
+
+	$('button').eq(0).click(function(){
+		$('.line1').css({'display':'inline'});
+	})
+</script>
+</html>

@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index</title>
+	<style>
+		*{
+			font-family: 微软雅黑;
+		}
+	</style>
+</head>
+<body>
+	<h1>000001</h1>
+	<h1>000002</h1>
+	<h1>000003</h1>
+	<h1>000004</h1>
+	<h1>000005</h1>	
+</body>
+<script>
+objs=document.getElementsByTagName('h1');
+
+for(i=0;i<objs.length;i++){
+	objs[i].onmouseenter=function(){
+		//objs[i].style.background='#ccc';
+		this.style.background='#ccc';
+	}
+	objs[i].onmouseleave=function(){
+		//objs[i].style.background='#fff';
+		this.style.background='#fff';
+	}
+}
+</script>
+</html>

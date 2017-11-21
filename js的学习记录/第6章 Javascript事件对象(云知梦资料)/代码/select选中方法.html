@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>index</title>
+	<style>
+		*{
+			font-family: 微软雅黑;
+		}
+	</style>
+</head>
+<body>
+	<form action="">
+		<p>用户名:</p>
+		<p><input type="text" id='ipt' value='小金'></p>
+		<p>密码:</p>
+		<p><input type="text" id="password" value='123456'></p>
+		<p><input type="submit" value="Ok"></p>
+	</form>	
+</body>
+<script>
+iptobj=document.getElementById('ipt');
+iptobj.onfocus=function(){  //这个方法就是当得到焦点事件后，然后就执行select()方法。
+	this.select();
+}
+pass=document.getElementById('password');
+pass.onfocus=function(){
+	this.select();
+}
+</script>
+</html>

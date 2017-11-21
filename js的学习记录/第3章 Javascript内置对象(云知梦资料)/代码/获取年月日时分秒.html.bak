@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index</title>
+	<style>
+		*{
+			font-family: 微软雅黑;
+		}
+	</style>
+</head>
+<body>
+	<img src="" id="imgid">
+</body>
+<script>
+//日期对象
+dobj=new Date();
+
+year=dobj.getFullYear();
+month=dobj.getMonth()+1; //js里面，月份是从0开始的
+day=dobj.getDate();
+hour=dobj.getHours();  //时
+minute=dobj.getMinutes();//分
+second=dobj.getSeconds();//秒
+//上边得到的都是整数，然后要变成字符串，不然会变成数字的相加。
+
+str=year+'-'+month+'-'+day+' '+hour+':'+minute+':'+second;
+alert(str);
+</script>
+</html>

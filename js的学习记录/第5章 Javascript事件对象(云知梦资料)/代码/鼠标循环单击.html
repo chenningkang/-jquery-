@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index</title>
+	<style>
+		img{
+			cursor:pointer;
+			position: absolute;
+			top:0px;
+			left:0px;
+		}
+	</style>
+</head>
+<body>
+	<img src="a.png" id="imgid">	
+</body>
+<script>
+//js特效
+
+imgobj=document.getElementById('imgid');
+
+i=0;
+imgobj.onclick=function(){
+	if(i%2==0){
+		this.src='b.png';
+	}else{
+		this.src='a.png';
+	}
+	i++;
+}
+</script>
+</html>

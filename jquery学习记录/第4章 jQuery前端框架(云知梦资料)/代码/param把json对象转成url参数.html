@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index</title>
+	<style>
+		*{
+			font-family: 微软雅黑;
+		}
+		.main{
+			width:1300px;
+			margin:0 auto;
+		}
+
+		.img{
+			height:300px;
+			overflow: hidden;
+			background: #ccc;
+		}
+	</style>
+	<script src="jquery.js"></script>
+</head>
+<body>
+	<div class="main">
+		<div class="img">
+			<img src="c.jpg" alt="">
+		</div>
+		<br>
+		<button>左</button>
+		<button>右</button>
+		<button>上</button>
+		<button>下</button>
+	</div>
+</body>
+<script>
+obj={'name':'user1','age':'20'};
+
+str=$.param(obj);
+
+alert(str);
+</script>
+</html>

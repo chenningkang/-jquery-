@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index</title>
+	<style>
+		@font-face
+		{
+			font-family: my;
+			src: url('my.otf');
+		}
+
+		*{
+			font-family: my;
+		}
+		
+		div{
+			width:500px;
+			height:300px;
+		}	
+
+	</style>
+</head>
+<body>
+	<div>
+		<p>我是小金，我爱睡觉!</p>
+		<p>linux is very much!</p>
+		<p>linux is very much!</p>
+		<p>linux is very much!</p>
+		<p>linux is very much!</p>
+	</div>
+</body>
+</html>

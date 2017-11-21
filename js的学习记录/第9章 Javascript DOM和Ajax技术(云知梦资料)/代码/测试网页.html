@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index</title>
+	<style>
+		*{
+			font-family: 微软雅黑;
+		}
+		select{
+			width:200px;
+			height:200px;
+		}
+	</style>
+</head>
+<body>
+
+
+	<h1>000001</h1>
+	<h1>000002</h1>
+	<h1>000003</h1>
+	<h1>000004</h1>
+	<h1>000005</h1>	
+	<h1>     购物车   </h1>
+	<form  action='javascript:' id='formid'>
+		<select  id='s1' size='2' name=''>
+			<option>手机</option>
+			<option>电脑</option>
+			<option>摄像机</option>
+			<option>平板</option>
+			<option>电子表</option>
+			<option>鼠标</option>
+			<option>键盘</option>
+			<option>摄像头</option>
+		</select>
+	   <input type='button'  value='>>>>>'  id='id1'/>
+	   <select  id='s2' size='2'  name=''>
+		
+	   </select>
+	
+	</form>
+
+	<h2>linux</h2>
+	<p>linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!</p>
+	<h2>linux</h2>
+	<p>linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!</p>
+	<h2>linux</h2>
+	<p>linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!</p>
+	<h2>linux</h2>
+	<p>linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!</p>
+
+
+</body>
+<script>
+hidobj=document.getElementById('hid');
+//hidobj.style.background='#ccc';
+
+h2obj=document.getElementById('h2id');
+//h2obj.style.background='red';
+
+h3obj=document.getElementById('h3id');
+//h3obj.style.background='green';
+
+//hobj=document.getElementsByTagName('h1');
+//alert(hobj);
+//alert(hobj[0].className);alert(hobj[1].className);alert(hobj[2].className);
+
+//hobj=document.getElementsByClassName('a1');
+//alert(hobj);
+//alert(hobj[0].className);alert(hobj[1].className);alert(hobj[2].className);  //通过className得到的是class属性
+
+
+//hobj=document.getElementsByName('b1');
+//alert(hobj);
+//alert(hobj[0].className);alert(hobj[1].className);alert(hobj[2].className);
+
+//上面都是一些元素对象的标准属性，下面我来测试一下元素对象的非标准属性
+//这个地方我要声明一点，你首相要先获取元素对象，然后才能获取他们的属性，那么这个获取元素我就不说了，获取属性有. 还有getAttribute('');设置属性有. 还有setAttribute('','');
+//h3obj=document.getElementById('h3id');
+//h3obj.setAttribute('sex','女');
+//alert(h3obj.getAttribute('sex'));
+
+
+//下面是获取元素的js属性(一定要记住了，元素的属性后面事么有括号的)
+//alert(hidobj.tagName);  //得到元素的标签
+//alert(hidobj.innerHTML); //标签里面的内容
+//alert(hidobj.outerHTML);  //本标签的全部内容
+//alert(hidobj.textContent); //标签里面的文本属性
+
+//直接获取元素对象集合
+
+//objs=document.links;
+//for(i=0;i<objs.length;i++){
+//	objs[i].style.textDecoration='line-through';
+//}
+
+
+objs=document.getElementsByTagName('h1');
+
+//--------------------------------------------------
+//i=0;
+// objs[0].onclick=function(){
+//	if(i%2==0){
+//		this.style.background='#ccc';
+//	}else{
+//		this.style.background='red';
+//	}
+//	i++;
+// }
+
+//a=0;
+// objs[1].onclick=function(){
+//	if(a%2==0){
+//		this.style.background='#ccc';
+//	}else{
+//		this.style.background='red';
+//	}
+//	a++;
+//}
+
+//b=0;
+// objs[2].onclick=function(){
+//	if(b%2==0){
+//		this.style.background='#ccc';
+//	}else{
+//		this.style.background='red';
+//	}
+//	b++;
+// }
+//--------------------------------------------------
+
+//for(i=0;i<objs.length;i++){
+//	objs[i].setAttribute('num',0);
+
+//	objs[i].onclick=function(){
+//		num=parseInt(this.getAttribute('num'))+1;
+//		if(num%2==0){
+//		this.style.background='yellow';
+//		}else{
+//		this.style.background='red';
+//		}
+
+//		this.setAttribute('num',num);
+//	}
+//}
+
+//for(i=0;i<objs.length;i++){
+//	objs[i].setAttribute('num',i+1);
+//	objs[i].onclick=function(){
+//		this.innerHTML=this.getAttribute('num');
+//	}
+//}
+
+
+//再来一个循环选水果，这个相当于购物车
+//s1=document.getElementById('s1');
+//s2=document.getElementById('s2');
+//id1s=document.getElementById('id1');
+//就是选择左边的时候，就点击中间的按钮，就相应的添加到右边的下拉框里面去。
+//jihe=s1.options;
+
+
+
+//id1s.onclick=function(){
+//	inds=s1.selectedIndex;
+//	s2.add(jihe[inds]);
+//}
+
+//id1s.onclick=function(){
+//	inds=s1.selectedIndex;
+	//s2.add(jihe[inds]);
+//	s2.innerHTML+=jihe[inds].outerHTML;	
+//	}
+//}
+
+
+
+</script>
+</html>

@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index</title>
+	<style>
+		*{
+			font-family: 微软雅黑;
+		}
+		.shop{
+			width:300px;
+			height:300px;
+			overflow: hidden;
+			box-shadow:0px 0px 5px 5px #ccc;
+			float: left;
+			margin-left:30px;
+		}
+
+		.img{
+			position: absolute;
+			border:10px solid #ccc;
+			border-radius:256px;
+			overflow: hidden;
+			display: none;
+		}
+	</style>
+	<script src="jquery.js"></script>
+</head>
+<body>
+	<div class='img'>
+		<img src="a.png" alt="">
+	</div>
+	<div class='shop'>
+		<img src="b.jpg" width='100%'>
+	</div>	
+	<div class='shop'>
+		<img src="b.jpg" width='100%'>
+	</div>	
+	<div class='shop'>
+		<img src="b.jpg" width='100%'>
+	</div>	
+	<div class='shop'>
+		<img src="b.jpg" width='100%'>
+	</div>	
+</body>
+<script>
+$('.shop').mouseenter(function(){
+	x=$(this).offset().left;
+	y=$(this).offset().top+300+10;
+
+	$('.img').show().css({'top':y+'px','left':x+'px'});
+});
+</script>
+</html>

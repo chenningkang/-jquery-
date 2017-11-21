@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index</title>
+	<style>
+		*{
+			font-family: 微软雅黑;
+		}
+		.clock{
+			width:200px;
+			height:50px;
+			background: #000;
+			color:#0f0;
+			font-weight: bold;
+			border-radius:50px;
+			text-align:center;
+			line-height:50px;
+			font-size:30px;
+		}
+			.s1{
+			width:1000px;
+			height:100px;
+			background: #000;
+			color:#0f0;
+			font-weight: bold;
+			border-radius:50px;
+			text-align:center;
+			line-height:90px;
+			font-size:40px;
+		}
+	</style>
+</head>
+<body>
+	<div class="clock">
+		<span id='sid'></span>
+	</div>
+		<br>
+	<button id='bid'>停止</button>
+	<button id='bid2'>开始</button>
+	<button id='bid3'>超时器的开始</button>
+	<button id='bid4'>超时器的结束</button>
+
+    <div class="s1" >
+	  <span>提交成功，<span id='id1'>3</span>秒后页面即将跳转到百度!</span>
+	</div>
+
+</body>
+<script>
+
+function getDate(){
+
+//首先来获取时间
+dates=new Date();
+hours=dates.getHours();
+if(hours<10){
+	hours="0"+hours;
+}
+minutes=dates.getMinutes();
+if(minutes<10){
+	minutes="0"+minutes;
+}
+seconds=dates.getSeconds();
+if(seconds<10){
+	seconds="0"+seconds;
+}
+str=hours+':'+minutes+':'+seconds;
+docobj=document.getElementById("sid");
+docobj.innerHTML=str;  //这个地方就是赋值运算了
+}
+
+getDate();  //这个地方就是为了调用上面的函数
+//这个地方就是为了上来就要显示数字，然后才执行后面的定时器
+//然后要一个定时器
+
+
+//sip=setInterval(function(){ getDate() },1000);
+starts();
+//setInterval(getDate,1000);和上面的写法是一样的，这个地方不写括号就是意思是调用这个方法，不是执行这个方法
+
+//这个就是停止
+stop=document.getElementById('bid');
+stop.onclick=function(){
+	//clearInterval(sip);	
+	stops();
+}
+
+//这个就是开始
+start=document.getElementById('bid2');
+start.onclick=function(){
+	//sip=setInterval(getDate,1000);
+	starts();
+}
+
+//现在定义2个停止和开始的函数
+function starts(){
+	sip=setInterval(function(){getDate()},1000);
+}
+
+function stops(){
+	clearInterval(sip);
+}
+
+chao=document.getElementById("bid3");
+chao.onclick=function(){
+	// setTimeout(function(){
+	//	// alert(1111);这个地方就是为了测试用的
+	//	 location='http://dazi.kukuw.com/typing.html?t=a63e21200b4c407c4c7ade0990858071';
+	//	 },3000);
+	starts1();
+}
+
+chaos=document.getElementById("bid4");
+chaos.onclick=function(){
+	//clearTimeout();
+	stops1();
+}
+
+
+//开始超时器
+function starts1(){
+	ssip=setTimeout(function(){ location='http://dazi.kukuw.com/typing.html?t=a63e21200b4c407c4c7ade0990858071' },3000);
+}
+
+//停止超时器
+function stops1(){
+	clearTimeout(ssip);
+}
+
+
+//这个用定时器写的跳转。
+ss=3;
+//alert(ss--);  t=ss--
+//alert(ss);   ss=ss-1
+idobj=document.getElementById("id1");
+setInterval(function(){
+	    ss--;  //这里还是3  t=ss--
+		//alert(ss);//这里ss就变成了2 //ss=ss-1  
+		idobj.innerHTML=ss;   
+		//  从137行到140行的代码可以省略如下；
+		//idobj.innerHTML=--s;
+		if(ss==0){
+		//这个时候要停止定时器  clearInterval(idobj);
+		  location='http://dazi.kukuw.com/typing.html?t=a63e21200b4c407c4c7ade0990858071';
+		}
+
+	},1000)
+
+
+//这个是用超时器做的啊
+tp=setTimeout(function(){
+	location='http://www.baidu.com';
+},5000);
+
+</script>
+</html>

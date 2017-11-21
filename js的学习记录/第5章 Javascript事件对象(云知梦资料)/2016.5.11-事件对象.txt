@@ -1,0 +1,29 @@
+﻿2016.5.11-事件对象
+
+js特效:
+1.触发事件
+2.属性改变
+3.样式改变
+
+绑定事件:
+1.标签身上
+2.js代码中
+
+鼠标事件:
+• onclick        //单击
+• ondblclick     //double  双击
+• onmouseenter   //鼠标移入就触发
+• onmouseleave   //鼠标离开就触发
+• onmousemove    //鼠标移动就触发
+
+实例:循环单击!
+
+键盘事件:
+• onkeydown  //键盘码被按下的时候
+• onkeyup    //键盘码
+• onkeypress
+
+实例:弹力球特效
+
+
+

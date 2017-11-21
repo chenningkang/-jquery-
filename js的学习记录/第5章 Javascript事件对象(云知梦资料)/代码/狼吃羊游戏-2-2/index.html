@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <title>index</title>
+    <style type="text/css">
+        body{margin:0px;padding:0px}
+        .gezi{;width:124px;height:124px;float:left;}
+        #info body 
+    </style>
+    <script src="jquery.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+   <div id="main" style="background:#393;">
+        <div id="qipan" style="width:620px;height:620px;background:#fff url('back.png') no-repeat;margin:0 auto">
+        </div>
+   </div>
+   <div id="info">
+         
+   </div>
+</body>
+<script>
+    var langclk=false;
+    var yangclk=false;
+    var fillele='<span class="fill"></span>';
+    for(var i=0;i<25;i++){
+        if(i<1){
+            $("#qipan").append('<div style="float:left;" class="gezi" xpos='+(i%5)+' ypos='+Math.floor(i/5)+'><span class="fill"></span></div>');
+        }else if(i>=1 && i<=3){
+            $("#qipan").append('<div style="float:left" class="gezi" xpos='+(i%5)+' ypos='+Math.floor(i/5)+'><img class="lang" src="lang.png" zhan=yes></div>');    
+        }else if(i==4){
+            $("#qipan").append('<div style="float:left" class="gezi" xpos='+(i%5)+' ypos='+Math.floor(i/5)+'><span class="fill"></span></div>');
+        }else if(i>=5 && i<=9){
+            $("#qipan").append('<div style="float:left" class="gezi" xpos='+(i%5)+' ypos='+Math.floor(i/5)+'><span class="fill"></span></div>');
+        }else if(i>=10){
+            $("#qipan").append('<div style="float:left" class="gezi" xpos='+(i%5)+' ypos='+Math.floor(i/5)+'><img class="yang" src="yang.png" zhan=yes></div>');    
+        }
+    }
+    $(".gezi").css("cursor","pointer").click(function(){
+        if($(this).children().attr("class")=="lang"){
+            langclk=true;
+            yangclk=false;
+            langobj=$(this);
+        }
+        if($(this).children().attr("class")=="yang"){
+            yangclk=true;
+            yangobj=$(this);
+            var langxpos=parseInt(langobj.attr("xpos"));
+            var langypos=parseInt(langobj.attr("ypos"));
+            var yangxpos=parseInt($(this).attr("xpos"));
+            var yangypos=parseInt($(this).attr("ypos"));
+            var langyanglength=Math.sqrt(Math.pow((langxpos-yangxpos),2)+Math.pow((langypos-yangypos),2));
+            var xmiddle=((langxpos+yangxpos)/2);
+            var ymiddle=((langypos+yangypos)/2);
+            if(langclk && (langyanglength==2)){
+                if(langxpos==yangxpos){
+                    if($(".gezi[xpos="+langxpos+"][ypos="+ymiddle+"]").children().attr("zhan")!="yes"){
+                        $(this).html(langobj.children());     
+                        langobj.html(fillele);
+
+                    } 
+                }
+                if(langypos==yangypos){
+                     
+                    if($(".gezi[ypos="+langypos+"][xpos="+xmiddle+"]").children().attr("zhan")!="yes"){
+                        $(this).html(langobj.children());     
+                        langobj.html(fillele);
+
+                    }
+                }
+            }
+            langclk=false;
+        }
+        if($(this).children().attr("class")=="fill"){
+            if(langclk){
+                var langxpos=parseInt(langobj.attr("xpos"));
+                var langypos=parseInt(langobj.attr("ypos"));
+                var fillxpos=parseInt($(this).attr("xpos"));
+                var fillypos=parseInt($(this).attr("ypos"));
+                var langfilllength=Math.sqrt(Math.pow((langxpos-fillxpos),2)+Math.pow((langypos-fillypos),2));
+                if(langfilllength==1){
+                    $(this).html(langobj.children());
+                    langobj.html(fillele);
+                    langclk=false;
+                }
+            }
+            if(yangclk){
+                var yangxpos=parseInt(yangobj.attr("xpos"));
+                var yangypos=parseInt(yangobj.attr("ypos"));
+                var fillxpos=parseInt($(this).attr("xpos"));
+                var fillypos=parseInt($(this).attr("ypos"));
+                var yangfilllength=Math.sqrt(Math.pow((yangxpos-fillxpos),2)+Math.pow((yangypos-fillypos),2));
+                if(yangfilllength==1){
+                    $(this).html(yangobj.children());
+                    yangobj.html(fillele);
+                    yangclk=false;
+                }
+            }
+        }
+    });
+</script>
+</html>

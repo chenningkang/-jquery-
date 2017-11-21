@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index</title>
+	<style>
+		*{
+			font-family: 微软雅黑;
+		}	
+	</style>
+</head>
+<body>
+	<form action="">
+		<p>用户名:</p>
+		<p><input type="text"></p>
+		<p>密码:</p>
+		<p><input type="text"></p>
+		<p>验证码:</p>
+		<p><input type="text" id='verify'></p>
+		<p><input type="submit" value="Ok"></p>
+	</form>
+</body>
+<script>
+vobj=document.getElementById('verify');
+
+vobj.onkeyup=function(){  //键盘弹起来(说明输入完了)
+	val=this.value;  //首先获取value,然后转成大写
+	val2=val.toUpperCase();
+	this.value=val2;   //整个地方显示小写，然后自己改成大写。
+}
+</script>
+</html>

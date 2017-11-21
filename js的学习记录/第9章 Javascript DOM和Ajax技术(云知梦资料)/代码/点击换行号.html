@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index</title>
+	<style>
+		*{
+			font-family: 微软雅黑;
+		}
+	</style>
+</head>
+<body>
+	<h1>aaaaaaaaaaaaaaaaaaa</h1>
+	<h1>aaaaaaaaaaaaaaaaaaa</h1>
+	<h1>aaaaaaaaaaaaaaaaaaa</h1>
+	<h1>aaaaaaaaaaaaaaaaaaa</h1>
+	<h1>aaaaaaaaaaaaaaaaaaa</h1>
+</body>
+<script>
+objs=document.getElementsByTagName('h1');
+
+for(i=0;i<objs.length;i++){
+	objs[i].setAttribute('num',i+1);
+
+	objs[i].onclick=function(){
+		this.innerHTML=this.getAttribute('num');	
+	}
+}
+</script>
+</html>

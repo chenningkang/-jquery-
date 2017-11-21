@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index</title>
+	<style>
+		*{
+			font-family: 微软雅黑;	
+		}
+		
+		ul{
+			background: #272822;
+			list-style-type:none;
+			padding-left:0px;
+			line-height:40px;
+		}	
+
+		ul li{
+			float:left;
+			margin-left:15px;
+		}
+
+		ul a{
+			color:#fff;
+			text-decoration:none;  /* 下划线  */
+		}
+	</style>
+</head>
+<body>
+	<ul>
+		<li><a href="">百度</a></li>
+		<li><a href="">新浪</a></li>
+		<li><a href="">网易</a></li>
+		<li><a href="">腾讯</a></li>
+		<li><a href="">淘宝</a></li>
+		<div style='clear:both'></div>
+	</ul>
+</body>
+</html>

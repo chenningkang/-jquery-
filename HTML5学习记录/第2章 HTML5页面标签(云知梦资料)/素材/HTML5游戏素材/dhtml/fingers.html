@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="Author" content="Gerard Ferrandez at http://www.dhteumeuleu.com/">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="HandheldFriendly" content="true">
+<meta name="description" content="HTML5 CANVAS demo, tentacles">
+<meta name="keywords" content="canvas,IK">
+<link rel="canonical" href="http://www.dhteumeuleu.com/tripalium">
+<!--cssnav-->
+<link rel="shortcut icon" href="/favicon.ico"/>
+<title>tripalium - HTML5 CANVAS tentacles demo</title>
+<style>
+html {
+	overflow: hidden;
+	-ms-touch-action: none;
+	-ms-content-zooming: none;
+}
+body {
+	margin: 0;
+	padding: 0;
+	background: #000;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+}
+#canvas {
+	position:absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+}
+</style>
+<script src="../library/ge1doot.js"></script>
+<script>
+/* 
+ * ==============================================
+ *   __|     _ |     |           |  
+ *  (_ |  -_)  |  _` |  _ \  _ \  _|
+ * \___|\___| _|\__,_|\___/\___/\__|
+ * ----------------------------------------
+ * tentacles experiment
+ * http://www.dhteumeuleu.com/tripalium
+ * Author Gerard Ferrandez - August 2006
+ * ----------------------------------------
+ * Released under the MIT license
+ * http://www.dhteumeuleu.com/LICENSE.html
+ * Last updated: 23 Dec 2012
+ * =============================================
+ */
+ 
+"use strict";
+
+(function () {
+	var scr, ctx, pointer, joints, zoom;
+	/* ==== joint constructor ==== */
+	var Joint = function (parent, N, Ni, T) {
+		var z       = 1 - Ni / (T.numPh * T.shrink);
+		this.img    = T.image;
+		this.x      = 0;
+		this.y      = 0;
+		this.Ni     = Ni;
+		this.numFi  = T.numFi;
+		this.flex   = T.flex;
+		this.ease   = T.ease;
+		this.sx     = T.dim.sx * z * zoom;
+		this.sy     = T.dim.sy * z * zoom;
+		this.wi     = T.dim.wi * z * zoom;
+		this.he     = T.dim.he * z * zoom;
+		this.px     = (N * this.he * 1.5) - (this.numFi * this.he * 1.5 / 2);
+		this.lsx    = (T.dim.ln * z * zoom) - this.sx;
+		this.ang    = -Math.PI / 2;
+		this.hPI    = -Math.PI / 2;
+		this.parent = parent;
+		this.next   = true;
+	}
+	Joint.prototype.run = function() {  
+		if (this.parent === null) {
+			this.x = scr.width * 0.5 + this.px;
+			this.y = scr.height;
+		} else {
+			this.x = this.parent.x + Math.cos(this.parent.ang) * this.parent.lsx;
+			this.y = this.parent.y + Math.sin(this.parent.ang) * this.parent.lsx;
+		}
+		this.ang += (
+			(
+				this.hPI + (
+					(
+						this.hPI + Math.atan2(
+							scr.height - pointer.Y, 
+							pointer.X - this.x
+						)
+					) * this.Ni
+				) / this.flex
+			) - this.ang
+		) / this.ease;
+		/* ---- draw image ---- */
+		if (this.img.complete) {
+			ctx.save();
+			ctx.translate(this.x, this.y);
+			ctx.rotate(this.ang);
+			ctx.drawImage(this.img, -this.sx, -this.sy, this.wi, this.he);
+			ctx.restore();
+		}
+		return this.next;
+	}
+	/* ==== main loop ====*/
+	var run = function () {
+		/* ---- clear screen ---- */
+		ctx.clearRect(0, 0, scr.width, scr.height);
+		/* ---- loop all joints ---- */
+		for (
+			var i = 0; 
+			joints[i++].run();
+		);
+		/* ---- next frame ---- */
+		requestAnimFrame(run);
+	},
+	/* ==== init script ==== */
+	init = function (param) {
+		/* ---- screen ---- */
+		scr = new ge1doot.Screen({
+			container: "canvas"
+		});
+		ctx = scr.ctx;
+		zoom = Math.max(scr.width, scr.height) / 900;
+		/* ---- pointer ---- */
+		pointer = new ge1doot.Pointer({});
+		/* ---- image ---- */
+		var img = new Image();
+		img.src = param.image;
+		param.image = img;
+		/* ---- create elements ---- */
+		var k = 0;
+		joints = new Array(param.numFi * param.numPh);
+		for(var i = 0; i < param.numFi ; i++) {
+			var O = null;
+			for(var j = 0; j < param.numPh ; j++) {
+				joints[k++] = O = new Joint(O, i, j, param);
+			}
+		}
+		joints[joints.length - 1].next = false;
+		pointer.X = scr.width / 2;
+		/* ---- start engine ---- */
+		run();
+	}
+	return {    
+		// ===== load event =====
+		load : function (param) {
+			window.addEventListener('load', function () {
+				init(param);
+			}, false);
+		}
+	}
+})().load({
+	/* ---- setup ---- */
+	numFi  : 6,
+	numPh  : 25,
+	flex   : 2,
+	shrink : 2,
+	ease   : 60,
+	image  : "../images/finger.png",
+	dim : {
+		sx : 11,
+		sy : 15,
+		wi : 75,
+		he : 30,
+		ln : 61
+	}
+});
+</script>
+</head>
+<body>
+<canvas id="canvas">HTML5 CANVAS</canvas>
+<!--nav-->
+<!--ga-->
+</body>
+</html>

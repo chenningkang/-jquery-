@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index3</title>
+	<style>
+		*{
+			font-family: 微软雅黑;
+		}
+	</style>
+</head>
+<body>
+	<div class="main">
+		<a href="javascript:" id='aid'>返回上一页</a>
+		<br>
+		<a href="javascript:" id='aid2'>返回上两页</a>
+	</div>
+</body>
+<script>
+aidobj=document.getElementById('aid');
+aid2obj=document.getElementById('aid2');
+
+aidobj.onclick=function(){
+	history.go(-1);
+}
+
+aid2obj.onclick=function(){
+	history.go(-2);
+}
+</script>
+</script>
+</html>

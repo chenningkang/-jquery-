@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="Author" content="Gerard Ferrandez at http://www.dhteumeuleu.com/">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="HandheldFriendly" content="true">
+<meta name="description" content="he knew - HTML5 CANVAS Experiment">
+<meta name="keywords" content="canvas,3D,gallery">
+<link rel="canonical" href="http://www.dhteumeuleu.com/he-knew">
+<link rel="shortcut icon" href="/favicon.ico"/>
+<!--cssnav-->
+<title>he knew - HTML5 CANVAS Experiment</title>
+<style>
+html {
+	overflow: hidden;
+}
+body {
+	position: absolute;
+	margin: 0;
+	padding: 0;
+	background: #000;
+	width: 100%;
+	height: 100%;
+}
+#screen {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+}
+</style>
+<script src="../library/ge1doot.js"></script>
+<script>
+/* =======================================================
+ *             __|     _ |     |           |  
+ *            (_ |  -_)  |  _` |  _ \  _ \  _|
+ *           \___|\___| _|\__,_|\___/\___/\__|
+ * -----------------------------------------------------
+ *               - virtual 3D gallery -
+ * script by Gerard Ferrandez - Ge-1-doot - October 2004
+ * http://www.dhteumeuleu.com
+ * last update: 26 May 2013 - HTML5 canvas version
+ * ------------------------------------------------------
+ * Javascript code released under the MIT license
+ * http://www.dhteumeuleu.com/LICENSE.html
+ * ======================================================= */
+ 
+"use strict";
+
+(function () {
+	var scr, ctx, pointer, walls, pics, over, nw, nh,
+	// ---- def camera ----
+	camera = {
+		x: 0,
+		y: 10000,
+		z: 11100,
+		zeye: -100, 
+		hm: 20,
+		visible: true,
+		project: function (z) {
+			z += this.z;
+			var scale = this.zeye - z;
+			if (scale > 0) scale = -.0001;
+			scale = this.zeye / scale;
+			if (scale > 100) scale = 100;
+			this.visible = (z > this.zeye * .99);
+			return scale;
+		},
+		move: function (x, y, z) {
+			this.x += (x - this.x) * 0.1;
+			this.y += (y - this.y) * 0.1;
+			this.z += (z - this.z) * 0.1;
+		}
+	};
+	// ---- screen resize ----
+	var resize = function () {
+		nw = scr.width  * 0.5;
+		nh = scr.height * 0.5;
+	}
+	//---- init script ----
+	var init = function (data) {
+		scr = new ge1doot.Screen({
+			container: "screen",
+			resize: function () {
+				resize();
+			}
+		});
+		ctx = scr.ctx;
+		scr.resize();
+		// ---- pointer events ----
+		pointer = new ge1doot.Pointer({
+			tap: function () {
+				if (over) {
+					if (over.focus) {
+						if (over.href) {
+							// ---- hyperlink ----
+							window.location.href = over.href;
+						} else {
+							camera.hm = -100 - over.z * 100;
+							over.focus = false;
+						}
+					} else {
+						// ---- move camera ----
+						camera.hm = -80 - over.z * 100;
+						pointer.bXi = pointer.Xi = (-over.x * 100) - (over.w * 50);
+						pointer.bYi = pointer.Yi = ( over.y * 100) + (over.h * 50);
+						over.focus = true;
+					}
+				}
+			},
+			scale: function () {
+				camera.hm -= pointer.scale * 20;
+			},
+			wheel: function () {
+				camera.hm -= pointer.wheelDelta;
+			}
+		});
+		// ---- create images ----
+		walls = data.walls;
+		pics = data.pics;
+		var i = 0, p;
+		while ( p = pics[i++] ) {
+			p.img = new Image();
+			p.img.src = p.src;
+		}
+		// ---- start animation ----
+		run();
+	}
+	// ======== main loop ========
+	var run = function () {
+		ctx.clearRect(0, 0, scr.width, scr.height);
+		// ---- cap position -----
+		camera.hm = Math.min(Math.max(camera.hm, -250), 200);
+		pointer.Xi = Math.min(Math.max(pointer.Xi, -250), 250);
+		pointer.Yi = Math.min(Math.max(pointer.Yi, -110), 110);
+		// ---- easing camera ---- 
+		camera.move(pointer.Xi, -pointer.Yi, camera.hm);
+		// ---- draw walls ----
+		ctx.fillStyle = "rgb(255,255,255)";
+		var i = 0, w;
+		while ( w = walls[i++] ) {
+			ctx.beginPath();
+			for (var j = 0; j < 4; j++) {
+				var z0 = camera.project(w.z[j] * 100);
+				ctx.lineTo(
+					nw + (camera.x + w.x[j] * 100) * z0,
+					nh + (camera.y + w.y[j] * 100) * z0
+				);
+			}
+			ctx.closePath();
+			ctx.fill();
+		}
+		// ---- draw images ----
+		over = false;
+		ctx.font = 'normal 10px sans-serif';
+		ctx.textAlign = 'center';
+		ctx.textBaseline = 'bottom';
+		ctx.fillStyle = "rgba(255,255,255,0.2)";
+		var i = 0, p;
+		while ( p = pics[i++] ) {
+			// ---- 3D to 2D projection ----
+			var scale = camera.project(p.z * 100);
+			if (camera.visible) {
+				var x = (camera.x + (p.x * 100)) * scale,
+					y = (camera.y + (p.y * 100)) * scale,
+					w = p.w * scale * 100,
+					h = p.h * scale * 100;
+				// ---- draw transparent frame ----
+				ctx.beginPath();
+				ctx.moveTo(nw + x, nh + y);
+				ctx.lineTo(nw + x + w, nh + y);
+				ctx.lineTo(nw + x + w, nh + y + h);
+				ctx.lineTo(nw + x, nh + y + h);
+				ctx.closePath();
+				ctx.fill();
+				// ---- pointer over ----
+				if (ctx.isPointInPath(pointer.X, pointer.Y)) over = p;
+				// ---- draw image ----
+				ctx.drawImage(p.img, nw + x + (15 * scale), nh + y + (15 * scale), w - (30 * scale), h - (30 * scale));
+				// ---- draw text ----
+				ctx.save();
+				ctx.fillStyle = '#aaa';
+				ctx.translate(nw + (p.w * scale * 50) + x, nh + (scale * 12) + y);
+				ctx.scale(scale, scale);
+				ctx.fillText(p.title, 0, 0);
+				ctx.restore();
+			}
+		}
+		// ---- cursor ----
+		scr.setCursor(over ? "pointer" : "default");
+		// ---- animation loop ----
+		requestAnimFrame(run);
+	}
+	return {
+		// ---- onload event ----
+		load : function (data) {
+			window.addEventListener('load', function () {
+				init(data);
+			}, false);
+		}
+	}
+})().load({
+	walls: [
+		{x:[-2.52,-2.52,-2.52,-2.52], y:[-1,-1,1,1], z:[-1,1,1,-1]},
+		{x:[-2.5,2.5,2.5,-2.5],       y:[-1,-1,1,1], z:[1,1,1,1]},
+		{x:[2.52,2.52,2.52,2.52],     y:[-1,-1,1,1], z:[1,-0.5,-0.5,1]}
+	],
+	pics: [
+		{x:-1,   y:-0.7, z:0.8,  w:2,   h:1.4,  src:"../images/3D-eyes-big.jpg", title:"befriending death", href:"http://www.dhteumeuleu.com/index/"},
+		{x:-1.8, y:-0.3, z:0.4,  w:1.8, h:1.2,  src:"../images/pr02.jpg",        title:"gathering strength"},
+		{x:1,    y:-.6,  z:0.2,  w:1.2, h:0.9,  src:"../images/pr01.jpg",        title:"world at myfingertips"},
+		{x:-1,   y:-0.8, z:0,    w:1.2, h:1.6,  src:"../images/pr03.jpg",        title:"hailing the Sun"},
+		{x:0.5,  y:-1,   z:-0.4, w:1.5, h:2,    src:"../images/pr07.jpg",        title:"I said, all right."},
+		{x:-2,   y:-1,   z:-0.8, w:1.5, h:2,    src:"../images/pr04.jpg",        title:"One morning"}
+	]
+});
+</script>
+</head>
+<body>
+<canvas id="screen">HTML5 CANVAS virtual 3D gallery</canvas>
+<!--nav-->
+<!--ga-->
+</body>
+</html>

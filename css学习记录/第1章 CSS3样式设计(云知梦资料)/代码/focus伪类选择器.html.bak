@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index</title>
+	<style>
+		*{
+			font-family: 微软雅黑;
+		}
+		
+		.username:focus{
+			outline-color:#f00;	
+		}	
+	</style>
+</head>
+<body>
+	<form action="">
+		<p>用户名:</p>
+		<p><input type="text" class='username'></p>
+		<p><input type="submit" value="Ok"></p>
+	</form>
+</html>
+

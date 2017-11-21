@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index</title>
+	<style>
+		*{
+			font-family: 微软雅黑;
+		}
+		.div1{
+			background: #ccc;
+			cursor: pointer;
+		}
+	</style>
+	<script src="jquery.js"></script>
+</head>
+<body>
+	<img src="a.png">
+</body>
+<script>
+$('img').click(function(){
+	$(this).attr({'src':'b.png'});
+});
+</script>
+</html>
+

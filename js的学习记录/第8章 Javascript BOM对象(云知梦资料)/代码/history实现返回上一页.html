@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index2</title>
+	<style>
+		*{
+			font-family: 微软雅黑;
+		}
+	</style>
+</head>
+<body>
+	<div class="main">
+		<a href="javascript:" id='aid'>返回上一页</a>
+	</div>
+</body>
+<script>
+aidobj=document.getElementById('aid');
+
+aidobj.onclick=function(){
+	// history.back();
+	history.go(-1);
+}
+</script>
+</html>

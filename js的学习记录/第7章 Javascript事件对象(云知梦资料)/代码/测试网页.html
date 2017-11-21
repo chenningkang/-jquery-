@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>测试网页</title>
+  <style>
+		*{
+			font-family: 微软雅黑;
+			
+		}
+		#fid{
+			display:none;
+			
+		}
+ </style>
+ </head>
+
+ <body>
+ <form id="formid" action="web.java">
+	   <p>上传视频</p>
+	   <p><input type="file" id="fid"></p>
+	   <p><img src='top.png' id='imgid'></p>
+	   <p><input type="text" id="tid"></p>
+	   <p id='a'></p>
+ </form>
+ </body>
+ <script>
+	pobj=document.getElementById('fid');
+	imgobj=document.getElementById('imgid');
+	tobj=document.getElementById('tid');
+
+	imgobj.onclick=function(){
+		pobj.click();
+	}
+
+	pobj.onchange=function(){
+		tobj.value=this.value;
+		document.getElementById('a').innerHTML=this.value;
+
+	}
+	tobj.focus();  //直接刷新就或得了焦点。
+
+ 
+ </script>
+</html>

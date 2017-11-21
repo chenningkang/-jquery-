@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Yoshis Island - Interactive DHTML art-demos</title>
+<meta name="Author" content="Gerard Ferrandez at http://www.dhteumeuleu.com/">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="HandheldFriendly" content="true">
+<meta name="description" content="Yoshi's Island">
+<link rel="shortcut icon" href="/favicon.ico"/>
+<link rel="canonical" href="http://www.dhteumeuleu.com/yoshis-island">
+<!--cssnav-->
+<style>
+	html {
+		overflow: hidden;
+		-ms-touch-action: none;
+		-ms-content-zooming: none;
+	}
+	body {
+		position: absolute;
+		background: #222;
+		width: 100%;
+		height: 100%;
+		margin: 0;
+		padding: 0;
+	}
+	#border {
+		position: absolute;
+		background: #fff;
+		width: 552px;
+		height: 360px;
+		left:50%;
+		top:50%;
+		margin-left: -276px;
+		margin-top: -180px;
+	}
+	#screen {
+		position: absolute;
+		background: #000;
+		width: 512px;
+		height: 320px;
+		left:50%;
+		top:50%;
+		margin-left: -256px;
+		margin-top: -160px;
+		-webkit-user-select: none;
+		-moz-user-select: none;
+		user-select: none;
+		cursor: e-resize;
+	}
+	#screen span {
+		position:absolute;
+		left:0;
+		top:0;
+		width:100%;
+		height:100%;
+		overflow:hidden;
+	}
+	#screen a, img {
+		position: absolute;
+		border: none;
+		text-decoration: none;
+		left: -9999px;
+	}
+	*::selection {
+		background:transparent;
+	}
+</style>
+<script src="../library/ge1doot.js"></script>
+<script>
+// ========================================================
+//      ------ DHTML Yoshis Island ------
+// Gerard Ferrandez - Ge-1-doot - August 2005
+// http://www.dhteumeuleu.com
+// ------------------------------------------------------
+// Javascript code released under the MIT license
+// http://www.dhteumeuleu.com/LICENSE.html
+// ------------------------------------------------------
+// GFX: from GBA Yoshi's Island TM (c)1995-2002 Nintendo
+// ------------------------------------------------------
+// updated: 13 March 2011 - ahref links
+// updated: 18 May 2013   - mobilized
+// ========================================================
+
+"use strict";
+
+(function () {
+	// ----- private vars -----
+	var o = [], scr, pointer, ay = 2,
+		sin = Math.sin(ay * Math.PI / 180),
+		cos = Math.cos(ay * Math.PI / 180),
+		k = 0, b1, b2;
+	// ----- prototype object -----
+	var CObj = function (p) {
+		this.loaded = false;
+		this.x  = p.x;
+		this.y  = p.y;
+		this.z  = p.z;
+		this.gr = p.gr || false;
+		// ---- insert image -----
+		this.img = document.createElement("img");
+		this.img.src = p.src;
+		if (p.href) {
+			// ---- menu link -----
+			var a = document.createElement("a");
+			a.href = p.href;
+			a.appendChild(this.img);
+			scr.elem.appendChild(a);
+			this.css = a.style;
+			this.img.style.left = "0";
+		} else {
+			// ---- simple image -----
+			scr.elem.appendChild(this.img);
+			this.css = this.img.style;
+		}
+		// ---- vertical animation
+		this.mz = p.mz || false;
+		this.mzr = 0;
+		// ---- ground
+		this.gr = p.gr || false;
+	}
+	// ---- rotate function ----- 
+	CObj.prototype.rotate = function() {
+		if (this.loaded) {
+			if (this.mz) {
+				this.mzr++;
+				this.y++;
+				if (this.mzr > this.mz){
+					this.y -= this.mzr;
+					this.mzr = 0;
+				}
+			}
+			var x1 = this.x * cos - this.z * sin;
+			this.z = this.z * cos + this.x * sin;
+			this.x = x1;
+			var r  = scr.width / (scr.width + this.z);
+			this.css.left   = Math.round(scr.width * 0.5 + (2 * this.x * r) - (this.w0 * r) * .5) + "px";
+			this.css.top    = Math.round(-scr.height - (2 * this.y * r) - (this.h0 * r)) + "px";
+			this.css.zIndex = this.gr ? 0 : Math.round(1000 - this.z);
+		} else {
+			// ----- image loaded -----
+			if (this.img.complete) {
+				this.loaded = true;
+				this.w0 = this.img.width;
+				this.h0 = this.img.height;
+				if (this.gr) this.h0 /= 1.5;
+			}
+		}
+	}
+	// ----- initialization -----
+	var init = function (map) {
+		// ---- screen ----
+		scr = new ge1doot.Screen({container: "screen"});
+		// ---- pointer events ----
+		pointer = new ge1doot.Pointer({});
+		scr.elem.onselectstart = function() {return false;}
+		b1 = document.getElementById("bkg0").style;
+		b2 = document.getElementById("bkg1").style;
+		// ---- add some grass ----
+		for (var i = 0; i < 20; i++){
+			var r = Math.round(Math.random() * 180 - 90);
+			var a = Math.random() * 2 * Math.PI;
+			map.push({
+				src:"../images/oam27.gif", 
+				x: Math.round(r * Math.cos(a)), 
+				y: -256, 
+				z: Math.round(r * Math.sin(a))
+			});
+		}
+		// ---- create objects ----
+		for (var k = 0; k < map.length; k++) {
+			o.push(
+				new CObj(
+					map[k]
+				)
+			);
+		}
+		// ---- start engine ----
+		pointer.Xi = 100;
+		run();
+	}
+	// ----- main loop -----
+	var run = function () {
+		// ay angle
+		ay = pointer.Xi / 100
+		sin = Math.sin(ay * Math.PI / 180);
+		cos = Math.cos(ay * Math.PI / 180);
+		// ---- background scrolling
+		b1.left = Math.round(k) + "px";
+		b2.left = Math.round(k + 512) + "px";
+		k -= ay * 2;
+		if (k > 0) k -= 512; else if (k < -512) k+= 512;
+		// ---- rotate elements
+		var i = 0, p;
+		while (p = o[i++]) p.rotate();
+		// ---- animation loop ----
+		requestAnimFrame(run);
+	}
+	return {
+		// ---- onload event ----
+		load : function (map) {
+			window.addEventListener('load', function () {
+				init(map);
+			}, false);
+		}
+	}
+})().load([
+	// ---- map definition ----
+	{src:"../images/oam20.gif", x:0, y:-256, z:-30}, // big mountain
+	{src:"../images/oam22.gif", x:0, y:-172, z:-30}, // house big mountain
+	{src:"../images/oam24.gif", x:35, y:-256, z:-40},
+	{src:"../images/oam24.gif", x:35, y:-256, z:0},
+	{src:"../images/oam24.gif", x:-20, y:-256, z:-60}, // mountain
+	{src:"../images/oam8.gif", x:-40, y:-256, z:0},
+	{src:"../images/oam8.gif", x:20, y:-256, z:-70}, // green talus
+	{src:"../images/oam3.gif", x:-40, y:-256, z:-25}, // red tower
+	{src:"../images/oam51.gif", x:-40, y:-256, z:-25, gr:1}, // ground
+	{src:"../images/oam5.gif", x:-25, y:-256, z:-95}, // volcano
+	{src:"../images/oam32.gif", x:60, y:-256, z:-60},
+	{src:"../images/oam32.gif", x:50, y:-256, z:40},
+	{src:"../images/oam32.gif", x:-40, y:-256, z:40}, // hill
+	{src:"../images/oam19.gif", x:80, y:-256, z:-70},
+	{src:"../images/oam19.gif", x:80, y:-256, z:-40},
+	{src:"../images/oam19.gif", x:60, y:-256, z:60}, 
+	{src:"../images/oam19.gif", x:-60, y:-256, z:50},
+	{src:"../images/oam19.gif", x:-60, y:-256, z:20}, // small hill
+	{src:"../images/oam52.gif", x:80, y:-256, z:-70, gr:1},
+	{src:"../images/oam52.gif", x:60, y:-256, z:60, gr:1}, 
+	{src:"../images/oam52.gif", x:-60, y:-256, z:50, gr:1}, // green ground
+	{src:"../images/oam14.gif", x:50, y:-256, z:-20}, // grey donjon
+	{src:"../images/oam51.gif", x:50, y:-256, z:-20, gr:1}, // ground
+	{src:"../images/oam14.gif", x:0, y:-256, z:10}, // grey donjon
+	{src:"../images/oam50.gif", x:0, y:-256, z:10, gr:1}, // castle water
+	{src:"../images/oam11.gif", x:-12, y:-256, z:10},
+	{src:"../images/oam11.gif", x:12, y:-256, z:10},
+	{src:"../images/oam11.gif", x:0, y:-256, z:-2}, 
+	{src:"../images/oam11.gif", x:0, y:-256, z:22}, // grey towers
+	{src:"../images/oam28.gif", x:60, y:-256, z:15}, // towers with red roof
+	{src:"../images/oam17.gif", x:50, y:-256, z:-80}, // dolmen
+	{src:"../images/oam25.gif", x:65, y:-256, z:30},
+	{src:"../images/oam25.gif", x:85, y:-256, z:30},
+	{src:"../images/oam25.gif", x:70, y:-256, z:10}, 
+	{src:"../images/oam25.gif", x:70, y:-256, z:-20}, // oranges
+	{src:"../images/oam10.gif", x:0, y:-200, z:-70},
+	{src:"../images/oam10.gif", x:20, y:-180, z:-70},
+	{src:"../images/oam10.gif", x:40, y:-170, z:-50}, 
+	{src:"../images/oam10.gif", x:40, y:-190, z:-30}, // cloud
+	{src:"../images/oam35.gif", x:-50, y:-160, z:-10, href:"http://www.dhteumeuleu.com/index"}, // cloud castle
+	{src:"../images/oam2.gif", x:-65, y:-256, z:-50},
+	{src:"../images/oam2.gif", x:-45, y:-256, z:-50},
+	{src:"../images/oam2.gif", x:-40, y:-256, z:-70},
+	{src:"../images/oam2.gif", x:-65, y:-256, z:-30}, 
+	{src:"../images/oam2.gif", x:-80, y:-256, z:-80},
+	{src:"../images/oam2.gif", x:-80, y:-256, z:-20},
+	{src:"../images/oam2.gif", x:-90, y:-256, z:0}, // fir
+	{src:"../images/oam1.gif", x:-60, y:-256, z:-40},
+	{src:"../images/oam1.gif", x:-90, y:-256, z:-40},
+	{src:"../images/oam1.gif", x:-100, y:-256, z:-20},
+	{src:"../images/oam1.gif", x:-90, y:-256, z:-60}, 
+	{src:"../images/oam1.gif", x:-40, y:-256, z:-80},
+	{src:"../images/oam1.gif", x:-60, y:-256, z:-60},
+	{src:"../images/oam1.gif", x:-60, y:-256, z:-90}, // small fir
+	{src:"../images/oam23.gif", x:60, y:-256, z:-40},
+	{src:"../images/oam23.gif", x:60, y:-256, z:-30},
+	{src:"../images/oam23.gif", x:60, y:-256, z:-90},
+	{src:"../images/oam23.gif", x:70, y:-256, z:-90}, 
+	{src:"../images/oam23.gif", x:50, y:-256, z:-95},
+	{src:"../images/oam23.gif", x:90, y:-256, z:-40},			// flower
+	{src:"../images/oam23.gif", x:95, y:-256, z:-50},
+	{src:"../images/oam23.gif", x:95, y:-256, z:-30},
+	{src:"../images/oam23.gif", x:80, y:-256, z:-20},
+	{src:"../images/oam23.gif", x:80, y:-256, z:-10}, 
+	{src:"../images/oam23.gif", x:100, y:-256, z:-10},
+	{src:"../images/oam23.gif", x:100, y:-256, z:0}, // flower
+	{src:"../images/oam6.gif", x:30, y:-256, z:30},
+	{src:"../images/oam6.gif", x:20, y:-256, z:40},
+	{src:"../images/oam6.gif", x:20, y:-256, z:60},
+	{src:"../images/oam6.gif", x:-20, y:-256, z:30}, 
+	{src:"../images/oam6.gif", x:-20, y:-256, z:50},
+	{src:"../images/oam6.gif", x:-30, y:-256, z:60},
+	{src:"../images/oam6.gif", x:-10, y:-256, z:90}, // tree
+	{src:"../images/oam9.gif", x:30, y:-256, z:45},
+	{src:"../images/oam9.gif", x:35, y:-256, z:60},
+	{src:"../images/oam9.gif", x:45, y:-256, z:70},
+	{src:"../images/oam9.gif", x:50, y:-256, z:90}, 
+	{src:"../images/oam9.gif", x:-20, y:-256, z:90},
+	{src:"../images/oam9.gif", x:-15, y:-256, z:70},
+	{src:"../images/oam9.gif", x:-10, y:-256, z:35}, // small tree
+	{src:"../images/oam16.gif", x:0, y:-256, z:30},
+	{src:"../images/oam16.gif", x:0, y:-256, z:40},
+	{src:"../images/oam16.gif", x:0, y:-256, z:50}, 
+	{src:"../images/oam16.gif", x:0, y:-256, z:60},
+	{src:"../images/oam16.gif", x:0, y:-256, z:70}, // plots
+	{src:"../images/oam4.gif", x:-25, y:-220, z:-95, mz:20},
+	{src:"../images/oam4.gif", x:-25, y:-210, z:-95, mz:20}, // volcano smoke
+	{src:"../images/oam33.gif", x:-10, y:-172, z:-23},
+	{src:"../images/oam33.gif", x:-15, y:-169, z:-21},
+	{src:"../images/oam33.gif", x:-20, y:-166, z:-19}, 
+	{src:"../images/oam33.gif", x:-25, y:-163, z:-17},
+	{src:"../images/oam33.gif", x:-30, y:-160, z:-15}, // chain
+	{src:"../images/oam38.gif", x:20, y:-200, z:40, mz:2}, // seagull
+	{src:"../images/oam18.gif", x:20, y:-256, z:40} // Yoshi
+]);
+</script>
+</head>
+
+<body>
+
+<div id="border"></div>
+<div id="screen">
+	<span>
+		<img id="bkg0" src="../images/map.gif" alt="">
+		<img id="bkg1" src="../images/map.gif" alt="">
+	</span>
+</div>
+<!--nav-->
+<!--ga-->
+</body>
+</html>

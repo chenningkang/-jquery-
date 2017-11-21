@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8">
+        <title>威威的世界</title>
+        <style type="text/css">
+            body{background:green repeat fixed}
+        </style>
+    </head>
+    <body onload="start()">
+        <div id="talk" style="margin-left:200px;float:left;color:#f00;background:#fff url('3.jpg');width:500px;height:100px">
+             <h3 id="heading" style="padding-top:50px;padding-left:50px;">我是灰太狼,我要吃了你们这些小笨羊,出发,哼...</h1>
+        </div>
+        <div id="div1">
+            <img id="img1" src="6.gif" style="position:absolute;top:10px;left:10px;">  
+            <img id="img2" src="1.gif" style="position:absolute;top:100px;left:200px;display:none">
+            <img id="img4" src="4.jpg" style="position:absolute;">
+        </div>
+        <script>
+            function start(){
+                setTimeout(function(){
+                    talk.style.display="none";
+                },3000);
+                var w=document.documentElement.clientWidth;
+                var h=document.documentElement.clientHeight;
+                var ow=img1.offsetWidth;
+                var oh=img1.offsetHeight;
+                var img4w=img4.offsetWidth;
+                var img4h=img4.offsetHeight;
+                function runimg4(){
+                    img4.style.top=(h-img4h)+"px";
+                    img4.style.left="0px";
+                }
+                runimg4();
+                function foot(){
+                    var arr=["1.gif","2.gif","3.gif","4.gif","5.gif"];
+                    img2.src=arr[Math.floor(Math.random()*arr.length)];
+                    img2.style.top=Math.floor(Math.random()*(h-oh))+"px";
+                    img2.style.left=Math.floor(Math.random()*(w-ow))+"px";
+                    img2.style.display="block";             
+                }
+                foot();
+                function hrun(){
+                    if(parseInt(img1.style.left)<img4.offsetWidth && parseInt(img1.style.top)>parseInt(img4.style.top)){
+                        location="score.html";
+                    }
+                    if(parseInt(img2.style.left)-parseInt(img1.style.left)<=img1.offsetHeight && parseInt(img1.style.left)-parseInt(img2.style.left)<=img2.offsetHeight){
+                                if(parseInt(img2.style.top)-parseInt(img1.style.top)<=img1.offsetHeight && parseInt(img1.style.top)-parseInt(img2.style.top)<=img2.offsetHeight){
+
+                    alert("打死懒羊羊!!!");
+                    foot(); 
+                     }
+                   }
+                }
+                function vrun(){
+                    if(parseInt(img2.style.top)-parseInt(img1.style.top)<=img1.offsetHeight && parseInt(img1.style.top)-parseInt(img2.style.top)<=img2.offsetHeight){
+                                if(parseInt(img2.style.left)-parseInt(img1.style.left)<=img1.offsetWidth && parseInt(img1.style.left)-parseInt(img2.style.left)<=img2.offsetWidth){
+
+                    alert("我是灰太狼!!!");
+                    foot(); 
+                     }
+                   }
+                }
+
+                document.onkeydown=function(e){
+                    var e=window.event || e;
+                    switch(e.keyCode){
+                        case 37:
+                            img1.style.left=(parseInt(img1.style.left)-10)+"px";
+                            if(parseInt(img1.style.left)<=0){
+                                img1.style.left=(w-ow)+"px";
+                            }
+                            hrun();
+                            break;
+                        case 38:
+                            img1.style.top=(parseInt(img1.style.top)-10)+"px";
+                            if(parseInt(img1.style.top)<=0){
+                                img1.style.top=(h-oh)+"px";
+                            }
+                            vrun();
+                            break;
+                        case 39:
+                            img1.style.left=(parseInt(img1.style.left)+10)+"px";
+                            if(parseInt(img1.style.left)>=(w-ow)){
+                                img1.style.left="0px";
+                            }
+                            hrun();
+                            break;
+                        case 40:
+                            img1.style.top=(parseInt(img1.style.top)+10)+"px";
+                            if(parseInt(img1.style.top)>=(h-oh)){
+                                img1.style.top="0px";
+                            }
+                            vrun();
+                            break;
+                    }
+                }
+        };
+        </script>
+    </body>
+</html>

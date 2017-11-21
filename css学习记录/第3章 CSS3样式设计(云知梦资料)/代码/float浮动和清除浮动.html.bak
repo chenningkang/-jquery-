@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index</title>
+	<style>
+		*{
+			font-family: 微软雅黑;
+			margin:0px;
+		}
+
+		.img{
+			background: #ccc;
+			width:200px;
+			height:200px;
+			float:left;
+			margin-left:100px;
+		}
+
+		.row{
+			margin-bottom:10px;
+		}
+
+		.clear{
+		    clear:both;
+		}
+	</style>
+</head>
+<body>
+	<div class="row">
+		<div class="img">
+			<img src="logo.png" alt="">
+		</div>	
+		<div class="img">
+			<img src="logo.png" alt="">
+		</div>	
+		<div class="img">
+			<img src="logo.png" alt="">
+		</div>	
+		<div class="img">
+			<img src="logo.png" alt="">
+		</div>	
+		<div style='clear:both'></div>
+	</div>
+	
+	<div class="row">
+		<div class="img">
+			<img src="logo.png" alt="">
+		</div>	
+		<div class="img">
+			<img src="logo.png" alt="">
+		</div>	
+		<div class="img">
+			<img src="logo.png" alt="">
+		</div>	
+		<div class="img">
+			<img src="logo.png" alt="">
+		</div>	
+		<div style='clear:both'></div>
+	</div>
+
+	<div class="row">
+		<div class="img">
+			<img src="logo.png" alt="">
+		</div>	
+		<div class="img">
+			<img src="logo.png" alt="">
+		</div>	
+		<div class="img">
+			<img src="logo.png" alt="">
+		</div>	
+		<div class="img">
+			<img src="logo.png" alt="">
+		</div>	
+		<div style='clear:both'></div>
+
+
+		<div class="clear"></div>
+	</div>
+</body>
+</html>

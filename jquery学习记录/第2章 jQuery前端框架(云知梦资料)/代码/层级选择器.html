@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index</title>
+	<style>
+		*{
+			font-family: 微软雅黑;
+		}
+	</style>
+	<script src="jquery.js"></script>
+</head>
+<body>
+	<div class='div1'>
+		<h1>aaaaaaaaaaaaaaaaaaaaaa</h1>	
+		<h1>bbbbbbbbbbbbbbbbbbbbbb</h1>
+		<div class="div11">
+			<h1>cccccccccccccccccccccccc</h1>
+			<h1>dddddddddddddddddddddddd</h1>
+		</div>
+	</div>
+	<h1>eeeeeeeeeeeeeeeeeeeeeee</h1>
+	<h1>fffffffffffffffffffffff</h1>
+</body>
+<script>
+// $('.div1 h1').css({'color':'#f00'});
+// $('.div1>h1').css({'color':'#f00'});
+// $('.div1+h1').css({'color':'#f00'});
+$('.div1~h1').css({'color':'#f00'});
+</script>
+</html>

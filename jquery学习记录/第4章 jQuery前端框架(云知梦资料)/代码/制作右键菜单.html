@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <title>index</title>
+    <style>
+    	*{
+    		margin:0px;
+    		padding:0px;
+    	}
+
+    	ul{
+    		width:100px;
+    		height:150px;
+    		background: #ccc;
+    		border-radius:10px;
+    		position: absolute;
+    		display: none;
+    	}
+
+    	ul li{
+    		text-align: center;
+    		color:#fff;
+    		font-weight: bold;
+    		line-height: 25px;
+    	}
+    </style>
+    <script src="jquery.js"></script>
+</head>
+<body>
+	<ul>
+		<li><a href='http://www.yzmedu.com' target='_blank'>云知梦</a></li>
+		<li>第一菜单</li>
+		<li>第一菜单</li>
+		<li>第一菜单</li>
+		<li>第一菜单</li>
+	</ul>
+</body>
+<script>
+$(document).contextmenu(function(event){
+	x=event.clientX;
+	y=event.clientY;
+
+	btn=event.button;
+
+	if(btn==2){
+		$('ul').show().css({'left':x+'px','top':y+'px'});
+		return false;
+	}
+});
+</script>
+</html>
+

@@ -1,0 +1,107 @@
+2016.4.28-HTML5页面标签
+
+上次复习:
+-------------------------------------------------------
+1.sublime技巧
+2.sublime emmet插件
+3.html5标签
+
+今天内容:
+-------------------------------------------------------
+超链接:
+<a href='http://www.baidu.com' target='_blank'>百度</a>
+
+图片超链接:
+<a href='http://www.baidu.com'>
+	<img src='jin.png'>
+</a>
+
+url网址:
+http://www.baidu.com/index.php?id=10
+http http协议
+www.baidu.com 域名
+index.php 脚本文件
+id=10     脚本参数
+
+表格:
+<table width='100%' border='1px' cellspacing='0px'>
+	<tr>
+		<th>adlf</th>
+		<th>adlf</th>
+		<th>adlf</th>
+	</tr>
+	<tr>
+		<td>aa</td>
+		<td>aa</td>
+		<td>aa</td>
+	</tr>
+</table>
+
+表单:
+<form action="reg.php" method='post' enctype='multipart/form-data'>
+		
+</form>
+
+表单元素:
+1.文本元素
+<input type="text" name='username'>
+
+2.密码元素
+<input type="password" name='password'>
+
+3.文件元素
+<input type="file" name="img"> 
+
+4.确认元素
+<input type="submit" value="确认">
+
+5.重置元素
+<input type="reset" value="重置">
+
+6.下拉菜单
+<select name="city">
+	<option value="">北京</option>
+	<option value="">上海</option>
+	<option value="">广州</option>
+</select>
+
+7.单选
+<input type="radio" name="sex"> 男
+<input type="radio" name="sex"> 女
+<input type="radio" name="sex"> 中
+
+8.多选
+<input type="checkbox" name="love[]"> 打篮球
+<input type="checkbox" name="love[]"> 踢足球
+<input type="checkbox" name="love[]"> 开大车
+
+9.文本域
+<textarea name="mess" cols="30" rows="10"></textarea>
+
+表单属性:
+readonly 可以带值
+disabled 不能带值
+maxlength 最大长度
+
+iframe内嵌框架:
+<iframe src="http://localhost/web" frameborder="0"></iframe>
+
+frame框架:
+<frameset rows="60,*" frameborder='1' border='1px'>		
+	<frame src='top.html' name='top'>
+	<frameset cols='100,*'>
+		<frame src='left.html' name='left' noresize>
+		<frame src='right.html' name='right'>
+	</frameset>
+</frameset>
+
+点左侧的a链接如何打开右侧页面:
+<a href='user/index.html' target='right'><button>查看用户</button></a>
+
+如何在一个窗口中退出到最外层的窗口:
+<a href="login.html" target='_top'><button>退出</button></a>
+
+
+
+
+

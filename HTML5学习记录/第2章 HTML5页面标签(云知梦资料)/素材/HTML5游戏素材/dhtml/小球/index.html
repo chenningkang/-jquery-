@@ -1,0 +1,307 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<title>your promise - Interactive DHTML art-demos</title>
+<meta name="Author" content="Gerard Ferrandez at http://www.dhteumeuleu.com">
+<meta http-equiv="imagetoolbar" content="no">
+<style type="text/css">
+html { overflow: hidden; }
+body { margin: 0px; padding: 0px; background: #111; position: absolute; width: 100%; height: 100%; cursor: crosshair; }
+#screen { position: absolute; left: 10%; top: 10%; width: 80%; height: 80%; background: #000; }
+.point { position: absolute; cursor: pointer; }
+#images { visibility: hidden; }
+#credit { position: absolute; color: #000; font-family: arial; font-size: 0.8em; width: 99%; text-align: right; bottom: 2px; z-index: 10000; color: #888; }
+a { text-decoration: none; color:#fff; }
+a:hover { text-decoration: none; background:#ff8000; color:#fff; }
+a:visited { text-decoration: none; color:#fff; }
+a:visited:hover { text-decoration: none; background:#ff8000; color:#fff; }
+</style>
+<script type="text/javascript"> 
+// ====================================================
+//   __|     _ |     |           |  
+//  (_ |  -_)  |  _` |  _ \  _ \  _|
+// \___|\___| _|\__,_|\___/\___/\__|
+// ---------------------------------------------------
+// script: Gerard Ferrandez - Ge-1-doot - Oct 2006
+// http://www.dhteumeuleu.com
+// ====================================================
+ 
+ 
+/////////////////////// drag N drop + window size ////////////////////////////////
+function resize()
+{
+	/* ====== screen resize ====== */
+	var s = document.getElementById("screen");
+	v.nx = s.offsetLeft;
+	v.ny = s.offsetTop;
+	v.nw = s.offsetWidth;
+	v.nh = s.offsetHeight;
+}
+onresize = resize;
+ 
+document.onmousemove = function(e)
+{
+	if (window.event) e=window.event;
+	v.mousemove(e);
+	return false;
+}
+ 
+document.onmousedown = function(e)
+{
+	if (!e) e = window.event;
+	v.mousedown(e);
+	return false;
+}
+document.onmouseup = function()
+{
+	v.mouseup();
+	return false;
+}
+ 
+//////////////////////////////////////////////////////////////////////////////////
+var v = {
+	point : [],
+	link  : [],
+	drag  : [],
+	xm    : 0,
+	ym    : 0,
+	PO    : false,
+	M     : false,
+	nx    : 0,
+	ny    : 0,
+	nw    : 0,
+	nh    : 0,
+	R     : 0,
+	LL    : 0,
+	PL    : 0,
+	NX    : 0,
+	NY    : 0,
+/* ====== parameters ====== */
+	GRV   : .01, // gravity
+	L     : 25, // size
+/* ====== map ====== */
+	map   : [
+	"21111111111112",
+	"00000000000000",
+	"00000000000000",
+	"00000000000000",
+	"00000000000000",
+	"00000000000000",
+	"00000000000000",
+	"00000000000000",
+	"00000000000000",
+	"00000000000000",
+	"00000000000000",
+	"00000000000000",
+	"11111111111111"
+	],
+ 
+//////////////////////////////// init grid //////////////////////////////////////
+	initGrid : function()
+	{
+		v.NX = v.map[0].length;
+		v.NY = v.map.length;
+		for(var y = 0; y < v.NY; y++)
+		{
+			for(var x = 0; x < v.NX; x++)
+			{
+				/* ====== create new point ======*/
+				var x0 = (v.nw - (v.L * v.NX)) * .5;
+				var y0 = Math.max(0, (v.nh - (v.L * v.NY)) * .4);
+				var free = !((y == 0 && x == 0) || (y == 0 && x == v.NX-1));
+				var img = document.getElementById("images").getElementsByTagName("img")[v.map[y].charAt(x)];
+				var p = new v.Point(x0 + x * v.L, y0 + y * v.L, free, img);
+				v.point.push(p);
+				/* ====== create horizontal and vertical link ====== */
+				if(x>0) v.link.push(new v.Link(v.point[(y*v.NX)+(x-1)], p));
+				if(y>0) v.link.push(new v.Link(v.point[x+(y*v.NX)-v.NX], p));
+			}
+		}
+		v.LL = v.link.length;
+		v.PL = v.point.length;
+	},
+	/////////////////////////// link constructor /////////////////////////////////
+	Link : function(p0, p1)
+	{
+		this.p0 = p0;
+		this.p1 = p1;
+		this.dx = 0;
+		this.dy = 0;
+		this.dist = function()
+		{
+			this.dx = this.p0.x - this.p1.x;
+			this.dy = this.p0.y - this.p1.y;
+			return Math.sqrt(this.dx * this.dx + this.dy * this.dy);
+		}
+		this.d0 = this.dist();
+		/* ====== linkage ====== */
+		this.age = function()
+		{
+			var d  = this.dist();
+        	var s  = (d - this.d0) * .1;
+			if(this.p0.free)
+			{
+				this.p0.y -= (this.dy / d) * s;
+				this.p0.x -= (this.dx / d) * s;
+			}
+			if(this.p1.free)
+			{
+				this.p1.y += (this.dy / d) * s;
+				this.p1.x += (this.dx / d) * s;
+			}
+		}
+	},
+ 
+/////////////////////////// point constructor /////////////////////////////////
+	Point : function(x, y, free, img)
+	{
+		this.g  = v.GRV;
+		this.x  = x;
+		this.y  = y;
+		this.xb = x;
+		this.yb = y;
+		this.x0 = x;
+		this.y0 = y;
+		this.xZ = 0;
+		this.yZ = 0;
+		this.w  = img.width / 2;
+		this.h  = img.height / 2;
+		this.free = free;
+		this.fre0 = free;
+		if(!free) v.drag.push(this);
+		/* ====== create html img element ====== */
+		this.img = document.createElement("img");
+		this.img.src = img.src;
+		this.img.style.zIndex = 1000*x+y;
+		this.img.className = "point";
+		this.img.point = this;
+		document.getElementById('screen').appendChild(this.img);
+		/* ====== origin point ====== */
+		if(!v.PO)
+		{
+			v.PO = this.img;
+			v.MB = v.PO;
+		}
+		/* ====== elastic ====== */
+		this.anim = function()
+		{
+			if(this.free) {
+				var xt = this.x;
+				var yt = this.y;
+				this.x += this.x - this.xb;
+				this.y += this.y - this.yb + this.g;
+				this.xb = xt;
+				this.yb = yt;
+			}
+		}
+	},
+/////////////////////////// replace handles /////////////////////////////////
+	up : function()
+	{
+		var u = false;
+		for(var i = 0, DL = v.drag.length; i < DL; i++)
+		{
+			var o = v.drag[i];
+			if(Math.abs(o.x-o.x0)+Math.abs(o.y-o.y0)>10)
+			{
+				o.x += (o.x0 - o.x)* .05;
+				o.y += (o.y0 - o.y)* .05;
+				u = true;
+			}
+		}
+		if(u) setTimeout(v.up, 16);
+	},
+ 
+	recenter : function()
+	{
+		for(var i = 0; i < v.PL; i++)
+		{
+			var o = v.point[i];
+			if(!o.fre0)
+			{
+				o.free = false;
+			}
+		}
+		v.up();
+	},
+///////////////////////// mouse events //////////////////////////////////////
+	mousemove : function(e)
+	{
+		this.xm = (e.x || e.clientX) - this.nx;
+		this.ym = (e.y || e.clientY) - this.ny;
+		/* ====== drag point ====== */
+		if(this.M != false)
+		{
+			this.M.point.x = this.M.point.xb = this.xm + this.M.point.xZ;
+			this.M.point.y = this.M.point.yb = this.ym + this.M.point.yZ;
+		}
+	},
+	mousedown : function(e)
+	{
+		var tg = (e.target) ? e.target : e.srcElement;
+		if(tg.className == "point")
+		{
+			this.M = tg;
+			/* ====== unfreeze handles ====== */
+			if(this.M.point.fre0)
+			{
+				for(var i = 0, DL = v.drag.length; i < DL; i++) this.drag[i].free = true;
+				clearTimeout(this.R);
+			}
+			/* ====== freeze point ====== */
+			this.M.point.free = false;
+			this.M.point.xZ = this.M.point.x - this.xm;
+			this.M.point.yZ = this.M.point.y - this.ym;
+			this.M.style.cursor = "move";
+		}
+	},
+	mouseup : function()
+	{
+		if(this.M != false)
+		{
+			/* ====== release point (but uper corners) ====== */
+			if(this.M.point.fre0)
+			{
+				this.M.point.free = true;
+				this.M.style.cursor = "pointer";
+				this.R = setTimeout(this.recenter, 2000);
+			}
+			this.M = false;
+		}
+	},
+//////////////////////////// main loop ///////////////////////////////////////////
+	run : function()
+	{
+		/* ====== animate points ====== */
+		var P = v.PO;
+		for(var i = 0; i < v.PL; i++)
+		{
+			var o = v.point[i];
+			o.anim();
+			P.style.left = Math.round(o.x - o.w) + 'px';
+			P.style.top  = Math.round(o.y - o.h) + 'px';
+			P = P.nextSibling;
+		}
+		/* ====== linkage ====== */
+		for(var i = 0; i < v.LL; i++) v.link[i].age();
+		/* ====== loop ====== */
+		setTimeout(v.run, 16);
+	}
+}
+ 
+/////////////////////////////// start ///////////////////////////////////////////
+onload = function()
+{
+	resize();
+	v.initGrid();
+	v.run();
+}
+ 
+</script>
+</head>
+<body>
+<div id="screen"></div>
+<div id="images"> <img alt="" src="images/KIT78_sphere_details.gif"> <img alt="" src="images/KIT79_sphere_details.gif"> <img alt="" src="images/KIT77_sphere_details.gif"> </div>
+<div id="credit"> &middot;home: <a href="http://www.dhteumeuleu.com/" target="_blank" title="Interactive DHTML demos">www.dhteumeuleu.com</a> </div>
+</body>
+</html>

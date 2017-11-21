@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index</title>
+	<style>
+		*{
+			font-family:微软雅黑;
+		}
+
+		body{
+			background:#ccc url('xs.png') no-repeat fixed 50% 50%;
+			        /* 颜色  地址           背景图不重复  随着页面的滚动不滚动，是固定的  宽  高  */
+		}
+	</style>
+</head>
+<body>
+	<div>
+		<h1>linux is very much!linux is very much!</h1>	
+		<h1>linux is very much!linux is very much!</h1>	
+		<h1>linux is very much!linux is very much!</h1>	
+		<h1>linux is very much!linux is very much!</h1>	
+		<h1>linux is very much!linux is very much!</h1>	
+		<h1>linux is very much!linux is very much!</h1>	
+		<h1>linux is very much!linux is very much!</h1>	
+		<h1>linux is very much!linux is very much!</h1>	
+		<h1>linux is very much!linux is very much!</h1>	
+		<h1>linux is very much!linux is very much!</h1>	
+		<h1>linux is very much!linux is very much!</h1>	
+		<h1>linux is very much!linux is very much!</h1>	
+		<h1>linux is very much!linux is very much!</h1>	
+		<h1>linux is very much!linux is very much!</h1>	
+		<h1>linux is very much!linux is very much!</h1>	
+	</div>
+</body>
+</html>

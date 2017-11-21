@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>小帅</title>
+	<!-- css样式设计 -->
+	<style>
+		div{
+			width:256px;
+			height:256px;
+			border:10px inset #f00;
+			margin:0 auto;
+			background: #ccc;
+			border-radius:256px;
+			cursor: pointer;
+		}
+	</style>	
+	<script src="jquery.js"></script>
+</head>
+<!-- html标签 -->
+<body>
+	<div>
+		<img src="xs.png" alt="">	
+	</div>
+</body>
+<!-- js特效 -->
+<script>
+$('div').mouseenter(function(){
+	s=0;
+	v=10;
+	setInterval(function(){
+		s+=v;
+		$('div').css({'transform':'rotate('+s+'deg)'});
+	},10);
+});	
+</script>
+</html>

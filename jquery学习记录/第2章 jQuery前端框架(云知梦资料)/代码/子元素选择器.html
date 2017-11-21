@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index</title>
+	<style>
+		*{
+			font-family: 微软雅黑;
+		}
+	</style>
+	<script src="jquery.js"></script>
+</head>
+<body>
+	<div>
+		<h1>aaaaaaaaaaaaaaaaaaaaaaa</h1>
+		<h1>bbbbbbbbbbbbbbbbbbbbbbb</h1>
+		<h1>ccccccccccccccccccccccc</h1>
+	</div>
+	<hr>
+	<div>
+		<h1>dcccccccccccccccccccccc</h1>
+	</div>
+	<hr>
+	<div>
+		<h1>ddddddddddddddddddddddd</h1>
+	</div>
+</body>
+<script>
+// $('div h1:first-child').css({'color':'#00f'});
+// $('div h1:last-child').css({'color':'#00f'});
+$('div h1:only-child').css({'color':'#00f'});
+</script>
+</html>

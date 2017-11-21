@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="Author" content="Gerard Ferrandez at http://www.dhteumeuleu.com/">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="HandheldFriendly" content="true">
+<meta name="description" content="remember the fears - HTML5 CANVAS water demo">
+<meta name="keywords" content="canvas,water,waves,particles">
+<link rel="canonical" href="http://www.dhteumeuleu.com/remember-the-fears">
+<!--cssnav-->
+<link rel="shortcut icon" href="/favicon.ico"/>
+<title>remember the fears - HTML5 CANVAS water demo</title>
+<style>
+html {
+	overflow: hidden;
+	-ms-touch-action: none;
+	-ms-content-zooming: none;
+}
+body {
+	position: absolute;
+	margin: 0px;
+	padding: 0px;
+	background: #000;
+	width: 100%;
+	height: 100%;
+}
+#screen {
+	position: absolute;
+	background: #666;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+}
+</style>
+<script src="../library/ge1doot.js"></script>
+<script>
+/* =======================================================
+ *  ---- water waves JS/CANVAS implementation ----
+ * script: Gerard Ferrandez - February 2005
+ * Released under the MIT license
+ * http://www.dhteumeuleu.com/LICENSE.html
+ * Last updated: 28 Dec 2012
+ * ======================================================= */
+
+"use strict";
+
+(function () {
+	var scr, ctx, pointer, ov, n, g, W, H, gw, blob, X,Y, Yv = 0, yb;
+	/* ==== main loop ==== */
+	var run = function () {
+		/* ---- clear screen ---- */
+		ctx.clearRect(0, 0, scr.width, scr.height);
+		/* ---- motion ---- */
+		for (var i = 1; i < n - 1; i++) {
+			var o = ov[i];
+			o.y += (o.v * 0.5) + (o.z *= 0.8);
+		}
+		/* ---- draw blob ---- */
+		var c = Math.round(X / W);
+		Yv += (ov[c].y - Y) * 0.2;
+		X  += (ov[c].y - ov[c+1].y) * 0.5;
+		Y  += (Yv *= 0.8);
+		if (X > scr.width - gw) X = scr.width - gw;
+		else if (X < gw) X = gw;
+		ctx.drawImage(blob, X - gw, H + Y - gw * 1.5);
+		/* ---- draw wave ---- */
+		for (var i = 1; i < n - 1; i++) {
+			var o = ov[i];
+			var o1 = ov[i + 1];
+			o.v += (ov[i - 1].y + o1.y - 2 * o.y) * 0.5;
+			o.v *= .99;
+			ctx.beginPath();
+			var x = (i - 1) * W;
+			ctx.moveTo(x, H * 2);
+			ctx.lineTo(x, o.y + H);
+			ctx.lineTo(x + W, o1.y + H);
+			ctx.lineTo(x + W, H * 2); 
+			ctx.closePath();
+			ctx.fill();
+		}
+		/* ---- mousemove ---- */
+		var c = Math.round(pointer.X / W);
+		if (c > 1 && c < n - 2 && yb) {
+			var y0 = ov[c].y;
+			if (
+				Math.min(yb, pointer.Y) < H - y0 && 
+				Math.max(yb, pointer.Y) > H - y0
+			) splash(c, (pointer.Y - yb) * 2);
+		}
+		yb = pointer.Y;
+		// ---- next frame ----
+		requestAnimFrame(run);
+	}
+	var splash = function (c, f) {
+		for (var i = c, j = c + n / 2; i < j; i++){
+			if (i < n - 1) ov[i].z = f;
+			if (c + c - i - 1 > 0) ov[c + c - i - 1].z = f;
+			f *= 0.85;
+		}
+	}
+	/* ==== init script ==== */
+	var init = function (p) {
+		n = p.nbr;
+		g = p.sizeImg;
+		// ---- canvas ----
+		scr = new ge1doot.Screen({
+			container: "screen",
+			resize: function () {
+				W  = Math.round(scr.width / (n - 2)) + 1;
+				gw = g * W * 0.5;
+				H = scr.height * 0.5;
+			}
+		});
+		ctx = scr.ctx;
+		scr.resize();
+		// ---- pointer ----
+		pointer = new ge1doot.Pointer({});
+		// ---- image ----
+		blob = new Image();
+		blob.src = p.img;
+		// ---- create waves ----
+		ov = new Array(n + 1);
+		for (var i = 0; i <= n; i++) ov[i] = {
+			y : 0,
+			v : 0,
+			z : 0
+		};
+		pointer.X = scr.width / 2;
+		pointer.Y = scr.height / 4;
+		X =  scr.width / 2;
+		Y = -scr.height / 4;
+		splash(Math.round(X / W) + 1, -scr.height / 4);
+		run();
+	}
+	return {
+		// ---- launch script -----
+		load : function (p) {
+			window.addEventListener('load', function () {
+				init(p);
+			}, false);
+		}  
+	}
+})().load({
+	img: "../images/Glob4.gif",
+	nbr: 64,
+	sizeImg: 8
+});
+</script>
+</head>
+<body>
+<canvas id="screen">water waves CANVAS simulation</canvas>
+<!--nav-->
+<!--ga-->
+</body>
+</html>

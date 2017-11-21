@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index</title>
+	<style>
+		body{
+			padding:200px;
+		}
+		
+		div{
+			width:256px;
+			height:256px;
+			border:2px solid #999;
+			overflow:hidden;
+			transition:transform 2s;
+		}
+
+		div:hover{
+			transform:rotate(360deg);
+		}
+	</style>
+</head>
+<body>
+	<div>
+		<img src="dog.png" alt="">
+	</div>	
+</body>
+</html>

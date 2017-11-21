@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index</title>
+	<style>
+		*{
+			font-family: 微软雅黑;
+			margin:0px;
+			padding:0px;
+		}
+	</style>
+	<script src="jquery.js"></script>
+</head>
+<body>
+	<div>
+		<img src="a.png">
+	</div>	
+	<br>
+	<button>点赞(<span>50</span>)</button>	
+</body>
+<script>
+$('button').one('click',function(){
+	val=parseInt($('span').html())+1;
+	$('span').html(val);
+	$(this).css({'background':'#00f','color':'#fff'});
+});
+</script>
+</html>

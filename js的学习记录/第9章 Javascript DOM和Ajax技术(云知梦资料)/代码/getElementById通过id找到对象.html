@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index</title>
+	<style>
+		*{
+			font-family: 微软雅黑;
+		}
+	</style>
+</head>
+<body>
+	<h1 id='hid'  class='a1'>aaaaaaaaaaaaaaaaaaaaaaaaaaaa</h1>	
+	<h1 id='h2id' class='a1'>aaaaaaaaaaaaaaaaaaaaaaaaaaaa</h1>	
+	<h1 id='h3id' class='a1'>aaaaaaaaaaaaaaaaaaaaaaaaaaaa</h1>	
+</body>
+<script>
+hidobj=document.getElementById('hid');
+hidobj.style.background='#ccc';
+
+h2obj=document.getElementById('h2id');
+h2obj.style.background='red';
+
+//hobj=document.getElementsByTagName('h1');
+//alert(hobj);
+//alert(hobj[0].className);alert(hobj[1].className);alert(hobj[2].className);
+
+hobj=document.getElementsByClassName('a1');
+alert(hobj);
+alert(hobj[0].className);alert(hobj[1].className);alert(hobj[2].className);  //通过className得到的是class属性
+</script>
+</html>

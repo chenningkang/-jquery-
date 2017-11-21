@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index</title>
+	<style>
+		*{
+			font-family: 微软雅黑;
+		}
+
+		.main{
+			width:1000px;
+			height:500px;
+			position: absolute;
+			left:50%;
+			top:50%;
+			margin-left:-500px;
+			margin-top:-250px;
+			box-shadow:0px 0px 5px 5px #000;
+		}
+		.shop{
+			width:200px;
+			height:200px;
+			overflow: hidden;
+			box-shadow:0px 0px 5px 5px #ccc;
+			float: left;
+			margin-left:40px;
+			margin-top:10px;
+		}
+
+		.img{
+			position: absolute;
+			border:10px solid #ccc;
+			border-radius:200px;
+			overflow: hidden;
+			width:200px;
+			height:200px;
+			display: none;
+		}
+	</style>
+	<script src="jquery.js"></script>
+</head>
+<body>
+	<div class='main'>
+		<div class='img'>
+			<img src="a.png" alt="">
+		</div>
+		<div class='shop'>
+			<img src="b.jpg" width='100%'>
+		</div>	
+		<div class='shop'>
+			<img src="b.jpg" width='100%'>
+		</div>	
+		<div class='shop'>
+			<img src="b.jpg" width='100%'>
+		</div>	
+		<div class='shop'>
+			<img src="b.jpg" width='100%'>
+		</div>	
+	</div>
+</body>
+<script>
+$('.shop').mouseenter(function(){
+	x=$(this).position().left+40;
+	y=$(this).position().top+10+200;
+
+	$('.img').show().css({'top':y+'px','left':x+'px'});
+});
+</script>
+</html>

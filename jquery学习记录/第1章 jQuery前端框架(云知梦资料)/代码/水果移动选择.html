@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index</title>
+	<style>
+		*{
+			font-family: 微软雅黑;
+		}
+		
+		select{
+			width:100px;
+			height:150px;
+		}
+	</style>
+	<script src="jquery.js"></script>
+</head>
+<body>
+	<h1>水果选择:</h1>
+	<form action="javascript:">
+		<select name="" id="s1" size='2'>
+			<option value="">西瓜</option>
+			<option value="">冬瓜</option>
+			<option value="">苹果</option>
+			<option value="">南瓜</option>
+		</select>
+
+		<input type="button" value=">>" id='btn'>
+
+		<select name="" id="s2" size='2'>
+		</select>
+	</form>	
+</body>
+<script>
+$('#btn').click(function(){
+	$('#s1 option:selected').appendTo('#s2');
+});
+</script>
+</html>

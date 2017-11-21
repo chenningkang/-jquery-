@@ -1,0 +1,43 @@
+﻿2016.5.9-CSS3样式
+
+transform:scale(2,3)
+#按比例放大或缩小
+2是向左右的距离变成原来的2倍
+3是向上下的距离变成原来的3倍
+------------------------------------------------
+
+
+transition:width 2s;
+#过滤动画:
+
+过滤例子:
+img{
+	transition:transform 2s;
+}
+
+img:hover{
+	transform:scale(1.5,1.5);
+}
+--------------------------------------------------
+2D样式:transform:  的样式有如下，主要就是设置如下的东西。
+
+e.g  transform:rotate(20deg) translate(5px,0px)
+
+1.translate()  //根据新的坐标会移动。
+2.rotate()  //旋转多少度
+3.scale()
+--------------------------------------------------
+
+
+3D样式:
+1.rorateX(30deg);
+2.rorateY(30deg);
+
+多栏:
+1.column-count  //分成几列
+2.column-gap    //中间的间距
+3.column-rule   //相当于border， ---border：4px solid red;
+
+轮廓样式:
+outline:2px solid #f00;  //轮廓的线条
+outline-offset:15px;  //轮廓的间距

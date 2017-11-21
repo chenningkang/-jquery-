@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index</title>
+	<style>
+		*{
+			font-family: 微软雅黑;
+		}
+		
+		select{
+			width:100px;
+			height:150px;
+		}
+	</style>
+	<script src="jquery.js"></script>
+</head>
+<body>
+	<img src="a.png" id="imgid">	
+</body>
+<script>
+imgobj=document.getElementById('imgid');
+
+$(imgobj).click(function(){
+	this.src='b.png'; 
+	// $(this).attr({'src':'b.png'});
+});
+</script>
+</html>

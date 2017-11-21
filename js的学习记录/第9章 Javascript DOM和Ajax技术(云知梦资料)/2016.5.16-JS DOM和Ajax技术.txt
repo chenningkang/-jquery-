@@ -1,0 +1,124 @@
+﻿2016.5.16-JS DOM和Ajax技术
+
+上次复习:
+----------------------------------------------
+1.事件对象
+2.事件方法
+3.window对象
+4.navigator对象
+5.location对象 
+6.screen对象
+7.history对象
+
+
+今天内容:
+----------------------------------------------
+DOM document object model(文档对象模型)
+
+DOM基础对象:
+1.document
+2.document.documentElement  //这个相当于html这个人物。比body要大
+3.document.head  //没啥意义
+4.document.title
+5.document.body  //和第二个差不多。
+
+获取元素对象方法:
+document.getElementById()
+document.getElementsByTagName()    //通过标签
+document.getElementsByClassName()  //得到的东西是集合，可以当做数组。
+document.getElementsByName()       //通过name属性的值  ，表单里面可以有name,有了name,才能给后台传值。
+-----------------------------------------------------------------------------下面三个都是集合。
+a 标签有name，是锚点，  表单元素也有。
+
+
+
+元素对象标准属性:
+#<form action='' method=''></form>,其中action和method是标准属性
+1.obj.id;
+2.obj.className;  //这个得到的是class 属性
+3.obj.style;
+4.obj.title;
+
+元素对象非标准属性:
+#<form action='' method='' age='5' sex='nv' index='3'></form>,其中age、sex和index是非标准属性
+1.obj.getAttribute('age');
+2.obj.setAttribute('age','50');
+
+元素对象js属性:
+obj.tagName;  //得到元素的标签
+obj.innerHTML; //标签里面的内容
+obj.outerHTML; //本标签的全部内容
+obj.textContent; //标签里面的文本属性
+
+直接获取dom元素对象集合:
+1.document.links;
+2.document.images;
+3.document.forms;
+4.document.anchors;
+5.tableObj.rows;  //表格里面的行集合
+6.tableRowObj.cells;  //表格里面的列集合
+7.selectObj.options;  //这个是所有pition的元素对象集合（这个地方主要是在select下拉框里面用到）
+#selectObj.selectedIndex;//获取下拉菜单中第几个option选项被选中.选中被选中的到低拍第几。从0开始。
+--------------------------------
+每一个下拉菜单都有一个方法，就是add();
+-----------------------------
+
+DOM实例:
+• [实例1:移入移出特效]
+• [实例2:循环点击换色]
+• [实例3:点击换行号]
+• [实例4:点击标题切换内容]
+• [实例5:多选、反选和全不选]
+• [实例6:选水果]
+
+//在for循环里，有一个事件，里面有个函数，那个函数里面的变量就要小心，就要用this,
+
+//与循环圈数有关的变量在函数里面不能使用。
+
+for(i=0;i<obj.length;i++){
+   obj[i].onmouseenter=function(){
+	//obj[i].style.background='red';这个写法是错误的，最后i=5;
+	this.style.background='red';
+    }
+}
+
+
+--------------------------
+对象不让移动，那我就移动字符串，
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

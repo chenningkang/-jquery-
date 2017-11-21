@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index</title>
+	<style>
+		*{
+			font-family: 微软雅黑;
+		}
+		#up{
+			cursor: pointer;
+		}
+	</style>
+</head>
+<body>
+	<form action="go.php" id='fid'>
+		<p>上传文件:</p>
+		<p><input type="file" id='tid'></p>
+	</form>
+	<h1>linux技术</h1>
+	<p>linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!</p>
+	<h1>提交表单:</h1>
+	<button id='submit'>Ok</button>
+	<button id='reset'>Cancel</button>
+</body>
+<script>
+fidobj=document.getElementById('fid');
+submitobj=document.getElementById('submit');
+resetobj=document.getElementById('reset');
+
+submitobj.onclick=function(){
+	fidobj.submit();
+}
+
+resetobj.onclick=function(){
+	fidobj.reset();
+}
+</script>
+</html>

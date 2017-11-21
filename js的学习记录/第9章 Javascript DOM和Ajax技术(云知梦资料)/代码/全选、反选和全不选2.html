@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index</title>
+	<style>
+		*{
+			font-family: 微软雅黑;
+		}
+	</style>
+</head>
+<body>
+	<form action="">
+		<p>选择爱好:</p>
+		<p>
+			<label>
+				<input type="checkbox" name="" id=""> 打篮球
+			</label>
+		</p>
+		<p>
+			<label>
+				<input type="checkbox" name="" id=""> 踢足球
+			</label>
+		</p>
+		<p>
+			<label>
+				<input type="checkbox" name="" id=""> 去游泳
+			</label>
+		</p>
+		<p>
+			<label>
+				<input type="checkbox" name="" id=""> 去游泳
+			</label>
+		</p>
+		<p>
+			<label>
+				<input type="checkbox" name="" id=""> 去游泳
+			</label>
+		</p>
+		<p>
+			<label>
+				<input type="checkbox" name="" id=""> 去游泳
+			</label>
+		</p>
+		<p>
+			<label>
+				<input type="checkbox" name="" id=""> 去游泳
+			</label>
+		</p>
+		<p>
+			<label>
+				<input type="checkbox" name="" id=""> 去游泳
+			</label>
+		</p>
+	</form>
+	<p>
+		<button id='all'>全选</button>
+		<button id='notall'>全不选</button>
+		<button id='unall'>反选</button>
+	</p>
+</body>
+<script>
+all=document.getElementById('all');
+notall=document.getElementById('notall');
+unall=document.getElementById('unall');
+objs=document.getElementsByTagName('input');
+
+all.onclick=function(){
+	for(i=0;i<objs.length;i++){
+		objs[i].checked=true;
+	}
+}
+
+notall.onclick=function(){
+	for(i=0;i<objs.length;i++){
+		objs[i].checked=false;
+	}
+}
+
+unall.onclick=function(){
+	for(i=0;i<objs.length;i++){
+		//三元运算符a?1:2;
+		objs[i].checked=objs[i].checked?false:true;
+	}
+}
+</script>
+</html>

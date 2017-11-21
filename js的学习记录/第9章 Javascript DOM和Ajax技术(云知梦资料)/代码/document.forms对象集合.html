@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index</title>
+	<style>
+		*{
+			font-family: 微软雅黑;
+		}
+	</style>
+</head>
+<body>
+	<form action="go.php">
+		<p>用户名:</p>
+		<p><input type="text" name='username'></p>
+		<p><input type="submit" value="Ok"></p>
+	</form>	
+	<hr>
+	<form action="go2.php">
+		<p>用户名:</p>
+		<p><input type="text" name='username'></p>
+		<p><input type="submit" value="Ok"></p>
+	</form>	
+
+	<button id='btn1'>表单1</button>
+	<button id='btn2'>表单2</button>
+</body>
+<script>
+btn1=document.getElementById('btn1');
+btn2=document.getElementById('btn2');
+objs=document.forms;
+
+btn1.onclick=function(){
+	objs[0].submit();
+}
+
+btn2.onclick=function(){
+	objs[1].submit();
+}
+</script>
+</html>

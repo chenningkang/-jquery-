@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index</title>
+	<style>
+		*{
+			font-family: 微软雅黑;
+		}
+		.error{
+			color:#f00;
+			font-weight: bold;
+			display: none;
+		}
+	</style>
+	<script src="jquery.js"></script>
+</head>
+<body>
+	<form action="reg.php" method='get'>
+		<p>用户名:</p>
+		<p>
+			<input type="text" name='username' class='auth'>
+			<span class='error'>用户名长度至少6位!</span>
+		</p>
+		<p>密码:</p>
+		<p>
+			<input type="text" name="password" class='auth'>
+			<span class='error'>密码长度至少8位!</span>
+		</p>
+		<p>确认密码:</p>
+		<p>
+			<input type="text" name='repassword' class='auth'>
+			<span class='error'>两次密码不一致!</span>
+		</p>
+		<p>邮箱:</p>
+		<p>
+			<input type="text" class="auth" name='email'>
+			<span class='error'>邮箱格式不正确!</span>
+		</p>
+		<p>手机号码:</p>
+		<p>
+			<input type="text" class="auth" name='phone' maxlength='11'>
+			<span class='error'>手机号码不正确!</span>
+		</p>
+		<p><input type="submit" value="Ok"></p>
+	</form>
+</body>
+<script>
+// 表单验证
+
+$('input[name=username]').blur(function(){
+	val=this.value;
+
+	if(val.length<6){
+		$(this).data({'s':0});
+		$(this).next().show();	
+	}else{
+		$(this).data({'s':1});
+		$(this).next().hide();	
+	}
+});
+
+$('input[name=password]').blur(function(){
+	val=this.value;
+
+	if(val.length<8){
+		$(this).data({'s':0});
+		$(this).next().show();	
+	}else{
+		$(this).data({'s':1});
+		$(this).next().hide();	
+	}
+});
+
+$('input[name=repassword]').blur(function(){
+	val1=$('input[name=password]').val();
+	val2=this.value;
+
+	if(val1!=val2){
+		$(this).data({'s':0});
+		$(this).next().show();
+	}else{
+		$(this).data({'s':1});
+		$(this).next().hide();
+	}
+});
+
+$('input[name=email]').blur(function(){
+	val=this.value;
+
+	if(!val.match(/^\w+@\w+\.\w+$/i)){
+		$(this).data({'s':0});
+		$(this).next().show();
+	}else{
+		$(this).data({'s':1});
+		$(this).next().hide();
+	}
+});
+
+$('input[name=phone]').blur(function(){
+	val=this.value;
+
+	if(!val.match(/^139\d{8}$/)){
+		$(this).data({'s':0});
+		$(this).next().show();
+	}else{
+		$(this).data({'s':1});
+		$(this).next().hide();
+	}
+});
+
+$('form').submit(function(){
+	$('.auth').blur();
+
+	tot=0;
+
+	$('.auth').each(function(){
+		tot+=$(this).data('s');
+	});
+
+	if(tot!=5){
+		return false;
+	}
+});
+</script>
+</html>

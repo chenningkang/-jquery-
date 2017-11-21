@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index</title>
+	<style>
+		*{
+			font-family: 微软雅黑;
+		}
+	</style>
+</head>
+<body>
+	
+</body>
+<script>
+function out(n,k){
+	for(i=1;i<=n;i++){
+		document.write('<h3>');
+		for(j=1;j<=i;j++){
+			document.write('<span>'+j+'x'+i+'='+(j*i)+'</span> ');
+		}
+		document.write('</h3>');
+	}
+
+	for(j=0;j<k;j++){
+		document.write('<hr>');   //取决于后面传入的参数。
+	}
+}
+
+out(5,3);
+	
+</script>
+</html>
+

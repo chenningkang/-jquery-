@@ -1,0 +1,178 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8">
+        <title>Score</title>
+        <style type="text/css">
+            body{margin:0px;padding:0px;}
+            #div1{width:100%;height:50px;float:left;}
+            #wenzi{float:left;position:absolute;left:50%;text-align:center;margin-left:-200px;background:#888;width:400px;height:50px;font-size:1cm;color:#0f0;}
+            #div3{float:left;width:250px;height:342px;}
+            #div4{float:left;width:392px;height:337px;text-align:center;position:absolute;left:50%;margin-left:-196px;margin-top:3px}
+            #div5{float:right;width:250px;height:342px;text-align:right;}
+        </style>
+    </head>
+    <body>
+         <div id="div1">
+              <div id="topleft" style="float:left;background:#f00;width:320px;height:50px;">
+                  
+              </div>
+              <div id="wenzi">小灰灰 <span style="color:#f00">PK</span> 小懒羊</div>
+              <div id="topright" style="float:right;background:#f00;width:320px;height:50px;">
+                  
+              </div>
+         </div>
+         <div id="div2" style="float:left;width:100%;height:342px;border-top:5px solid #888;">
+             <div id="div3">
+                 <img id="img1" class="img" src="jiaoxue/qing.jpg">
+             </div>
+             <div id="div4">
+                 <img id="img5" class="img" src="5.jpg" style="display:block">
+                 <embed id="img5swf" src="flash/1.swf" width="392" height="337" style="display:none"></embed>
+                 <embed id="img5swf2" src="flash/2.swf" width="392" height="337" style="display:none"></embed>
+             </div>
+             <div id="div5">
+                 <img id="img2" class="img" src="jiaoxue/kai.jpg">
+             </div>
+         </div>
+         <div id="div6" style="float:left;background:#888;width:100%;height:50px;">
+                 <button  onclick="qing()" id="button" name="button" style="float:left;width:169px;height:50px;font-size:1cm">换战袍</button>
+                 <button onclick="chuzhao(this.id)" id="qingcz" name="button" style="color:green;float:left;width:100px;height:50px;font-size:1cm;display:none">出招</button>
+                 <button onclick="dao()" id="startbutton" name="button" style="display:none;float:left;width:200px;height:50px;font-size:1cm;position:absolute;left:50%;margin-left:-100px;color:#f00">开始作战</button>
+                 <button onclick="kai()" id="button" name="button" style="float:right;width:169px;height:50px;font-size:1cm">换战袍</button>
+                 <button onclick="chuzhao(this.id)" id="kaicz" name="button" style="color:green;float:right;width:100px;height:50px;font-size:1cm;display:none">出招</button>
+         </div>
+         <div id="div7" style="float:left;background:#000;width:100%;height:200px;color:#0f0;overflow:auto;">
+            
+         </div>
+    </body>
+    <script>
+        var huan=[];
+        var suc=true;
+        var qingarr=["sanguo/sg1.jpg","sanguo/sg2.jpg","sanguo/sg3.jpg","sanguo/sg4.jpg","sanguo/sg5.jpg"];
+        var kaiarr=["sanguo/sg6.jpg","sanguo/sg7.jpg","sanguo/sg8.jpg","sanguo/sg9.jpg","sanguo/sg10.jpg"];
+        var daoarr=["sanguo/dao1.jpg","sanguo/dao2.jpg"];
+         function qing(){
+             img1.src=qingarr[Math.floor(Math.random()*qingarr.length)];
+             startbutton.style.display="none"; 
+             huan[0]=true;
+             if(huan[0]==true && huan[1]==true){
+                 startbutton.style.display="block"; 
+             }
+         }
+         function kai(){
+             img2.src=kaiarr[Math.floor(Math.random()*kaiarr.length)];
+             startbutton.style.display="none"; 
+             huan[1]=true;
+             if(huan[0]==true && huan[1]==true){
+                 startbutton.style.display="block"; 
+             }
+         }
+         function dao(){
+                 if(!suc){
+                     qingcz.onclick=function(){
+                        chuzhao(qingcz.id);
+                     };
+                     qingcz.innerHTML="出招";
+                     qingcz.style.color="green";
+                     kaicz.onclick=function(){
+                        chuzhao(kaicz.id);
+                     };
+                     kaicz.innerHTML="出招";
+                     kaicz.style.color="green";
+                     qingtot=0;
+                     kaitot=0;
+                     kaisx=0;
+                     topleft.style.width="360px";
+                     topright.style.width="360px";
+                     img5swf2.style.display="none";
+                     img5swf.style.display="block";
+                 }
+                 //img5.src=daoarr[Math.floor(Math.random()*daoarr.length)];
+                 img5.style.display="none";
+                 img5swf.style.display="block";
+                 qingcz.style.display="block";
+                 kaicz.style.display="block";
+                 
+         }
+         var zsarr=[{req:"华山剑法",xue:20,reply:"剑你老妈"},{req:"九阴神功",xue:20,reply:"我操,这也行"},{req:"天龙八部",xue:30,reply:"小心,我罚你默写"},{req:"一指禅",xue:5,reply:"我要告高胖去,哼"},{req:"太极拳法",xue:10,reply:"我躲还不行吗"},{req:"凌波微步",xue:20,reply:"我骑自行车压死你"},{req:"伏魔心法",xue:10,reply:"我的心好难受呀"},{req:"武当长拳",xue:10,reply:"这不是猩猩拳吗"},{req:"太玄神功",xue:20,reply:"噢,真是太玄了"},{req:"葵花宝典",xue:30,reply:"这啥损招呀"},{req:"玉女心经",xue:20,reply:"噢,我喜欢,有本事打呀"},{req:"六脉神剑",xue:20,reply:"没听说过呀,哪六脉呀"},{req:"童子功",xue:5,reply:"哎,这年头,童子不多啦"},{req:"八卦掌",xue:5,reply:"你也太八卦了吧"},{req:"大慈悲拳",xue:5,reply:"我好害怕呀"}];
+         var kaitot=0;
+         var qingtot=0;
+         var kaisx=0;
+         var qingsx=0;
+         function chuzhao(oid){
+              switch(oid){
+                case "qingcz":
+                    var obj=document.createElement("h3");
+                    var i=Math.floor(Math.random()*zsarr.length);
+                    obj.innerHTML="小强:"+zsarr[i].req+" | 文凯:"+zsarr[i].reply+" => 文凯损失了"+zsarr[i].xue+"滴血!";
+                    obj.style.color="#f00";
+                    setTimeout(function(){
+                        obj.style.color="#0f0";
+                    },1000);
+                    div7.appendChild(obj);
+                    kaitot+=zsarr[i].xue;
+                    kaisx=kaitot;
+                    if(kaitot>=100){
+                        kaisx=100;
+                    }
+                    var kaibf=kaisx/100;
+                    topright.style.width=parseInt(topright.style.width)-(kaibf*parseInt(topright.style.width))+"px";
+                    if(kaibf==1){
+                       topright.style.width="0px"; 
+                    }
+                    var h=div7.scrollHeight;
+                    div7.scrollTop=h-195;
+                    if(kaitot>=100){
+                        startbutton.innerHTML="重新布阵";
+                        qingcz.innerHTML="胜出";
+                        qingcz.style.color="red";
+                        kaicz.innerHTML="惨死";
+                        kaicz.style.color="red";
+                        qingcz.onclick=function(){return false};
+                        kaicz.onclick=function(){return false};
+                        suc=false;
+                        img5swf2.style.display="block";
+                        img5swf.style.display="none";
+                    }
+                    break;
+                case "kaicz":
+                    var obj=document.createElement("h3");
+                    obj.innerHTML="文凯:";
+                    var i=Math.floor(Math.random()*zsarr.length);
+                    obj.innerHTML="文凯:"+zsarr[i].req+" | 小强:"+zsarr[i].reply+" => 小强损失了"+zsarr[i].xue+"滴血!";
+                    obj.style.color="#f00";
+                    setTimeout(function(){
+                        obj.style.color="#0f0";
+                    },1000);
+                    div7.appendChild(obj);
+                    qingtot+=zsarr[i].xue;
+                    qingsx=qingtot;
+                    if(qingtot>=100){
+                        qingsx=100;
+                    }
+                    var qingbf=qingsx/100;
+                    topleft.style.width=parseInt(topleft.style.width)-(qingbf*parseInt(topleft.style.width))+"px";
+                    if(qingbf==1){
+                       topleft.style.width="0px"; 
+                    }
+                    var h=div7.scrollHeight;
+                    div7.scrollTop=h-195;
+                    if(qingtot>=100){
+                        startbutton.innerHTML="重新布阵";
+                        kaicz.innerHTML="胜出";
+                        kaicz.style.color="red";
+                        qingcz.innerHTML="惨死";
+                        qingcz.style.color="red";
+                        kaicz.onclick=function(){return false};
+                        qingcz.onclick=function(){return false};
+                        img5swf2.style.display="block";
+                        img5swf.style.display="none";
+                    }
+                    suc=false;
+                    break;
+              }
+          }
+    </script>
+</html>

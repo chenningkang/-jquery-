@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index</title>
+	<style>
+		*{
+			font-family: 微软雅黑;
+		}
+
+		.jiu{
+			width:180px;
+			overflow: hidden;
+			float: left;
+			margin-left:35px;
+			margin-top:15px;
+		}
+
+	</style>
+	<script src="jquery.js"></script>
+</head>
+<body>
+	<div class='jiu'>
+		<img src="jiu.jpg" alt="">		
+	</div>
+	<div class='jiu'>
+		<img src="jiu.jpg" alt="">		
+	</div>
+	<div class='jiu'>
+		<img src="jiu.jpg" alt="">		
+	</div>
+	<div class='jiu'>
+		<img src="jiu.jpg" alt="">		
+	</div>
+	<div class='jiu'>
+		<img src="jiu.jpg" alt="">		
+	</div>
+	<div class='jiu'>
+		<img src="jiu.jpg" alt="">		
+	</div>
+	<div class='jiu'>
+		<img src="jiu.jpg" alt="">		
+	</div>
+	<div class='jiu'>
+		<img src="jiu.jpg" alt="">		
+	</div>
+	<div class='jiu'>
+		<img src="jiu.jpg" alt="">		
+	</div>
+	<div class='jiu'>
+		<img src="jiu.jpg" alt="">		
+	</div>
+	<div class='jiu'>
+		<img src="jiu.jpg" alt="">		
+	</div>
+</body>
+<script>
+$('img').hover(
+	function(){
+		$(this).animate({
+			'margin-left':'-100px'
+		},500);
+	},
+	function(){
+		$(this).animate({
+			'margin-left':'0px'
+		},500);
+	}
+);
+</script>
+</html>

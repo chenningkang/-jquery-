@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index</title>
+	<style>
+		.container{
+			width:1200px;
+			/*background: #ccc;*/
+			height:600px;
+			margin:0 auto;
+		}
+
+		header{
+			height:50px;
+			background: #272822;
+		}
+
+		section{
+			height:500px;
+			margin:15px 0px;
+		}
+
+		footer{
+			height:50px;
+			background: #272822;
+		}
+
+		article{
+			float:left;
+			margin-left:30px;
+		}
+	</style>
+</head>
+<body>
+	<!-- 主体 -->
+	<div class="container">
+		<!-- 头部 -->
+		<header>
+			
+		</header>
+
+		<!-- 体部 -->
+		<section>
+			<audio src="go.mp3" controls="controls" id='vid'></audio> 
+			<p>
+				<button onclick='start()'>播放</button>
+				<button onclick='pause()'>暂停</button>
+			</p>
+		</section>
+
+		<!-- 尾部 -->
+		<footer>
+			
+		</footer>	
+	</div>
+</body>
+<script>
+//找到视频对象
+vid=document.getElementById('vid');
+
+//开始
+function start(){
+	vid.play();	
+}
+
+//暂停
+function pause(){
+	vid.pause();	
+}
+</script>
+</html>

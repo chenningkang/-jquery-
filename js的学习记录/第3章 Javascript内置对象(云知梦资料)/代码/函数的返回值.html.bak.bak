@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index</title>
+	<style>
+		*{
+			font-family: 微软雅黑;
+		}
+		.clock{
+			width:100%;
+			height:50px;
+			background: #000;
+			color:#0f0;
+			font-weight: bold;
+			border-radius:50px;
+			text-align:center;
+			line-height:50px;
+		}
+	</style>
+</head>
+<body>
+	<div class="clock">
+		<span>提交成功，<span id='sid'>3</span>秒后页面即将跳转到百度!</span>
+	</div>
+
+</body>
+<script>
+function getExt(str){
+	pos=str.lastIndexOf('.');
+	ext=str.substr(pos+1);
+	return ext;  //alert(ext);这样就返回了。
+}
+
+str='/web/home/index.php';
+ext=getExt(str);  //这里就调用这个函数，然后往里面传入参数，返回值给ext
+
+alert(ext);
+</script>
+</html>
+

@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>酒仙网后台</title>
+	<style>
+		*{
+			font-family: 微软雅黑;
+		}
+
+		@font-face
+		{
+			font-family: my;
+			src: url('../public/bs/fonts/glyphicons-halflings-regular.ttf');
+		}
+
+		*{
+			font-family: my;
+		}
+		
+		div{
+			width:500px;
+			height:300px;
+		}	
+	</style>
+	<link rel="stylesheet" href="../public/bs/css/bootstrap.min.css">
+	<script src="../public/js/jquery.min.js"></script>
+	<script src="../public/bs/js/bootstrap.min.js"></script>
+	<script src='../public/js/jquery.toggle.js'></script>
+</head>
+<body>
+	<img src="public/img/a.png" alt="">	
+</body>
+<script>
+$('img').toggle(
+	function(){
+		this.src='public/img/b.png';
+	},
+	function(){
+		this.src='public/img/a.png';
+	}
+);	
+</script>
+</html>

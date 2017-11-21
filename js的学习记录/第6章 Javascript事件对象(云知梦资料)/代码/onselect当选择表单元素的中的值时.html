@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>index</title>
+	<style>
+		*{
+			font-family: 微软雅黑;
+		}
+	</style>
+</head>
+<body>
+	<form action="">
+		<p>用户名:</p>
+		<p><input type="text" id='ipt' value='小金'></p>
+		<p>密码:</p>
+		<p><input type="text" value='123456'></p>
+		<p><input type="submit" value="Ok"></p>
+	</form>	
+</body>
+<script>
+iptobj=document.getElementById('ipt');
+
+iptobj.onselect=function(){
+	this.value='user1';
+}
+</script>
+</html>

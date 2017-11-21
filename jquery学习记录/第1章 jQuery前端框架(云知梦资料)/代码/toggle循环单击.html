@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index</title>
+	<style>
+		*{
+			font-family: 微软雅黑;
+		}
+	</style>
+	<script src="jquery.js"></script>
+</head>
+<body>
+	<img src="a.png" alt="">		
+</body>
+<script>
+$('img').toggle(
+	function(){
+		this.src='b.png';
+	},
+	function(){
+		this.src='a.png';
+	}
+);
+</script>
+</html>

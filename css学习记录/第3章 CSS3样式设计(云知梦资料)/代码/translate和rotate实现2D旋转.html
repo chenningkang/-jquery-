@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index</title>
+	<style>
+		*{
+			font-family: 微软雅黑;
+			margin:0px;
+		}
+		
+		div{
+			width:256px;
+			height:256px;
+			background: #ccc;
+			transform:rotate(45deg);  /*首先来个旋转的角度*/
+			overflow:hidden;  
+		}	
+
+	</style>
+	<script src='jquery.min.js'></script>
+</head>
+<body>
+	<div>
+		<img src="dog.png" alt="">	
+	</div>
+</body>
+<script>
+$('div').click(function(){
+	s=0;
+	v=10;
+	obj=$(this);
+	setInterval(function(){
+		s+=v;
+		obj.css({'transform':'rotate(45deg) translate('+s+'px,0px)'});
+	},10);
+});	
+</script>
+</html>

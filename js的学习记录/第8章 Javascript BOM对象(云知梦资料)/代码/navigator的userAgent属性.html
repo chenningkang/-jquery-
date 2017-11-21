@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index</title>
+	<style>
+		*{
+			font-family: 微软雅黑;
+		}
+	</style>
+</head>
+<body>
+	<h1>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</h1>
+</body>
+<script>
+nav=navigator.userAgent;
+
+ntype=nav.match(/chrome|firefox|trident/i); //这个就是判断谷歌，火狐，IE
+               
+
+switch(ntype[0]){  //这个地方取出来的就是个数组，所以要具体到哪一个。
+	case 'Chrome':
+		document.body.style.background='#f00';
+		break;
+
+	case 'Firefox':
+		document.body.style.background='#0f0';
+		break;
+
+	case 'Trident':
+		document.body.style.background='#00f';
+		break;
+
+}
+</script>
+</html>

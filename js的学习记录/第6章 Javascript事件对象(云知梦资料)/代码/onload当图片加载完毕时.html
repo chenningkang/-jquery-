@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>index</title>
+	<style>
+		*{
+			font-family: 微软雅黑;
+		}
+	</style>
+</head>
+<body>
+	<img src="fb.png" id="imgid">	
+</body>
+<script>
+imgobj=document.getElementById('imgid');	
+imgobj.onload=function(){
+	w=imgobj.clientWidth; //图片的宽
+	h=imgobj.clientHeight; //图片的高
+
+	alert(w+'-'+h);
+}
+</script>
+</html>

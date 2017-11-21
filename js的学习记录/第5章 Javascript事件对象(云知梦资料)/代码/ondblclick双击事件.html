@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index</title>
+	<style>
+		img{
+			cursor:pointer;
+		}
+	</style>
+</head>
+<body>
+	<img src="a.png" id="imgid">	
+</body>
+<script>
+//js特效
+imgobj=document.getElementById('imgid');
+
+//事件触发
+imgobj.ondblclick=function(){
+	//属性改变
+	this.src='b.png';
+	imgobj.style.background='#ccc';
+	imgobj.style.borderRadius='256px';
+}
+</script>
+</html>

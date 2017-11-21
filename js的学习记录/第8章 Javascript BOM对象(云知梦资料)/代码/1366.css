@@ -1,0 +1,13 @@
+*{
+	font-family: 微软雅黑;
+	margin:0px;
+	padding:0px;
+}
+
+.main{
+	width:1300px;
+	height:400px;
+	background: #f00;
+	margin:0 auto;  <!--居中-->
+	border-radius:5px; <!--圆角-->
+}

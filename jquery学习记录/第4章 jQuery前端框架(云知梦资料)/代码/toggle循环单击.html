@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <title>index</title>
+    <style>
+    	#div1{
+    		position: absolute;
+    		top:0px;
+    		left:0px;
+    		border-radius:256px;
+    		width:256px;
+    		height:256px;
+    		background: #ccc;
+    		overflow: hidden;
+    	}
+    </style>
+    <script src="jquery.js"></script>
+</head>
+<body>
+    <div id="div1">
+         <img src="a.png">
+    </div>
+</body>
+<script>
+$('img').toggle(
+	function(){
+		this.src='b.png';
+	},
+	function(){
+		this.src='a.png';
+	}
+);
+</script>
+</html>
+

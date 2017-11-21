@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index</title>
+	<style>
+		*{
+			font-family: 微软雅黑;
+		}
+	</style>
+</head>
+<body>
+	<form action="">
+		<p>用户名:</p>
+		<p><input type="text" name='username'></p>
+		<p>密码:</p>
+		<p><input type="text" name='password'></p>
+		<p><input type="submit" value="Ok"></p>
+	</form>
+</body>
+<script>
+usernameobj=document.getElementsByName('username');
+usernameobj[0].onfocus=function(){
+	this.style.outlineColor='#f00';
+}
+</script>
+</html>

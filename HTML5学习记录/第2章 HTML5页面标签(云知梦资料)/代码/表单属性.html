@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index</title>
+	<style>
+		*{
+			font-family: 微软雅黑;
+		}
+
+		td{
+			text-align:left;
+			height:40px;
+		}
+
+		textarea{
+			resize:none;
+		}
+	</style>
+</head>
+<body>
+	<h1>请注册:</h1>
+	<form action="reg.php" method='post' enctype='multipart/form-data'>   <!--enctype='multipart/form-data'-->
+		<p>用户名:</p>
+		<p><input type="text" name='username' maxlength='6' disabled value='小田'></p>
+		<p>密码:</p>
+		<p><input type="text" name='password'></p>
+		<p>文件上传:</p>
+		<p><input type="file" name='repassword'></p>
+		<p>邮箱:</p>
+		<p><input type="text" name='mail' readonly value='user1@qq.com'></p>
+
+		<p>选择收货地址:</p>
+		<p>
+			<select name="city">
+				<option value="">北京</option>
+				<option value="">上海</option>
+				<option value="">广州</option>
+			</select>
+		</p>
+
+		<p>性别:</p>
+		<p>
+			<label><input type="radio" name="sex"> 男</label>
+			<label><input type="radio" name="sex"> 女</label>
+			<label><input type="radio" name="sex"> 中</label>
+		</p>
+
+		<p>爱好:</p>
+		<p>
+			<label><input type="checkbox" name="love"> 打篮球</label>
+			<label><input type="checkbox" name="love"> 踢足球</label>
+			<label><input type="checkbox" name="love"> 开大车</label>
+			<label><input type="checkbox" name="love"> 理发</label>
+		</p>		
+
+		<p>请留言:</p>
+		<textarea name="mess" cols="100" rows="5"></textarea>
+
+		<p>
+			<input type="submit" value='Ok'>
+			<input type="reset" value='Cancel'>
+		</p>
+	</form>	
+</body>
+</html>

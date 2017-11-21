@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index</title>
+	<style>
+		*{
+			font-family: 微软雅黑;
+		}
+		div{
+			background: #ccc;
+		}
+	</style>
+	<script src="jquery.js"></script>
+</head>
+<body>
+	<div>
+		<img src="a.png" alt="">
+	</div>
+</body>
+<script>
+$('img').load(function(){
+	w=$('img').width();
+	h=$('img').height();
+	alert(w+'|'+h);
+});
+</script>
+</html>

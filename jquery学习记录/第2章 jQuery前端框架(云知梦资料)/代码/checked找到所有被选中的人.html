@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index</title>
+	<style>
+		*{
+			font-family: 微软雅黑;
+		}
+	</style>
+	<script src="jquery.js"></script>
+</head>
+<body>
+	<form action="">
+		<p>选择爱好:</p>
+		<p>
+			<label>
+				<input type="checkbox" name="" id=""> 打篮球
+			</label>
+		</p>
+		<p>
+			<label>
+				<input type="checkbox" name="" id=""> 踢足球
+			</label>
+		</p>
+		<p>
+			<label>
+				<input type="checkbox" name="" id=""> 去游泳
+			</label>
+		</p>
+		<p>
+			<label>
+				<input type="checkbox" name="" id=""> 去游泳
+			</label>
+		</p>
+		<p>
+			<label>
+				<input type="checkbox" name="" id=""> 去游泳
+			</label>
+		</p>
+		<p>
+			<label>
+				<input type="checkbox" name="" id=""> 去游泳
+			</label>
+		</p>
+		<p>
+			<label>
+				<input type="checkbox" name="" id=""> 去游泳
+			</label>
+		</p>
+		<p>
+			<label>
+				<input type="checkbox" name="" id=""> 去游泳
+			</label>
+		</p>
+	</form>
+	<p>
+		<button id='all'>全选</button>
+		<button id='notall'>全不选</button>
+		<button id='unall'>反选</button>
+		<button id='ok'>ok</button>
+	</p>
+	<hr>
+	<div class='info'>
+			
+	</div>
+</body>
+<script>
+$('#all').click(function(){
+	$(':checkbox').attr({'checked':true});
+});
+
+$('#notall').click(function(){
+	$(':checkbox').attr({'checked':false});
+});
+
+$('#unall').click(function(){
+	$(':checkbox').each(function(){
+		this.checked=!this.checked;
+	});
+});
+
+$('#ok').click(function(){
+	$(':checked').parent().parent().appendTo('.info');
+});
+</script>
+</html>
+

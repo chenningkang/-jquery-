@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <title>index</title>
+    <style type="text/css">
+        body{margin:0px;padding:0px}
+        .gezi{;width:124px;height:124px;float:left;}
+        #info body 
+    </style>
+    <script src="jquery.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+   <div id="main" style="background:#393;">
+        <div id="qipan" style="width:620px;height:620px;background:#fff url('back.png') no-repeat;margin:0 auto">
+        </div>
+   </div>
+   <div id="info">
+         
+   </div>
+</body>
+<script>
+    var langclk=false;
+    var yangclk=false;
+    var langpos,yangpos;
+    var langele='<img class="lang" src="lang.png">';
+    var yangele='<img class="yang" src="yang.png">';
+    var fillele='<span class="fill"></span>';
+    for(var i=0;i<25;i++){
+        if(i<1){
+            $("#qipan").append('<div style="float:left;" class="gezi" xpos='+(i%5)+' ypos='+Math.floor(i/5)+'><span class="fill"></span></div>');
+        }else if(i>=1 && i<=3){
+            $("#qipan").append('<div style="float:left" class="gezi" xpos='+(i%5)+' ypos='+Math.floor(i/5)+'><img class="lang" src="lang.png"></div>');    
+        }else if(i==4){
+            $("#qipan").append('<div style="float:left" class="gezi" xpos='+(i%5)+' ypos='+Math.floor(i/5)+'><span class="fill"></span></div>');
+        }else if(i>=5 && i<=9){
+            $("#qipan").append('<div style="float:left" class="gezi" xpos='+(i%5)+' ypos='+Math.floor(i/5)+'><span class="fill"></span></div>');
+        }else if(i>=10){
+            $("#qipan").append('<div style="float:left" class="gezi" xpos='+(i%5)+' ypos='+Math.floor(i/5)+'><img class="yang" src="yang.png"></div>');    
+        }
+    }
+    $(".gezi").css("cursor","pointer").click(function(){
+        if($(this).children().attr("class")=="lang"){
+            langclk=true;
+            yangclk=false;
+            langobj=$(this);
+        }
+        if($(this).children().attr("class")=="yang"){
+            yangclk=true;
+            yangobj=$(this);
+            var langlength=parseInt(langobj.attr("xpos"))+parseInt(langobj.attr("ypos"));
+            var yanglength=parseInt($(this).attr("xpos"))+parseInt($(this).attr("ypos"));
+            var langxpos=parseInt(langobj.attr("xpos"));
+            var langypos=parseInt(langobj.attr("ypos"));
+            var yangxpos=$(this).attr("xpos");
+            var yangypos=$(this).attr("ypos");
+            if(langclk && (Math.abs(langlength-yanglength)==2) && (langxpos==yangxpos || langypos==yangypos)){
+                $(this).html(langobj.children());     
+                langobj.html(fillele);
+            }
+            langclk=false;
+        }
+        if($(this).children().attr("class")=="fill"){
+            if(langclk){
+                var langlength=parseInt(langobj.attr("xpos"))+parseInt(langobj.attr("ypos"));
+                var filllength=parseInt($(this).attr("xpos"))+parseInt($(this).attr("ypos"));
+                var langxpos=parseInt(langobj.attr("xpos"));
+                var langypos=parseInt(langobj.attr("ypos"));
+                var fillxpos=$(this).attr("xpos");
+                var fillypos=$(this).attr("ypos");
+                if(Math.abs(langlength-filllength)==1 && (langxpos==fillxpos || langypos==fillypos)){
+                    $(this).html(langobj.children());
+                    langobj.html(fillele);
+                    langclk=false;
+                }
+            }
+            if(yangclk){
+                var yanglength=parseInt(yangobj.attr("xpos"))+parseInt(yangobj.attr("ypos"));
+                var filllength=parseInt($(this).attr("xpos"))+parseInt($(this).attr("ypos"));
+                var yangxpos=parseInt(yangobj.attr("xpos"));
+                var yangypos=parseInt(yangobj.attr("ypos"));
+                var fillxpos=$(this).attr("xpos");
+                var fillypos=$(this).attr("ypos");
+                if(Math.abs(yanglength-filllength)==1 && (yangxpos==fillxpos || yangypos==fillypos)){
+                    $(this).html(yangobj.children());
+                    yangobj.html(fillele);
+                    yangclk=false;
+                }
+            }
+        }
+    });
+</script>
+</html>

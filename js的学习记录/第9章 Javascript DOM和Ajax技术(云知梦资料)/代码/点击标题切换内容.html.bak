@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index</title>
+	<style>
+		*{
+			font-family: 微软雅黑;
+		}
+	</style>
+</head>
+<body>
+	<h1>linux</h1>
+	<p>linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!</p>
+	<h1>linux</h1>
+	<p>linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!</p>
+	<h1>linux</h1>
+	<p>linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!</p>
+	<h1>linux</h1>
+	<p>linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!</p>
+	<p>linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!</p>
+	<p>linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!</p>
+	<p>linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!linux is very much!</p>
+</body>
+<script>
+objs=document.getElementsByTagName('h1');
+ps=document.getElementsByTagName('p');
+
+for(i=0;i<objs.length;i++){
+	objs[i].setAttribute('bj',i); //首先给每个h来个标记
+	objs[i].setAttribute('num',0);	//这里给每个h来个数字是为了以后循环点击的时候会用到。
+	ps[i].id=i;  //然后给每个p也来个标记。
+
+	objs[i].onclick=function(){
+		num=parseInt(this.getAttribute('num')); //把那个循环数字拿到
+		bj=this.getAttribute('bj');  //把标记拿到
+		np=document.getElementById(bj);  //然后通过标记找到相应的p标签
+
+		if(num%2==0){   //然后就判断循环点击的那个数字。
+			//下面的p标签隐藏
+			np.style.display='none';
+		}else{
+			//下面的p标签显示
+			np.style.display='block';
+		}
+		this.setAttribute('num',num+1);  //完了之后马上要给那个数字加1.
+	};
+}
+</script>
+</html>

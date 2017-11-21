@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index</title>
+	<style>
+		.img{
+			background: #ccc;
+			width:256px;
+			height:256px;
+			border-radius:256px;
+			overflow: hidden;
+		}	
+	</style>
+	<script src="jquery.min.js"></script>
+</head>
+<body>
+	<div class='img'>
+		<img src="dog.png" alt="">
+	</div>
+</body>
+<script>
+s=0;
+v=10;
+$('.img').click(function(){
+	setInterval(function(){
+		s+=v;
+		$('.img').css({'transform':'rotateX('+s+'deg)'});
+	},500);
+});
+</script>
+</html>

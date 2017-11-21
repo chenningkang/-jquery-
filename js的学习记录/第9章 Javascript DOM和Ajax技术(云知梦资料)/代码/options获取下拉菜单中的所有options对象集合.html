@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index</title>
+	<style>
+		*{
+			font-family: 微软雅黑;
+		}
+	</style>
+</head>
+<body>
+	<form action="javascript:">
+		<p>选择城市:</p>
+		<p>
+			<select id="sid">
+				<option value="北京" order='1'>北京</option>
+				<option value="上海" order='5'>上海</option>
+				<option value="太原" order='20'>太原</option>
+			</select>
+		</p>
+		<p><input type="button" value="Ok" id='btn'></p>
+	</form>
+</body>
+<script>
+btnobj=document.getElementById('btn');
+sidobj=document.getElementById('sid');
+
+btnobj.onclick=function(){
+	//最开始的做法就是如下：
+//	btnobj.onclick=function(){
+//		alert(sidonj.value);  //这样的话，你选择谁，他就输出谁
+//	}
+
+
+
+	idx=sidobj.selectedIndex;  //这个相当于获取了选中的元素的下标
+	opts=sidobj.options;  //这个是所有pition的对象集合
+	//opts=document.getElmentsByTagName('option');
+	alert('城市排名:'+opts[idx].getAttribute('order')); //这个就是得到元素的非标准属性。
+}
+</script>
+</html>

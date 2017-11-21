@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index</title>
+	<style>
+		*{
+			font-family: 微软雅黑;	
+		}
+		
+		textarea{
+			width:500px;
+			height:100px;
+			resize:none;
+		}	
+	</style>
+</head>
+<body>
+	<form action="">
+		<p>用户名:</p>
+		<p>
+			<input type="text" name='username'>
+		</p>
+
+		<p>留言:</p>
+		<p>
+			<textarea name="mess"></textarea>
+		</p>
+	</form>	
+</body>
+</html>

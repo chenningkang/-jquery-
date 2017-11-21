@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>index</title>
+	<style>
+		*{
+			font-family: 微软雅黑;
+		}
+	</style>
+</head>
+<body>
+	<form action="go.php" id='fid'>
+		<p>用户名:</p>
+		<p><input type="text" id='ipt' value='小金'></p>
+		<p>密码:</p>
+		<p><input type="text" value='123456'></p>
+		<p>
+			<input type="submit" value="Ok">
+			<input type="reset" value="Cancel">
+		</p>
+	</form>	
+</body>
+<script>
+fidobj=document.getElementById('fid');
+
+fidobj.onsubmit=function(){
+	r=confirm('您确认提交表单吗?');
+
+	if(!r){
+		return false;
+	}
+}
+
+fidobj.onreset=function(){
+	r=confirm('您确认清除表单数据吗?');
+
+	if(!r){
+		return false;
+	}
+
+}
+</script>
+</html>

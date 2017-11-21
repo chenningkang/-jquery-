@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index</title>
+	<style>
+		*{
+			font-family: 微软雅黑;	
+		}
+		
+		button{
+			cursor: pointer;
+		}
+	</style>
+</head>
+<body>
+	<button id='bid'>点击</button>	
+</body>
+<script>
+obj=document.getElementById('bid');
+obj.onclick=function(){
+	document.body.style.background='#00f';
+}
+
+</script>
+</html>

@@ -1,0 +1,99 @@
+﻿2016.4.27-HTML5页面标签
+
+文档类型:
+<!doctype html>
+
+网站代码结构:
+<html>
+	<head>
+		<meta charset="UTF-8">
+		#设置浏览器的阅读编码
+
+		<title>云知梦-太原PHP培训|山西PHP培训</title>
+		#设置网站首页的标题
+
+		<meta name="keywords" content="山西PHP培训,太原PHP培训,山西PHP开发>
+		#设置网站的关键字
+
+		<meta name="description" content="云知梦PHP培训-致力于PHP培训、LAMP技术培训,只为有梦想的人。>
+		#网站描述
+	</head>
+
+	<body>
+		<h1>云知梦，只为有梦想的人!</h1>	
+		<h1>云知梦，只为有梦想的人!</h1>	
+		#可见的网站骨架或实体内容
+
+	</body>
+</html>
+
+HTML5注释:
+<!-- 注释文字 -->
+
+html实体:
+&nbsp; 空格
+&lt;   <
+&gt;   >
+&laquo; <<
+&raquo; >>
+&times; x
+
+颜色:
+1.英文
+red
+green
+blue
+
+2.十进制
+rgb(255,0,0);
+rgb(0,255,0);
+rgb(0,0,255);
+
+3.十六进制
+#ffffff(#fff)  白色
+#ff0000(#f00)  红色
+#00ff00(#0f0)  绿色
+#0000ff(#00f)  蓝色
+#000000(#000)  黑色
+#ffff00(#ff0)  黄色
+#00ffff(#0ff)  青色
+#ff00ff(#f0f)  紫色
+
+4.带有透明度
+rgba(255,0,0,0.5);
+rgba(0,255,0,0.5);
+rgba(0,0,255,0.5);
+
+格式标签:
+br 换行,单标签
+nobr 不换行,双标签
+p  段落,align属性:left|center|right
+center 居中
+pre 按源代码显示     ---可以按照原格式输出。（比如就说在页面上显示java代码。）
+ul  无序列表
+ol  有序列表
+dl  自定义列表
+dt  自定义标题
+dd  自定义列表内容
+hr  导航线
+
+标签分类:
+1.块标签 
+#独占一行，自动换行  p  h1  div  
+
+2.行标签
+#自己有多宽占多宽  span  
+
+文本标签:
+p
+h1-h6
+i   //斜体字
+u   //下划线
+font
+
+图片:
+<img src="xj.png" alt="小金不在了!" title='小金的照片!' width='256px' height='256px' usemap="#mymap">
+
+<map name="mymap" id="mymap">
+  <area shape="circle" coords="170,100,21" href ="http://www.baidu.com" />
+</map>

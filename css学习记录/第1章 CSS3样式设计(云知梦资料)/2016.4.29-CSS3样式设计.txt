@@ -1,0 +1,105 @@
+﻿2016.4.29-CSS3样式设计
+
+今天内容:
+-----------------------------------------------
+html嵌套css样式:
+1.外部(推荐)
+2.内部
+3.内联(不推荐)
+
+样式表写法:
+img{
+	background:#ccc;
+	border-radius:256px;
+}
+
+css优先级如何:
+1.内联style
+2.id选择器
+3.class选择器
+4.标签
+
+css注释:
+/* css注释 */
+
+css长度单位:
+1.px
+2.em //这个表示倍数。
+
+css选择器:
+• 常用选择器
+• 基本选择器
+• 层级选择器
+• 伪类选择器
+• 属性选择器
+
+常用选择器:
+1.标签   <span>
+2.id     #id
+3.类     .class
+4.关联   .div2 .class(谁里面的谁，里面用空格表示) 
+5.组合   .div1,div2(谁和谁，和用逗号表示)
+
+基本选择器:
+• :first-child   e.g:  .class:first-child { 第一个元素}
+• :first-letter  e.g:  第一个字母，第一个汉字
+• :first-line	 e.g:  第一行，一般都会操作背景。
+• :last-child    e.g:  .class:last-child{ 最后一个元素}
+• :nth-child(2)  e.g:第几个元素
+
+层级选择器:
+• a b  a里面的b(所有的b)
+• a>b  a里面的子元素，不是孙子元素。
+• a+b  a后面的b元素，不是里面的b元素。
+
+伪类选择器:
+:hover   鼠标移动到身上的时候，
+:focus   当光标移动上身上的时候，（或得焦点。）
+::selection  被选择的时候，
+
+属性选择器: 
+• [id]   input[id]  input标签里面有id 属性的所有元素。
+• [id=use1]  input[id=aa]  input标签里面id=aa  的元素。
+• [name*=us] name属性里面含有us的字母。
+• [name^=en]  name属性里面已en开头的。
+• [name$=en]  name属性里面已en结尾的。
+
+常见的样式属性和值:
+1.字体与颜色
+2.背景属性
+3.文本属性
+4.边框属性
+5.鼠标光标属性
+6.列表样式
+7.定位属性
+8.内外边距
+9.浮动和清除浮动
+10.滚动条
+11.显示和隐藏
+
+字体:
+1.font-family 字体类型
+2.font-size   字体大小
+3.font-style  字体样式  表示是正常，还是斜体。italic：这个是斜体  normal:这个而是默认值
+4.font-weight 字体粗细 bold;表示粗体。
+
+文本:
+1.letter-spacing   字间距
+2.word-spacing     词间距（单词之间的间距）
+3.text-decoration  下划线  underline;  overline; line-thorugh;
+4.text-align       对齐
+5.text-indent      缩进   (首行缩颈)
+6.line-height      行高
+7.color            颜色
+8.word-break       折行
+
+背景:
+1.background-color   //背景颜色。
+2.background-image  :url（''）//背景图
+3.background-repeat //背景图是否重复
+4.background-attachment  : 这个适用于body.  fixed 固定 ;scroll;滚动（随着页面的滚动而滚动）  
+5.background-position  :位置的意思（背景图的位置样式）。  50% 50% ;宽 高   right center;   
+6:background:#ccc url('xg.png') no-repeat fixed  50% 50%  这个就是background的缩写。
+
+
+

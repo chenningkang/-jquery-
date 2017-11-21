@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index</title>
+	<style>
+		*{
+			font-family: 微软雅黑;
+		}
+	</style>
+</head>
+<body>
+	<h1 info='linux is very much!' id='hid' class='hcls'>linux is very much!</h1>
+</body>
+<script>
+hidobj=document.getElementById('hid');
+
+//都要有对象，所以说首先是获取接口，然后才是获取
+
+function getA(obj,attr){  //这里有两个属性，一个是元素对象，一个就是k,
+	return obj.getAttribute(attr);
+}
+
+alert(getA(hidobj,'class'));  //然后你要调用的时候，你在k,上就要加''
+
+function setA(obj,attr,value){  //这里有三个属性，一个是对象，一个是k ,一个是v.
+	obj.setAttribute(attr,value);
+}
+
+setA(hidobj,'info','php is very much!');  //然后要调用的时候，就要在k,v上分别加''
+
+
+//function  gets(aa,bb){
+//	return aa.getAttribute(bb);
+//}
+
+//function sets(aa,bb,cc){
+//	return aa.setAttribute(bb,cc);
+//}
+
+//hobj=document.getElementById('hid');
+
+//gets(hobj,'hcls');
+//sets(hobj,'woqu','haha');
+
+
+</script>
+</html>

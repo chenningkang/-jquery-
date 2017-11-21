@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index</title>
+	<style>
+		*{
+			font-family: 微软雅黑;
+		}
+		.main{
+			width:1300px;
+			margin:0 auto;
+		}
+
+		.img{
+			height:300px;
+			overflow: hidden;
+		}
+	</style>
+	<script src="jquery.js"></script>
+</head>
+<body>
+	<div class="main">
+		<div class="img">
+			<img src="c.jpg" alt="">
+		</div>
+		<br>
+		<button>左</button>
+		<button>右</button>
+		<button>上</button>
+		<button>下</button>
+	</div>
+</body>
+<script>
+$('button').eq(0).click(function(){
+	$('img').animate({
+		'margin-left':'-1300px',
+		'opacity':0,
+	},1000);
+});
+
+$('button').eq(1).click(function(){
+	$('img').animate({
+		'margin-left':'1300px',
+		'opacity':0,
+	},1000);
+});
+
+$('button').eq(2).click(function(){
+	$('img').animate({
+		'margin-top':'-300px',
+		'opacity':0,
+	},1000);
+});
+
+$('button').eq(3).click(function(){
+	$('img').animate({
+		'margin-top':'300px',
+		'opacity':0,
+	},1000);
+});
+</script>
+</html>

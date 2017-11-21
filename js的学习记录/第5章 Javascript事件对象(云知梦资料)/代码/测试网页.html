@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+ <head>
+    <meta charset="UTF-8">
+	<title>index</title>
+    <style>
+      img{   
+		
+			cursor:pointer; /*dfsdfsdfg*/
+			position: absolute; 
+			top:0px;  
+			left:0px;
+	   }
+    </style>
+ </head>
+ <body>
+    <img src='a.png' id='imgid'>
+ </body>
+ <script>
+	imgobj=document.getElementById("imgid");
+xs=0;
+xv=20;
+ys=0;
+yv=20;
+
+	document.onkeydown=function(event){
+			x=event.clientX;
+		    y=event.clientY;
+			kc=event.keyCode;
+			switch(kc){
+			  case 37:
+					xs-=xv;
+					imgobj.style.left=xs+'px';
+					imgobj.style.background='#f00';
+					break;
+			  case 38:
+					ys-=yv;
+					imgobj.style.top=ys+"px";
+					document.body.style.background="#0f0";
+					break;
+			  case 39:
+					xs+=xv;
+					imgobj.style.left=xs+"px";
+					imgobj.style.background="#00f";
+					break;
+			  case 40:
+					ys+=yv;
+					imgobj.style.top=ys+"px";
+					document.body.style.background="#f0f";
+					break;
+
+			
+			}
+	
+		
+	
+}	
+ </script>
+</html>

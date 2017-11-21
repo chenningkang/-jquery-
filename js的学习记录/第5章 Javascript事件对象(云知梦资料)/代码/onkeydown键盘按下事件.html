@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index</title>
+	<style>
+		img{
+			cursor:pointer;
+			position: absolute;
+			top:0px;
+			left:0px;
+		}
+	</style>
+</head>
+<body>
+	<img src="a.png" id="imgid">	
+</body>
+<script>
+imgobj=document.getElementById('imgid');
+
+xs=0;  //默认从0开始
+xv=30; //一次走30
+
+ys=0;
+yv=30;
+document.onkeydown=function(event){ //给整个文档绑定事件
+	kc=event.keyCode;  //键盘码
+	document.title=kc;
+
+	switch(kc){
+		case 37:
+			xs-=xv;
+			imgobj.style.left=xs+'px';
+			document.body.style.background='#f00';  //改变body区域的颜色
+			break;
+		case 38:
+			ys-=yv;
+			imgobj.style.top=ys+'px';
+			document.body.style.background='#0f0';
+			break;
+		case 39:
+			xs+=xv;
+			imgobj.style.left=xs+'px';
+			document.body.style.background='#00f';
+			break;
+		case 40:
+			ys+=yv;
+			imgobj.style.top=ys+'px';
+			document.body.style.background='#f0f';
+			break;
+	}
+}
+</script>
+</html>

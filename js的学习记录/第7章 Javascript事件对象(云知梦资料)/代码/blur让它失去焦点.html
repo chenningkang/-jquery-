@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index</title>
+	<style>
+		*{
+			font-family: 微软雅黑;
+		}
+	</style>
+</head>
+<body>
+	<form action="">
+		<p>用户名:</p>
+		<p><input type="text" value='小金' id='tid'></p>
+		<p><input type="submit" value="ok"></p>
+	</form>
+</body>
+<script>
+tidobj=document.getElementById('tid');
+tidobj.onkeydown=function(event){
+	kc=event.keyCode;
+	document.title=kc;
+	if(kc==32){
+		this.blur();
+	}
+}
+
+</script>
+</html>

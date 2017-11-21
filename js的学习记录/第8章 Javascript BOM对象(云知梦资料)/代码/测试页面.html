@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+ </head>
+ <body>
+  	<button id='top'>top</button>
+	<button id='left'>left</button>
+	<button id='right'>right</button>
+ </body>
+ <script>
+//	topobj=document.getElementById('top');
+//	leftobj=document.getElementById('left');
+//	rightobj=document.getElementById('right');
+
+//	topobj.onclick=function(){
+//		obj=window.top.frames;
+//		obj[0].document.body.style.background='#f00';
+	
+//	}
+
+	nv = navigator.userAgent;
+	nvs=nv.match(/chrome|firefox|trident/i);
+//	alert(nvs.length);
+//	alert(nvs[0])
+	switch(nvs[0]){
+		case 'Chrome':
+		document.body.style.background='#f00';
+		break;
+	
+	}
+
+
+ </script>
+
+
+
+</html>

@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index</title>
+	<style>
+		*{
+			font-family: 微软雅黑;
+		}
+	</style>
+</head>
+<body>
+	<script>
+		obj={'username':'陈宁康','age':'25','sex':'男'};  //这个就是个json对象
+
+		for(i in obj){
+			document.write('<h1>'+i+'->'+obj[i]+'</h1>');
+		}
+
+		less1=['a','b','c','d','e','f'];  //这个就是个数组
+		for(i in less1){
+			document.write('<h1>'+i+'->'+less1[i]+'</h1>');
+		}
+		
+		for(i=0;i<less1.length;i++){
+			document.write('<h1>'+less1[i]+'</h1>');
+		}
+		
+		json1={"name":"石佳宇","sex":"女","age":"25","heigh":"175"};
+		 
+		 for( i in json1 ){
+				document.write('<h1>'+json1[i]+'</h1>');  //for in 的循环遍历  对专门用来对json的//，不是对数组的
+
+		 }
+	</script>
+</body>
+</html>

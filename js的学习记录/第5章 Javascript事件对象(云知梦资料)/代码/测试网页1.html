@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <style>
+		img{
+			cursor:pointer; 
+			position: absolute; //这个是绝对定位，
+			top:0px;
+			left:0px;
+		}
+  </style>
+ </head>
+ <body>
+    <img  src="a.png" id="sid">
+ </body>
+ <script>
+	imgobj=document.getElementById('sid');
+
+	//当鼠标在页面的时候，移动就触发
+//	document.onmousemove=function(event){
+//		x=event.clientX;
+//		y=event.clientY;
+//		document.title=x+'--'+y;
+//		imgobj.style.left=x+"px";  //这里不是document了，这里一定要注意了
+//		imgobj.style.top=y+"px";
+//	}
+xs=0;
+xv=40;
+	document.onkeydown=function(event){
+		ke=event.keyCode;
+		document.title=ke;
+
+		switch(ke){
+			 case 39:
+				xs+=xv;
+				imgobj.style.left=xs+'px';
+				document.body.style.background="";
+			 break;
+		}
+
+
+	}
+
+	
+
+
+ </script>
+
+</html>

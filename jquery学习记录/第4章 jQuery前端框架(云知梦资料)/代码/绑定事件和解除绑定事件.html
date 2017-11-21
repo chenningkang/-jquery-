@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index</title>
+	<style>
+		*{
+			font-family: 微软雅黑;
+			margin:0px;
+			padding:0px;
+		}
+	</style>
+	<script src="jquery.js"></script>
+</head>
+<body>
+	<div>
+		<img src="a.png" alt="">
+	</div>	
+	<br>
+	<button>添加单击事件</button>
+	<button>删除单击事件</button>
+</body>
+<script>
+i=0;
+$('button').eq(0).click(function(){
+	$('img').bind('click',function(){
+		if(i%2==0){
+			this.src='b.png';
+		}else{
+			this.src='a.png';
+		}
+		i++;
+	});
+});
+
+$('button').eq(1).click(function(){
+	// $('img').unbind('click');
+	$('img').unbind();
+});
+</script>
+</html>

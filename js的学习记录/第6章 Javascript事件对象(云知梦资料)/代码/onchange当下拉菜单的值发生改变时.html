@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>index</title>
+	<style>
+		*{
+			font-family: 微软雅黑;
+		}
+	</style>
+</head>
+<body>
+	<form action="">
+		<p>选择城市:</p>	
+		<p>
+			<select id="s1">
+				<option value="选择城市">选择城市</option>
+				<option value="北京">北京</option>
+				<option value="上海">上海</option>
+				<option value="广州">广州</option>
+			</select>
+		</p>
+		<h3>请确认您选择的城市: <span id='s2'>太原</span></h3>
+	</form>	
+</body>
+<script>
+s1obj=document.getElementById('s1');
+s2obj=document.getElementById('s2');
+
+s1obj.onchange=function(){
+	s1val=this.value;  //获取s1的值
+	s2obj.innerHTML=s1val;  //标签内部的内容
+}
+</script>
+</html>

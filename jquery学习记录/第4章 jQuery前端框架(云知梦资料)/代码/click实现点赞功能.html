@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index</title>
+	<style>
+		*{
+			font-family: 微软雅黑;
+			margin:0px;
+			padding:0px;
+		}
+	</style>
+	<script src="jquery.js"></script>
+</head>
+<body>
+	<div>
+		<img src="a.png">
+	</div>	
+	<br>
+	<button>点赞(<span>50</span>)</button>	
+</body>
+<script>
+i=0;
+$('button').click(function(){
+	if(i==0){
+		val=parseInt($('span').html())+1;
+		$('span').html(val);
+		$(this).css({'background':'#00f','color':'#fff'});
+	}else{
+		alert('您已经点过赞了，不要贪杯噢!');	
+	}
+	i++;
+});
+</script>
+</html>

@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index</title>
+	<style>
+		*{
+			font-family: 微软雅黑;
+		}
+	</style>
+</head>
+<body>
+	<a href="http://www.baidu.com">
+		<img src="" id='imgid'>
+	</a>	
+</body>
+<script>
+imgobj=document.getElementById('imgid');
+r=prompt('请输入图片的名字:');
+img=r+'.png';
+
+imgobj.src=img;
+</script>
+</html>

@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index</title>
+	<style>
+		*{
+			font-family: 微软雅黑;
+		}
+	</style>
+</head>
+<body>
+	<form action="" id='aid'>
+		<p>用户名:</p>
+		<p><input type="text"></p>
+		<p>密码:</p>
+		<p><input type="text"></p>
+		<p><input type="submit" value="Ok"></p>
+	</form>
+</body>
+<script>
+aidobj=document.getElementById('aid'); //这个就是form整个对象，你提交的时候，就是提交的form表单。
+
+x=5;//这个就是个全局变量
+aidobj.onsubmit=function(){
+	if(x<3){
+		alert('x<3');
+		return false;  //这个就是表示阻止表单提交了。
+	}else{
+		this.action='web.php';
+	}
+}
+</script>
+</html>

@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>index</title>
+	<style>
+		*{
+			font-family: 微软雅黑;
+			margin:0px;
+			padding:0px;
+		}
+
+		#imgid{
+			position: absolute;
+			top:0px;
+			left:0px;
+		}
+	</style>
+</head>
+<body>
+	<img src="fb.jpg" id='imgid'>
+</body>
+<script>
+imgobj=document.getElementById('imgid');
+
+imgobj.onload=function(){
+	// 可视区域的高
+	screenHeight=document.documentElement.clientHeight;
+	imgHeight=imgobj.clientHeight; //得到图片的高
+	diffHeight=screenHeight-imgHeight;
+
+	// 可视区域的宽
+	screenWidth=document.documentElement.clientWidth;
+	imgWidth=imgobj.clientWidth;  //得到图片的宽
+	diffWidth=screenWidth-imgWidth;
+
+	ys=0;
+	yv=10;
+
+	xs=0;
+	xv=10;
+
+	setInterval(function(){
+		// y轴
+		ys+=yv;
+		if(ys>=diffHeight){
+			ys=diffHeight;
+			yv=-yv;
+		}
+		if(ys<=0){
+			yv=-yv;
+		}
+		imgobj.style.top=ys+'px';
+
+		// x轴
+		xs+=xv;
+		if(xs>=diffWidth){
+			xs=diffWidth;
+			xv=-xv;
+		}
+		if(xs<=0){
+			xv=-xv;
+		}
+		imgobj.style.left=xs+'px';
+	},10);
+}
+
+</script>
+</html>
+

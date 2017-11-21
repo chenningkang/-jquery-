@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index</title>
+	<style>
+		*{
+			font-family: 微软雅黑;
+		}
+		
+		select{
+			width:100px;
+			height:150px;
+		}
+	</style>
+	<script src="jquery.js"></script>
+</head>
+<body>
+	<h1>aaaaaaaaaaaaaaaaaaaaaa</h1>
+	<h1>aaaaaaaaaaaaaaaaaaaaaa</h1>
+	<h1>aaaaaaaaaaaaaaaaaaaaaa</h1>
+	<h1>aaaaaaaaaaaaaaaaaaaaaa</h1>
+	<h1>aaaaaaaaaaaaaaaaaaaaaa</h1>
+</body>
+<script>
+$('h1').each(function(i){
+	$('h1').get()[i].setAttribute('num',i+1);
+});
+
+$('h1').click(function(){
+	this.innerHTML=this.getAttribute('num');
+});
+</script>
+</html>

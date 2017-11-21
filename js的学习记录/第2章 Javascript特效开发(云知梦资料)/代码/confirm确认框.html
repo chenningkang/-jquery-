@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index</title>
+	<style>
+		*{
+			font-family: 微软雅黑;
+		}
+	</style>
+</head>
+<body>
+	<a href="http://www.baidu.com" id='aid'>百度</a>	
+	<a href="http://www.baidu.com" id='axy'>网站</a>	
+</body>
+<script>
+aobj=document.getElementById('aid');
+alert(aobj);
+alert(aobj.id);
+aobj.onclick=function(){
+	r=confirm('您确认去百度吗?');
+
+	if(!r){
+		return false;  //要阻止a链接，
+	}
+}
+
+r=prompt('请输入你的名字');
+alert(r);
+
+
+
+
+</script>
+</html>
+

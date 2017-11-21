@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index</title>
+	<style>
+		*{
+			font-family: 微软雅黑;
+		}
+		.clock{
+			width:200px;
+			height:50px;
+			background: #000;
+			color:#0f0;
+			font-weight: bold;
+			border-radius:50px;
+			text-align:center;
+			line-height:50px;
+			font-size:30px;
+		}
+	</style>
+</head>
+<body>
+	<div class="clock">
+		<span id='sid'></span>
+	</div>
+
+</body>
+<script>
+//日期对象
+function getDate(){
+	dobj=new Date();
+	hour=dobj.getHours();
+	if(hour<10){
+		hour='0'+hour;
+	}
+
+	minute=dobj.getMinutes();
+	if(minute<10){
+		minute='0'+minute;
+	}
+
+	second=dobj.getSeconds();
+	if(second<10){
+		second='0'+second;
+	}
+
+	str=hour+':'+minute+':'+second;
+	sidobj=document.getElementById('sid');
+	sidobj.innerHTML=str;
+}
+
+getDate();
+
+setInterval(function(){
+	getDate();
+},1000);
+
+
+
+
+
+
+</script>
+</html>

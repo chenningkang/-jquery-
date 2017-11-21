@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index</title>
+	<style>
+		*{
+			font-family: 微软雅黑;
+		}
+	</style>
+</head>
+<body>
+	<h1>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</h1>
+</body>
+<script>
+nav=navigator.userAgent;
+
+ntype=nav.match(/chrome|firefox|trident/i);  //这了匹配到的东西都是大小写的。
+
+switch(ntype[0].toLowerCase()){
+	case 'chrome':
+		document.body.style.background='#f00';
+		break;
+
+	case 'firefox':
+		document.body.style.background='#0f0';
+		break;
+
+	case 'trident':
+		document.body.style.background='#00f';
+		break;
+
+}
+</script>
+</html>

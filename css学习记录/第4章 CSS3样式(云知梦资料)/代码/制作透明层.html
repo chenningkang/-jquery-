@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index</title>
+	<style>
+		body{
+			padding:200px;
+		}
+		
+		.top{
+			width:256px;
+			height:256px;
+			position: relative;
+			border:1px solid #999;
+			overflow:hidden;
+		}
+
+		.img{
+			position: absolute;
+			top:0px;
+			left:0px;
+			transition:width 1s;
+		}
+
+		.img:hover{
+			width:300px;
+		}
+
+		.op{
+			position: absolute;
+			top:0px;
+			left:0px;
+			background: #000;
+			width:100%;
+			height:100%;
+			opacity:0;
+			transition:opacity 0.5s;
+		}
+
+		.op:hover{
+			opacity:0.1;
+		}
+
+	</style>
+</head>
+<body>
+	<div class='top'>
+		<div class='img'>
+			<img src="dog.png" alt="">
+		</div>	
+		<div class="op">
+			
+		</div>
+	</div>
+</body>
+</html>

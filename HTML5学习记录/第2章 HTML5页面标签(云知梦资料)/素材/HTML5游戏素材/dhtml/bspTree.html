@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="Author" content="Gerard Ferrandez at http://www.dhteumeuleu.com/">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="HandheldFriendly" content="true">
+<meta name="description" content="pure energy - HTML5 CANVAS BSP Tree Demo">
+<meta name="keywords" content="canvas,3D,BSP,BSP Tree,Binary Space Partitioning">
+<link rel="canonical" href="http://www.dhteumeuleu.com/pure-energy">
+<!--cssnav-wb-->
+<link rel="shortcut icon" href="/favicon.ico"/>
+<title>pure energy - HTML5 3D BSP Tree Demo</title>
+<style>
+html {
+	overflow: hidden;
+	-ms-touch-action: none;
+	-ms-content-zooming: none;
+}
+body {
+	position: absolute;
+	margin: 0;
+	padding: 0;
+	background: #D2D2D2;
+	width: 100%;
+	height: 100%;
+}
+#screen {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	cursor: pointer;
+}
+</style>
+<script src="../library/matrix4.js"></script>
+<script src="../library/ge1doot.js"></script>
+<script>
+/* ===================================================
+ *  ---- HTML5 CANVAS BSP Tree experiment ----
+ * script: Gerard Ferrandez - 03 March 2013
+ * -----------------------------------------------
+ * adapted from C++ BSP Tree Demo
+ * Copyright (c)1994-97 Bretton Wade
+ * ftp://ftp.sgi.com/other/bspfaq/
+ * -----------------------------------------------
+ * Javascript released under the MIT license
+ * http://www.dhteumeuleu.com/LICENSE.html
+ * =================================================== */
+ 
+"use strict";
+
+(function () {
+
+	var scr, ctx, pointer, world,
+	cx = 0, cy = 0, lx = 0, ly = 0,
+	//	classification type for plane comparisons
+	HC_IN = -1, HC_ON = 0, HC_OUT = 1, HC_SPANNING = 2,
+	INFINITY = 100000,
+	EPSILON  = 1 / 100000,
+	transformation = [], inverse = [], viewing = [], eye = [],
+	p0 = [], p1 = [], p2 = [],
+	inverse = [].inverse,
+	xsize,
+	ysize,
+	aspect,
+	light,
+	ambiantLight,
+	outp,
+	inp,
+	frame = 2;
+
+//------------------------------------------------------------------------------
+//	 construct polygon 
+//------------------------------------------------------------------------------
+
+	var polygon = function (p, list, rgb, nosplit) {
+		
+		var points;
+		
+		if (list) {
+			//	indexed points
+			points = [];
+			for (
+				var i = 0; 
+				i < list.length; 
+				points.push(
+					p[
+						list[i++]
+					]
+				)
+			);
+		} else {
+			//	list of points
+			points = p;
+		}
+		//	color
+		rgb = rgb || [1, 1, 1];
+		points.rgb = [
+			rgb[0], rgb[1], rgb[2],
+			(rgb[3] === undefined) ? ambiantLight : rgb[3]
+		];
+		//	plane
+		points.plane = points.definePlane();
+		//	no split flag
+		points.nosplit = nosplit || false;
+		return points;
+	
+	}
+
+//------------------------------------------------------------------------------
+//	Draw a polygon (transformed by the camera) [HOT]
+//------------------------------------------------------------------------------
+
+	var drawPolygon = function (poly) {
+		
+		//	-------- step 1 : compute 3D transformation
+		
+		//	loop over the polygons in the list
+		for (var i = 0, l = poly.length; i < l; i++) {
+			
+			p0 = poly[i];
+			
+			//	if point is not already computed
+			if (p0.frame !== frame) {
+				//	compute the viewing transformation
+				p2 = p0.multiplyMatrix(viewing);
+				//	save frame id
+				p0.frame = frame;
+				//	compute the screen location
+				p0.x = (p2[0] / p2[3]) *  aspect + xsize;
+				p0.y = (p2[1] / p2[3]) * -aspect + ysize;
+			}
+		
+		}
+
+		//	-------- step 2 : expand polygon and draw (avoid anti-alias gaps) - DON'T USE SLOW CANVAS stroke()
+		
+		ctx.beginPath();
+		
+		var x, y, d;
+		
+		for (var i = 0; i < l; ++i) {
+			
+			//	the point before
+			p0 = poly[(i > 0) ? i - 1 : l - 1];
+			//	this point
+			p1 = poly[i];
+			//	compute line vectors (assume CCW poly)
+			y =   p1.x - p0.x;
+			x = -(p1.y - p0.y);
+			//	normal length (offset by 0.5 pixel)
+			d = 1 / (2 * Math.sqrt(x * x + y * y));
+
+			//	draw parallel lines
+			ctx.lineTo(
+				p0.x + x * d, 
+				p0.y + y * d
+			);
+			ctx.lineTo(
+				p1.x + x * d,
+				p1.y + y * d
+			);
+		}
+		//	fill polygon
+		ctx.fill();
+		
+		//	debug
+		//	ctx.strokeStyle = "#000";
+		//	ctx.stroke();
+		//
+
+	}
+	
+//------------------------------------------------------------------------------
+//	 split the polygon with a plane3d 
+//------------------------------------------------------------------------------
+
+	var split = function (poly, plane) {
+		
+		var outpts = [], inpts = [],
+		out_c = 0, in_c = 0,
+		//	assume plane3d and polygon coincident for starters
+		poly_class = HC_ON,
+		//	start with the last point
+		ptA = poly[poly.length - 1],
+		//	classify it relative to the plane
+		sideA = ptA.dotProduct(plane);
+		//	no split flag
+		if (poly.nosplit) {
+			outp = poly;
+			return HC_OUT;
+		}
+		
+		//	loop on the points
+		for (var i = 0; i < poly.length; i++) {
+			//	get the current point
+			var ptB = poly[i],
+			//	classify it relative to the plane
+			sideB = ptB.dotProduct(plane);
+			//	if the current point is on the positive side
+			if (sideB > EPSILON) {
+				//	if the polygon classification is on
+				if (poly_class == HC_ON) {
+					//	classify the polygon as out
+					poly_class = HC_OUT;
+				//	else if the polygon classification is not out
+				} else if (poly_class != HC_OUT) {
+					//	set the polygon classification to spanning
+					poly_class = HC_SPANNING;
+				}
+				//	if the previous point was on the opposite side of the plane
+				if (sideA < -EPSILON) {
+					//	compute the vector between the points
+					var v = ptB.subtract(ptA);
+					//	add the newly computed point to the partitions
+					outpts[out_c++] = inpts[in_c++] = 
+						ptA.add(
+							v.multiplyScalar(
+								-ptA.dotProduct(plane) / v.dotProduct(plane)
+							)
+						);
+					//	set the poly_class appropriately
+					poly_class = HC_SPANNING;
+				
+				}
+				//	add the current point3d to the positive partition
+				outpts[out_c++] = ptB;
+			//	the current point is on the negative side
+			} else if (sideB < -EPSILON) {
+				//	if the polygon classification is on
+				if (poly_class == HC_ON) {
+					//	classify the polygon as in
+					poly_class = HC_IN;
+				//	else if the polygon classification is not in
+				} else if (poly_class != HC_IN) {
+					//	set the polygon classification to spanning
+					poly_class = HC_SPANNING;
+				}
+				//	if the previous point was on the opposite side of the plane
+				if (sideA > EPSILON) {
+					//	compute the vector between the points
+					var v = ptB.subtract(ptA);
+					//	add the newly computed point to the partitions
+					outpts[out_c++] = inpts[in_c++] = 
+						ptA.add(
+							v.multiplyScalar(
+								-ptA.dotProduct(plane) / v.dotProduct(plane)
+							)
+						);
+					
+					//	set the poly_class appropriately
+					poly_class = HC_SPANNING;
+				
+				}
+				//	add the current point to the negative partition
+				inpts[in_c++] = ptB;
+			//	the current point is on the plane
+			} else {
+				//	add the current point to the partitions
+				outpts[out_c++] = inpts[in_c++] = ptB;
+			}
+			//	copy the current point to the last point
+			ptA = ptB;
+			//	copy the current point's side information...
+			sideA = sideB;
+		}
+		
+		//	perform the appropriate action based on the classification
+		switch (poly_class) {
+			
+			//	if the polygon is entirely positive
+			case HC_OUT: 
+				//	make the positive partition
+				outp = poly;
+				break;
+			
+			//	if the polygon is entirely negative
+			case HC_IN:
+				//	make the negative partition
+				inp = poly;
+				break;
+			
+			//	if the polygon was plane
+			case HC_SPANNING:
+				//	make the positive partition
+				outp = polygon(outpts, false, poly.rgb);
+				//	make the negative partition
+				inp = polygon(inpts, false, poly.rgb);
+				break;
+			}
+		
+		return poly_class;
+	}
+
+//------------------------------------------------------------------------------
+//	 generate volumes (all polygons assumed CCW !!!)
+//------------------------------------------------------------------------------
+	
+	var volume = {
+		
+		cube : function (transform, rgb, nosplit) {
+
+			//	vertices
+			var p = [
+				[ 1,  1,  1, 1].applyMatrix(transform),
+				[-1,  1,  1, 1].applyMatrix(transform),
+				[-1, -1,  1, 1].applyMatrix(transform),
+				[ 1, -1,  1, 1].applyMatrix(transform),
+				[ 1,  1, -1, 1].applyMatrix(transform),
+				[-1,  1, -1, 1].applyMatrix(transform),
+				[-1, -1, -1, 1].applyMatrix(transform),
+				[ 1, -1, -1, 1].applyMatrix(transform)
+			];
+			
+			//	polygons
+			var polylist = [
+				polygon(p, [0, 1, 2, 3], rgb, nosplit),
+				polygon(p, [7, 6, 5, 4], rgb, nosplit),
+				polygon(p, [0, 3, 7, 4], rgb, nosplit),
+				polygon(p, [0, 4, 5, 1], rgb, nosplit),
+				polygon(p, [5, 6, 2, 1], rgb, nosplit),
+				polygon(p, [3, 2, 6, 7], rgb, nosplit)
+			];
+
+			return polylist;
+		},
+		
+		pyramid : function (transform, rgb, nosplit) {
+
+			//	vertices
+			var p = [
+				[ 1,  0,  1, 1].applyMatrix(transform),
+				[-1,  0,  1, 1].applyMatrix(transform),
+				[-1,  0, -1, 1].applyMatrix(transform),
+				[ 1,  0, -1, 1].applyMatrix(transform),
+				[ 0,  2,  0, 1].applyMatrix(transform)
+			];
+			
+			//	polygons
+			var polylist = [
+				polygon(p, [0, 1, 2, 3], rgb, nosplit),
+				polygon(p, [4, 1, 0], rgb, nosplit),
+				polygon(p, [4, 0, 3], rgb, nosplit),
+				polygon(p, [4, 2, 1], rgb, nosplit),
+				polygon(p, [4, 3, 2], rgb, nosplit)
+				
+			];
+
+			return polylist;
+		},
+		
+		diamond : function (transform, rgb, nosplit) {
+
+			//	vertices
+			var p = [
+				[ 1,  0,  1, 1].applyMatrix(transform),
+				[-1,  0,  1, 1].applyMatrix(transform),
+				[-1,  0, -1, 1].applyMatrix(transform),
+				[ 1,  0, -1, 1].applyMatrix(transform),
+				[ 0,  1,  0, 1].applyMatrix(transform),
+				[ 0, -1,  0, 1].applyMatrix(transform)
+			];
+			
+			//	polygons
+			var polylist = [
+				polygon(p, [4, 1, 0], rgb, nosplit),
+				polygon(p, [4, 0, 3], rgb, nosplit),
+				polygon(p, [4, 2, 1], rgb, nosplit),
+				polygon(p, [4, 3, 2], rgb, nosplit),
+				polygon(p, [0, 1, 5], rgb, nosplit),
+				polygon(p, [3, 0, 5], rgb, nosplit),
+				polygon(p, [1, 2, 5], rgb, nosplit),
+				polygon(p, [2, 3, 5], rgb, nosplit)
+				
+			];
+
+			return polylist;
+		}
+	}
+
+//------------------------------------------------------------------------------
+//	 BSP Tree constructor
+//------------------------------------------------------------------------------
+	
+	var BspTree = function () {
+		//	pointer to the data for this tree
+		this.node = 0;
+	}
+
+//------------------------------------------------------------------------------
+//	 Load scene
+//------------------------------------------------------------------------------
+
+	BspTree.prototype.load = function (data) {
+		
+		for (var i = 0, d; d = data[i]; i++) {
+			this.insert(
+				volume[d[0]](d[2], d[3], d[4]), d[1], d[1]
+			);
+		}
+
+	}
+
+//------------------------------------------------------------------------------
+//	 insert a list of polygons into the tree
+//------------------------------------------------------------------------------
+	
+	BspTree.prototype.insert = function (list, keep, cur) {
+		
+		//	don't do anything if the list is empty
+		if (!list.length) return;
+		if (this.node) {
+			//	insert the polylist
+			this.node.insert(list, keep);
+		} else {
+			//	if the current node is the kind we want
+			if ((cur == keep) || (keep == HC_SPANNING))	{
+				//	create the leaf representation with first poly in the list
+				this.node = new BspNode(list.pop());
+				//	if the list is not empty now
+				if (list.length) 
+					//	insert the remaining polylist
+					this.node.insert(list, HC_SPANNING);
+			}
+		}
+		
+	}
+
+//------------------------------------------------------------------------------
+//	push a face through the tree
+//------------------------------------------------------------------------------
+
+	BspTree.prototype.pushPoly = function (poly, result, keep, cur) {
+		
+		//	if the tree is valid
+		if (this.node) {
+			//	push the poly
+			this.node.pushPoly (poly, result, keep);
+		} else {
+			//	if the current node is the kind we want
+			if (cur == keep)
+				//	add the poly to the list
+				result.push(poly);
+		}
+		
+	}
+ 	
+//------------------------------------------------------------------------------
+//	push a list of faces through the tree
+//------------------------------------------------------------------------------
+
+	BspTree.prototype.pushList = function (list, result, keep, cur) {
+		
+		//	don't do anything if the list is empty
+		if (!list.length) return;
+		if (this.node) {
+			//	push the polylist
+			result = this.node.pushList (list, result, keep);
+		} else {
+			//	if the current node is the kind we want
+			if (cur == keep) 
+				//	append the list to the results
+				result.push.apply(result, list);
+		}
+		
+	}
+
+//------------------------------------------------------------------------------
+//	reduce the tree to only boundary polygons
+//------------------------------------------------------------------------------
+
+	BspTree.prototype.reduce = function () {
+		
+		//	if the tree is valid
+		if (this.node) 
+			//	compute the boundary representation
+			this.node.reduce();
+	
+	}
+	
+//------------------------------------------------------------------------------
+//	draw the bsp
+//------------------------------------------------------------------------------
+
+	BspTree.prototype.draw = function () {
+		
+		//	if the tree is valid
+		if (this.node) 
+			//	draw it
+			this.node.draw ();
+	
+	}
+
+//------------------------------------------------------------------------------
+//	 BSP Node constructor
+//------------------------------------------------------------------------------
+
+	var BspNode = function (poly) {
+		
+		//	the plane equation of this node
+		this.plane = poly.plane;
+		//	ambiant light
+		this.ambiant = poly.rgb[3];
+		//	install the polygon in the 'on' list
+		this.on    = [poly];
+		//	subtree of the "in" space relative to the plane
+		this.in    = new BspTree();
+		//	subtree of the "out" space relative to the plane
+		this.out   = new BspTree();
+	
+	}
+
+//------------------------------------------------------------------------------
+//	 insert a list of polygons into the tree
+//------------------------------------------------------------------------------
+
+	BspNode.prototype.insert = function (list, keep) {
+		
+		var inside = [], outside = [], i = 0, poly;
+		//	loop over the polygons in the list
+		while (poly = list[i++]) {
+			
+			//	clip the polygon by the partitioning plane
+			var sgn = split(poly, this.plane);
+			//	if the source polygon lies within the partitioning plane
+			if (sgn == HC_ON) {
+				//	insert it into the coincident faces list
+				this.on.push(poly);
+			} else {
+				//	if some part of the result is inside
+				if ((sgn === HC_IN) || (sgn === HC_SPANNING))
+					//	send it through the inside children
+					inside.push(inp);
+				//	if some part of the result is outside
+				if ((sgn === HC_OUT) || (sgn === HC_SPANNING))
+					//	send it through the outside children
+					outside.push(outp);
+			}
+			
+		}
+		
+		//	if the inside list is not empty insert the inside list into the inside children
+		if (inside.length) this.in.insert(inside, keep, HC_IN);
+		//	if the outside list is not empty insert the outside list into the outside children
+		if (outside.length) this.out.insert(outside, keep, HC_OUT);
+	}
+	
+//------------------------------------------------------------------------------
+//	push a single face through the tree
+//------------------------------------------------------------------------------
+	
+	BspNode.prototype.pushPoly = function (poly, result, keep) {
+		
+		//	clip the polygon by the partitioning plane
+		var sgn = split(poly, this.plane);
+		//	if the source polygon lies within the partitioning plane
+		if (sgn == HC_ON) {
+			//	insert it into the result list
+			result.push(poly);
+		} else {
+			//	if some part of the result is inside
+			if ((sgn === HC_IN) || (sgn === HC_SPANNING))
+				//	push it through the in node
+				this.in.pushPoly (inp, result, keep, HC_IN);
+			//	if some part of the result is outside
+			if ((sgn === HC_OUT) || (sgn === HC_SPANNING))
+				//	push it through the out node
+				this.out.pushPoly (outp, result, keep, HC_OUT);
+		}
+	
+	}
+
+//------------------------------------------------------------------------------
+//	 push a list of faces through the tree 
+//------------------------------------------------------------------------------
+
+	BspNode.prototype.pushList = function (list, result, keep) {
+		
+		var inside = [], outside = [], i = 0, poly;
+		//	loop over the polygons in the list
+		while (poly = list[i++]) {
+			//	clip the polygon by the partitioning plane
+			var sgn = split(poly, this.plane);
+			//	if the source polygon lies within the partitioning plane
+			if (sgn === HC_ON) {
+				//	insert it into the result list
+				result.push(poly);
+			} else {
+				//	if some part of the result is inside
+				if ((sgn === HC_IN) || (sgn === HC_SPANNING)) {
+					//	send it through the inside children
+					inside.push(inp);
+				}
+				//	if some part of the result is outside
+				if ((sgn === HC_OUT) || (sgn === HC_SPANNING)) {
+					//	send it through the outside children
+					outside.push(outp);
+				}
+			}
+		}
+
+		//	if the inside list is not empty
+		if (inside.length)
+			//	push the inside list through the inside children
+			this.in.pushList (inside, result, keep, HC_IN);
+		//	if the outside list is not empty
+		if (outside.length)
+			//	push the outside list through the outside children
+			this.out.pushList (outside, result, keep, HC_OUT);
+			
+	}
+
+//------------------------------------------------------------------------------
+//	 reduce to boundary polygons 
+//------------------------------------------------------------------------------
+
+	BspNode.prototype.reduce = function () {
+		
+		var results = [], boundary = [], i = 0, poly;
+		//	loop over the polygons in the list
+		while (poly = this.on[i++]) {
+			//	if the plane is facing the same way as the polygon
+			if (Math.abs(poly.plane[3] + this.plane[3]) > EPSILON) {
+				//	push the polygon down and keep in bits
+				this.in.pushPoly (poly, results, HC_IN, HC_IN);
+				//	push the results down and keep the out bits
+				this.out.pushList (results, boundary, HC_OUT, HC_OUT);
+			//	otherwise, the plane and polygon are facing opposite directions
+			} else {
+				//	push the polygon down and keep the out bits
+				this.out.pushPoly (poly, results, HC_OUT, HC_OUT);
+				//	push the results down and keep in bits
+				this.in.pushList (results, boundary, HC_IN, HC_IN);
+			}
+		}
+		//	assign the new coincident faces list
+		this.on = boundary;
+		//	tell the in child to compute its boundaries
+		this.in.reduce();
+		//	tell the out children to compute its boundaries
+		this.out.reduce();
+	
+	}
+
+//------------------------------------------------------------------------------
+//	draw the tree [HOT]
+//------------------------------------------------------------------------------
+
+	BspNode.prototype.draw = function () { 
+		
+		//	compute the distance from the eye to the plane
+		var sgn = eye.dotProduct(this.plane);
+		//	if the eye is on the negative side of the plane
+		if (sgn < 0) {
+			//	draw the positive side children
+			this.out.draw ();
+			//	draw the negative side children
+			this.in.draw ();
+		} else {
+			//	draw the negative side children	
+			this.in.draw ();
+			//	compute the lighting on this node
+			var shade = this.plane
+				.multiplyMatrix(transformation)
+				.normalize()
+				.dotProduct(light) * (1 - this.ambiant) + this.ambiant;
+			//	fill color
+			p0 = this.on[0].rgb;
+			ctx.fillStyle = "rgb(" +
+				Math.round(shade * p0[0] * 255) + "," +
+				Math.round(shade * p0[1] * 255) + "," + 
+				Math.round(shade * p0[2] * 255) + ")";
+			//	draw the polygons coincident with the dividing plane
+			for (
+				var i = 0, l = this.on.length; 
+				i < l;
+				drawPolygon (this.on[i++]) 
+			);
+			//	draw the positive side children
+			this.out.draw ();
+		}
+	}
+	
+//------------------------------------------------------------------------------
+//	Draw the whole scene
+//------------------------------------------------------------------------------
+	
+	var drawScene = function (rx, ry, rz) {
+		
+		//	next frame
+		frame++;
+		//	set up the current transformation
+		transformation = transformation.rotateXYZ(rx, ry, rz);
+		//	compute the viewing transformation
+		viewing = transformation.multiply(camera.viewing);
+		//	and the eye location
+		eye = camera.eye.multiplyMatrix(
+			inverse(transformation)
+		); 
+		//	clear screen
+		ctx.clearRect(0, 0, scr.width, scr.height);
+		//	draw the scene
+		world.draw ();
+	
+	}
+	
+//------------------------------------------------------------------------------
+//  camera constructor 
+//------------------------------------------------------------------------------
+	
+	var camera = {
+		
+		eye : [],
+		viewing : [],
+		
+		//	Set the camera location and viewing direction
+		look : function (e, to, zoom) {
+			
+			//	copy the eye point
+			this.eye = [e[0], e[1], e[2], 1];
+			//	view is vector from eye, to	
+			var vpn = this.eye.subtract([to[0],to[1],to[2],1]).normalize(),
+			//	calculate the x' axis vector
+			u = [0, 1, 0].crossProduct(vpn),
+			//	calculate the y' axis vector
+			v = vpn.crossProduct(u),
+			//	compute the view reference point, along the view plane normal vector
+			vrp = this.eye.add(vpn.multiplyScalar(-zoom));
+			//	set up the viewing transformation matrix
+			this.viewing = [].viewMatrix(u, v, vpn, vrp).multiply(
+				[].perspective(zoom)
+			);
+			
+		}
+	
+	}
+
+//------------------------------------------------------------------------------
+//	init script 
+//------------------------------------------------------------------------------
+	
+	var init = function (data) {
+		
+		//	canvas container
+		scr = new ge1doot.Screen({
+			container: "screen",
+			resize: function () {
+				//	compute the y halfsize
+				ysize = scr.height * 0.5;
+				//	compute the x halfsize
+				xsize = scr.width * 0.5;
+				//	set the aspect to be the smaller of the two
+				aspect = Math.min(ysize, xsize);
+			}
+		});
+		
+		//	fire resize event
+		scr.resize();
+		//	canvas context
+		ctx = scr.ctx;
+		//	pointer events
+		pointer = new ge1doot.Pointer({});
+		//	create BSP tree
+		world = new BspTree();
+		//	lighting vector
+		light = [0, 1, 1];
+		//	ambiant light
+		ambiantLight = 0.8;
+		//	load scene
+		world.load(data);
+		//	strip out polygons which are no longer part of the object
+		world.reduce();
+		//	camera (eye, to, zoom)
+		camera.look([0,0,10], [0,0,0], 5);
+		//	start animation loop
+		run();
+	}
+
+//------------------------------------------------------------------------------
+//	main loop 
+//------------------------------------------------------------------------------
+
+	var run = function () {
+		
+		//	rotation angles
+		cx += (pointer.Xi - cx) * 0.05;
+		cy += (pointer.Yi - cy) * 0.05;
+		//	light
+		lx += (pointer.X - lx) * 0.05;
+		ly += (pointer.Y - ly) * 0.05;
+		//	move ligth vector
+		light[0] = ( lx - xsize) / (2 * xsize);
+		light[1] = (-ly + ysize) / (2 * ysize);
+		//	draw the scene
+		drawScene (0.2 - cy * 0.02, -1 + cx * 0.02, 0);
+		//	next frame
+		requestAnimFrame (run);
+	
+	}
+
+//------------------------------------------------------------------------------
+//	load script
+//------------------------------------------------------------------------------
+	
+	return {
+		load : function (data) {
+			window.addEventListener('load', function () {
+				init(data);
+			}, false);
+		}
+	}
+	
+//------------------------------------------------------------------------------
+//	geometry
+//------------------------------------------------------------------------------
+
+})().load([
+	['cube',     1, [].identity().scale(-5,-2.5,-5), [1.5,1.5,1.5,0.6], true], // outside walls (nosplit flag)
+	['cube',     1, [].identity()], // insert a basic cube
+	['cube',    -1, [].identity().scale(-1.5, -0.875, -1.5).translate(0.625, 0, 0), [1,0.5,0]], // cut out the cube to make a big "C"
+	['cube',     1, [].identity().scale(0.15, 0.4, 0.4).translate(-0.95, 0, 0).rotateX(45), [0.1,0.1,0.1]], // window frame
+	['cube',    -1, [].identity().scale(-0.3, -0.3, -0.3).translate(-1,0,0).rotateX(45), [0.5,0.5,0.5]], // window hole
+	['cube',     1, [].identity().scale(0.15, 0.4, 0.4).translate(0.8, 0, 0).rotateX(45), [0.1,0.1,0.1]], // window frame
+	['cube',     1, [].identity().scale(0.0625, 1.8, 0.0625).translate(0.8,0,0)], // support
+	['cube',    -1, [].identity().scale(-1.2, -0.3, -0.3).translate(0.8,0,0).rotateX(45), [0.5,0.5,0.5]], // window hole
+	['diamond',  1, [].identity().rotateZ(90).scale(4, 0.15, 0.15).rotateX(45), [2,1,0]], // long diamond
+	['pyramid',  1, [].identity().scale(0.5,0.5,0.5).translate(0,-1.25,0).rotateZ(180), [0.7,0.7,0.7,0]], // pyramid
+	['pyramid',  1, [].identity().scale(0.5,0.5,0.5).translate(0,-1.25,0), [0.7,0.7,0.7,0]], // pyramid
+	['cube',     1, [].identity().scale(0.5,0.05,0.5).translate(0,-1.4,0),[0.7,0.7,0.7,0]], // slab
+	['cube',     1, [].identity().scale(0.51,0.05,0.51).translate(0,-1.6,0), [1,0.5,0]], // slab
+	['cube',     1, [].identity().scale(0.5,0.05,0.5).translate(0,1.4,0),[0.7,0.7,0.7,0]], // slab
+	['cube',     1, [].identity().scale(0.51,0.05,0.51).translate(0,1.6,0), [1,0.5,0]] // slab
+
+]);
+</script>
+</head>
+<body>
+<canvas id="screen">HTML5 CANVAS BSP Tree demo</canvas>
+<!--nav-->
+<!--ga-->
+</body>
+</html>

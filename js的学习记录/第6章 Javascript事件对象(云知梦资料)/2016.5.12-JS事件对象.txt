@@ -1,0 +1,67 @@
+﻿2016.5.12-JS事件对象
+
+上次复习:
+-----------------------------------------------
+1.运算符
+2.正则表达式
+3.鼠标事件
+4.键盘事件
+
+今天内容:
+------------------------------------------------
+实例:弹力球特效
+
+获取3个高度:
+1.有效的高   屏幕可视的高
+document.documentElement.clientHeight
+document.documentElement.clientWidth
+
+2.屏幕的总高度   屏幕的总高度
+document.documentElement.scrollHeight
+
+3.滚动的高      滚动的高度
+document.documentElement.scrollTop
+
+在谷歌浏览器里面就是document.html.scrollTop;
+
+表单事件:
+• onfocus  //或得焦点事件
+• onblur   //失去焦点
+• onchange //当下拉菜单的数值发生改变的时候 
+• onselect //选择表单数值时发生变化。
+• onsubmit  //当表单提交的时候，这个时候是form 的id
+• onreset  //当表单重置的时候，
+
+其他事件:
+• onload   //图片是否下载完毕，或者图片是否下载完毕。
+• onerror   //党图片下载失败的时候，
+• onresize  //当窗口大小改变的时候，就触发这个事件这个要用window
+• onscroll  //当窗口滚动条改变的时候。
+
+网页加载:
+1.标签加载完毕后，大部分js就要马上执行。
+body后面的js代码
+
+2.窗口加载完毕
+window.onload=function(){
+		
+}
+
+position的定位值:
+1.absolute  //
+2.relative  //
+3.fixed     //
+
+position定位:
+1.左上角(top,left)
+2.右上角(top,right)
+3.左下角(bottom,left)
+4.右下角(bottom,right)
+
+
+
+
+
+
+
+

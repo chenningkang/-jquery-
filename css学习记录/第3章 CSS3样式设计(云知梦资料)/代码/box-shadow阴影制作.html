@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index</title>
+	<style>
+		*{
+			font-family: 微软雅黑;
+		}
+		
+		div{
+			width:128px;
+			height:128px;
+			box-shadow:0px 0px 0px 0px #999;
+		}
+	</style>
+	<script src='jquery.min.js'></script>
+</head>
+<body>
+	<div>
+		<img src="ft.png" alt="">
+	</div>
+</body>
+<script>
+$('div').mouseenter(function(){
+	$(this).css({'box-shadow':'0px 0px 5px 5px #999 inset'});
+});
+
+$('div').mouseleave(function(){
+	$(this).css({'box-shadow':'0px 0px 0px 0px #999 inset'});
+});
+</script>
+</html>

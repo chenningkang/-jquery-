@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="Author" content="Gerard Ferrandez at http://www.dhteumeuleu.com/">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="HandheldFriendly" content="true">
+<meta http-equiv="imagetoolbar" content="no">
+<meta name="description" content="HTML5 fractal demo">
+<meta name="keywords" content="fractal">
+<link rel="canonical" href="http://www.dhteumeuleu.com/i-could-not-stop">
+<!--cssnav-->
+<link rel="shortcut icon" href="/favicon.ico"/>
+<title>I could not stop - Interactive DHTML demos</title>
+<style>
+html {
+	overflow: hidden;
+	-ms-touch-action: none;
+	-ms-content-zooming: none;
+}
+body {
+	margin:0;
+	padding:0;
+	background:#000;
+	position:absolute;
+	width:100%;
+	height:100%;
+}
+#screen {
+	position:absolute;
+	width:100%;
+	height:100%;
+	-webkit-transform:translate3d(0,0,0);
+}
+#screen .img{
+	position:absolute;
+	cursor:pointer;
+	width:100%;
+	height:100%;
+	-webkit-user-select:none;
+	-moz-user-select:none;
+	-ms-user-select: none;
+	user-select: none;
+}
+#screen .frame {
+	position:absolute;
+	width:50%;
+	height:50%;
+}
+#images {
+	display:none;
+}
+</style>
+<script>
+/* 
+ * ==============================================
+ * fractal frame
+ * http://www.dhteumeuleu.com/
+ * Author Gerard Ferrandez - 8 April, 2006
+ * Javascript released under the MIT license
+ * http://www.dhteumeuleu.com/LICENSE.html
+ * ==============================================
+ */
+"use strict";
+(function () {
+	var src,
+	cpt = 0,
+	img = function img (el,x,y) {
+		cpt++;
+		var d = document.createElement("div");
+		d.className     = "frame";
+		d.style.left    = 50 * x + "%";
+		d.style.top     = 50 * y + "%";
+		var img         = document.createElement("img");
+		img.className   = "img";
+		img.src         = src[Math.floor(Math.random()*src.length)].src;
+		img.onmousedown = function () {
+			div(this.parentNode);
+			this.parentNode.removeChild(this);
+		}
+		d.appendChild(img);
+		el.appendChild(d);
+	},
+	div = function div (el) {
+		img(el,0,0);
+		img(el,1,0);
+		img(el,0,1);
+		img(el,1,1);
+		document.title = "I could not stop [" + cpt + "]";
+	};
+return {
+		load : function () {
+			window.addEventListener('load', function () {
+				src = document.getElementById("images").getElementsByTagName("img");
+				div(document.getElementById("screen"));
+			}, false);
+		}
+	}
+})().load();
+</script>
+</head>
+<body>
+<div id="screen"></div>
+<div id="images">
+	<img src="../images/frame.jpg">
+	<img src="../images/frame.jpg">
+	<img src="../images/frame.jpg">
+	<img src="../images/frame0.jpg">
+</div>
+<!--nav-->
+<!--ga-->
+</body>
+</html>
+

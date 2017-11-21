@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index</title>
+	<style>
+		*{
+			font-family: 微软雅黑;
+		}
+	</style>
+</head>
+<body>
+	<a href="javascript:" id='aid'>百度</a>		
+</body>
+<script>
+aidobj=document.getElementById('aid');
+
+x=5;
+aidobj.onclick=function(){
+	if(x<3){
+		alert('x<3');
+		return false;
+	}else{
+		location='http://www.baidu.com';  //location  就是地址栏的意思。超链接没有目标，程序当中让她去哪里，就会去哪里。href 就会多样花、
+	}
+}
+</script>
+</html>

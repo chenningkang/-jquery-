@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index</title>
+	<style>
+		img{
+			cursor:pointer;  //变成小手
+		}
+	</style>
+</head>
+<body>
+	<img src="a.png" id="imgid">	
+</body>
+<script>
+//js特效
+imgobj=document.getElementById('imgid');
+
+//事件触发
+imgobj.onclick=function(){
+
+	//属性改变
+	imgobj.src='b.png';
+	//样式改变
+	imgobj.style.background='#ccc';     
+	imgobj.style.borderRadius='256px';  //圆角
+}
+</script>
+</html>

@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index</title>
+	<style>
+		*{
+			font-family: 微软雅黑;
+		}
+	</style>
+	<script src="jquery.js"></script>
+</head>
+<body>
+	<h1 name='user123'>aaaaaaaaaaaaaaaaaaaaah</h1>
+	<h1 name='linux123'>aaaaaaaaaaaaaaaaaaaaah</h1>
+	<h1 name='php123' age='20'>aaaaaaaaaaaaaaaaaaaaah</h1>
+</body>
+<script>
+// $('h1[name]').css({'color':'#00f'});
+// $('h1[name=user123]').css({'color':'#00f'});
+// $('h1[name^=linux]').css({'color':'#00f'});
+// $('h1[name$=123]').css({'color':'#00f'});
+// $('h1[name][age]').css({'color':'#00f'});
+$('h1[name!=user123]').css({'color':'#00f'});
+</script>
+</html>

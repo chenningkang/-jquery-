@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index</title>
+	<style>
+		img{
+			cursor:pointer;
+			position: absolute;  //定位，这里是定位  绝对位
+			top:0px;  
+			left:0px;
+		}
+	</style>
+</head>
+<body>
+	<img src="a.png" id="imgid">	
+</body>
+<script>
+//js特效
+imgobj=document.getElementById('imgid');   
+  //这里的document是一个页面的全部。文档的意思---就是全部
+document.onmousemove=function(event){ 
+	//event 是一个摄像头
+	x=event.clientX;
+	y=event.clientY;
+	document.title=x+'-'+y;   //document里面的title 
+
+	imgobj.style.left=x+'px';
+	imgobj.style.top=y+'px';
+}
+</script>
+</html>

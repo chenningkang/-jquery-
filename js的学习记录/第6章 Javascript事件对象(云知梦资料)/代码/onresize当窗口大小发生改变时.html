@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>index</title>
+	<style>
+		*{
+			font-family: 微软雅黑;
+			margin:0px;
+			padding:0px;
+		}
+
+		div{
+			width:800px;
+			height:600px;
+			margin:0 auto;
+		}
+
+		img{
+			display: block;
+		}
+	</style>
+</head>
+<body>
+	<div>
+		<img src="fb.png" id='imgid'>
+	</div>
+</body>
+<script>
+function show(){
+	w=document.documentElement.clientWidth;//有效高度
+	if(w>1024){
+		document.body.style.background='#00f';
+	}else if(w>600){
+		document.body.style.background='#0f0';
+	}else{
+		document.body.style.background='#f00';
+	}
+
+}
+
+show();  //这个是刚开始的时候执行的代码
+
+window.onresize=function(){   //当你调动大小的时候也执行
+	show();
+}
+</script>
+</html>
+

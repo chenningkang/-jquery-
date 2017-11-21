@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index</title>
+</head>
+<body>
+	<button id='top'>top</button>
+	<button id='left'>left</button>
+	<button id='right'>right</button>
+</body>
+<script>
+topobj=document.getElementById('top');
+leftobj=document.getElementById('left');
+rightobj=document.getElementById('right');
+
+topobj.onclick=function(){  //window可以看到3个小窗口。
+	objs=window.top.frames;  //这个得到的是数组。首先要到top顶部窗口。可以看到三个小窗口。
+	objs[0].document.body.style.background='#f00';  //找到document里面的body的style
+}
+
+leftobj.onclick=function(){
+	objs=window.top.frames;
+	objs[1].document.body.style.background='#0f0';
+}
+
+rightobj.onclick=function(){
+	objs=window.top.frames;
+	objs[2].document.body.style.background='#00f';
+}
+
+</script>
+</html>

@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index</title>
+	<style>
+		*{
+			font-family: 微软雅黑;
+			margin:0px;
+			padding:0px;
+		}
+
+		.top{
+			width:1366px;
+			height:90px;
+			overflow: hidden;
+		}
+
+		.top img{
+			margin-left:-250px;
+		}
+
+		.nav{
+			height:15px;
+		}
+
+		.menu{
+			height:470px;
+			background:url('power.jpg') -300px;
+		}
+
+		.div1{
+			height:40px;
+			overflow: hidden;
+			background: #900;
+			color:#fff;
+		}
+
+		.div1 ul{
+			width:1200px;
+			margin:0 auto;
+			list-style:none;
+		}
+
+		.div1 ul li{
+			float: left;
+			line-height: 40px;
+			margin-left:30px;
+			cursor: pointer;
+		}
+		.banner{
+			background: #ce171f;
+			width:150px;
+			text-align: center;
+			margin-left:0px!important;
+		}
+
+		.div2{
+			width:1200px;
+			height:470px;
+			margin:0 auto;
+			position: relative;
+		}
+
+		.div3{
+			width:150px;
+			height:470px;
+			background: #b61d1d;
+		}
+		.div3 ul{
+			list-style:none;
+		}
+
+		.div3 ul li{
+			padding-left:15px;
+			line-height: 30px;
+		}
+
+		.div3 ul li span{
+			color:#fff;
+		}
+
+		.div3 ul li:hover{
+			cursor: pointer;
+		}
+
+		.right{
+			width:1020px;
+			height:440px;
+			background: #eee;
+			position: absolute;
+			top:0px;
+			left:150px;
+			padding:15px;
+			color:#000;
+			display: none;
+		}
+
+	</style>
+	<script src="jquery.js"></script>
+</head>
+<body>
+	<div class='top'>
+		<img src="top.jpg" height='100%'>	
+	</div>
+
+	<div class="nav"></div>
+	
+	<div class="div1">
+		<ul>
+			<li class='banner'>全部商品分类</li>
+			<li>首页</li>
+			<li>葡萄酒馆</li>
+			<li>清仓</li>
+			<li>团购</li>
+			<li>新品发现</li>
+		</ul>				
+	</div>	
+
+	<div class="menu">
+		<div class="div2">
+			<div class="div3">
+				<ul>
+					<li>
+						<span>家用电器</span>
+						<div class='right'>
+							<h3>家用电器1</h3>
+							<p>家用电器1，</p>
+						</div>	
+					</li>
+					<li>
+						<span>手机数码</span>
+						<div class='right'>
+							<h3>手机数码2</h3>
+							<p>家用电器，家用电器2</p>
+						</div>	
+					</li>
+					<li>
+						<span>电脑办公</span>
+						<div class='right'>
+							<h3>电脑办公3</h3>
+							<p>家用电器3，家用电器3，</p>
+						</div>	
+					</li>
+					<li>
+						<span>家居家装</span>
+						<div class='right'>
+							<h3>家居家装4</h3>
+							<p>家用电器，4</p>
+						</div>	
+					</li>
+				</ul>
+			</div>
+		</div>	
+	</div>
+</body>
+<script>
+$('.div3 li').mouseenter(function(){
+	$(this).css({'background':'#eee'});
+	$(this).find('span').css({'color':'#b61d1d'});
+	$('.div3 li').not($(this)).css({'background':'#b61d1d'});
+
+
+	$(this).find('.right').show();
+	$('.right').not($(this).find('.right')).hide();
+});
+
+$('.div3 li').mouseleave(function(){
+	$(this).find('.right').hide();
+	$(this).find('span').css({'color':'#fff'});
+	$(this).css({'background':'#b61d1d'});
+});
+</script>
+</html>

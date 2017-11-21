@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index</title>
+	<style>
+		*{
+			margin:0px;
+		}
+
+		img{
+			position: absolute;
+			
+		}
+
+		.img1{
+			z-index:0;
+		}
+
+		.img2{
+			z-index:2;
+		}
+	</style>
+</head>
+<body>
+	<img src="bk.png" class="img1">	
+	<img src="wq.png" class="img2">	
+</body>
+</html>

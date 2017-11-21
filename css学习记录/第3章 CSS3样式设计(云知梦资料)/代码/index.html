@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index</title>
+	<style>
+		*{
+			font-family: 微软雅黑;
+			margin:0px;
+		}
+		
+		div{
+			width:256px;
+			height:256px;
+			background: #ccc;
+			overflow:hidden;
+			border-radius:256px;
+		}	
+
+	</style>
+	<script src='jquery.min.js'></script>
+</head>
+<body>
+	<div>
+		<img src="dog.png" alt="">	
+	</div>
+</body>
+<script>
+$('div').click(function(){
+	s=0;
+	v=-10;
+	obj=$(this);
+	setInterval(function(){
+		s+=v;
+		obj.css({'transform':'rotate('+s+'deg)'});
+	},10);
+});	
+</script>
+</html>

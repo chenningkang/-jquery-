@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index</title>
+	<style>
+		*{
+			font-family: 微软雅黑;	
+		}
+
+		p{
+			border-left:5px solid #f00;
+			padding-left:5px;
+			/*cursor:crosshair;*/
+			/*cursor:pointer;*/
+			/*cursor:wait;*/
+			/*cursor:default;*/
+			cursor:help;
+		}
+	</style>
+</head>
+<body>
+	<p>linux is very much!</p>
+	<p>linux is very much!</p>
+	<p>linux is very much!</p>
+	<p>linux is very much!</p>
+	<p>linux is very much!</p>
+	<p>linux is very much!</p>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>测试网页</title>
+	
+   <style>
+	*{
+		font-family:微软雅黑;
+		margin:0px;
+	}
+	img{
+		margin:15px 30px;
+		border:3px solid red;
+		padding:3px;
+		float:left;
+		margin-left:15px
+
+	}
+
+
+   
+   </style>
+
+ </head>
+ <body>
+	<div>
+		<img src='ft.png' id='imgid'>
+	</div>
+		<div>
+		<img src='ft.png' id='imgid'>
+	</div>
+		<div>
+		<img src='ft.png' id='imgid'>
+	</div>
+  
+ </body>
+</html>

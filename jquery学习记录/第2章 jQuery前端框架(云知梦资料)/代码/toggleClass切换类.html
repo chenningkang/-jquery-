@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index</title>
+	<style>
+		*{
+			font-family: 微软雅黑;
+		}
+		.div1{
+			background: #ccc;
+			cursor: pointer;
+		}
+		
+		.img{
+			background:#ccc;
+			border-radius:256px;
+			transform:scale(1.2,1.2);
+		}
+	</style>
+	<script src="jquery.js"></script>
+</head>
+<body>
+	<img src="a.png">
+</body>
+<script>
+$('img').mouseenter(function(){
+	$(this).toggleClass('img');
+});
+
+$('img').mouseleave(function(){
+	$(this).toggleClass('img');
+});
+</script>
+</html>
+

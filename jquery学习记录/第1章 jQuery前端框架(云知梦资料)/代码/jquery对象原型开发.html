@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index</title>
+	<style>
+		*{
+			font-family: 微软雅黑;
+		}
+		
+		select{
+			width:100px;
+			height:150px;
+		}
+	</style>
+	<script src="jquery.js"></script>
+</head>
+<body>
+	<h1>aaaaaaaaaaaaaaa</h1>
+	<h1>aaaaaaaaaaaaaaa</h1>
+	<h1>aaaaaaaaaaaaaaa</h1>
+	<h1>aaaaaaaaaaaaaaa</h1>
+</body>
+<script>
+function $(attr){
+	obj=new Object();
+	obj.username='user123';
+	obj.say=function(){
+		alert('my name is :'+this.username);
+		return this;
+	}
+
+	obj.eat=function(){
+		alert('my am eating!');
+	}
+
+	return obj;
+}
+
+// 对象链式结构
+$('imgid').say().eat();
+</script>
+</html>

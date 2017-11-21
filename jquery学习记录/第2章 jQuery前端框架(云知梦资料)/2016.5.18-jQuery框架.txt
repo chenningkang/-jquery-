@@ -1,0 +1,134 @@
+2016.5.18-jQuery框架
+
+jquery学习大纲:
+-----------------------------------------
+jQuery框架:
+1.js对象和jquery对象的区别
+2.js对象和jquery对象的转换
+3.核心方法
+4.选择器
+5.筛选
+6.属性选择器
+7.文档处理
+8.CSS处理
+9.事件
+10.效果
+11.Ajax无刷新
+12.工具
+
+
+上次复习:
+------------------------------------------
+1.ajax无刷新技术
+2.jquery对象和js对象的区别
+3.jquery对象和js对象互转
+4.jquery核心方法
+
+今天内容:
+------------------------------------------
+jquery中$方法冲突问题:
+1.$();
+2.jQuery();
+
+选择器:
+1.常用
+	1)#id
+	2)ele
+	3).class
+	4)*
+	5)sel1,sel2
+2.层级
+	1)ancestor descendant
+	2)parent > child
+	3)prev + next
+	4)prev ~ siblings
+3.基本
+	1):first
+	2):last
+	3):not
+	4):even
+	5):odd
+	6):eq
+	7):gt
+	8):lt
+4.内容
+	1):has
+	2):parent
+	3):empty
+5.属性
+	1)[name]
+	2)[name=user1]
+	3)[name!=user1]
+	4)[name^=user]
+	5)[name$=user]
+	6)[name*=er]
+	7)[name=user1][name*=er]
+6.子元素
+	1)nth-child
+	2)first-child
+	3)last-child
+	4)only-child
+7.表单
+	1):input
+	2):text
+	3):password
+	4):radio
+	5):checkbox
+	6):submit
+	7):reset
+	8):button
+	9):file
+	10):hidden
+8.表单属性
+	1):checked
+	2):selected
+
+实例:表单验证
+1.给表单元素设置blur事件的验证条件
+2.当表单提交时可以触发所有表单元素的blur事件
+3.把所有表单元素进行综合判断看是否有问题
+
+筛选:
+1.过滤
+eq();
+first();
+last();
+not();
+slice();
+
+2.查找
+children();
+find();
+next();
+nextAll();
+parent();
+prev();
+prevAll();
+siblings();
+
+3.串联
+add();
+andSelf();
+
+属性:
+1.属性
+attr();
+attr({});
+
+2.CSS类
+addClass();
+removeClass();
+toggleClass();
+
+3.HTML代码
+html();
+html(val);
+
+4.文本
+text();
+text(val);
+
+5.值
+val();
+val(val);
+

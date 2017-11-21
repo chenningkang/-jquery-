@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index</title>
+	<style>
+		*{
+			font-family: 微软雅黑;
+		}
+	</style>
+</head>
+<body>
+	<div class="main">
+		<script>
+			dobj=new Date();
+			hour=dobj.getHours();
+			minute=dobj.getMinutes();
+			second=dobj.getSeconds();
+			str=hour+':'+minute+':'+second;
+			document.write("<h1>"+str+"</h1>");
+		</script>
+	</div>
+	<!-- <p><a href="javascript:" id='aid'>刷新</a></p> -->
+	<p><button id='aid'>刷新</button></p>
+
+</body>
+<script>
+aidobj=document.getElementById('aid');
+aidobj.onclick=function(){
+	location.reload();  //刷新
+}
+</script>
+</html>

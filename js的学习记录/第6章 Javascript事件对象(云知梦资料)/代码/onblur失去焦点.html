@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>index</title>
+	<style>
+		*{
+			font-family: 微软雅黑;
+		}
+	</style>
+</head>
+<body>
+	<form action="">
+		<p>用户名:</p>
+		<p><input type="text" id='ipt' value='小金'></p>
+		<p>密码:</p>
+		<p><input type="text" value='123456'></p>
+		<p><input type="submit" value="Ok"></p>
+	</form>	
+</body>
+<script>
+iptobj=document.getElementById('ipt');
+iptobj.onblur=function(){  //失去焦点的时候执行代码
+	val=this.value;
+	if(val.length<6){
+		alert('用户名至少6位!');
+	}
+}
+</script>
+</html>
